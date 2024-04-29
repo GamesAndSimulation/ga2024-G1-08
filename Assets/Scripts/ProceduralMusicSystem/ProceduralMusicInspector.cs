@@ -4,18 +4,28 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+//this if means that this code is only compiled if there is an UnityEditor around (not compiled for players)
+#if UNITY_EDITOR
 [CustomEditor(typeof(ProceduralMusic))]
 public class ProceduralMusicInspector : Editor
 {
-    public override VisualElement CreateInspectorGUI() {
 
-        // Create a new VisualElement to be the root of our Inspector UI.
-        VisualElement myInspector = new VisualElement();
 
-        // Add a simple label.
-        myInspector.Add(new Label("Inspector for creating music"));
+    private SerializedProperty soundList;
 
-        // Return the finished Inspector UI.
-        return myInspector;
+    void OnEnable() {
+        soundList = serializedObject.FindProperty("sounds");
     }
+
+
+    public override void OnInspectorGUI() {
+
+        serializedObject.Update();
+
+        EditorGUILayout.PropertyField(soundList);
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
 }
+#endif

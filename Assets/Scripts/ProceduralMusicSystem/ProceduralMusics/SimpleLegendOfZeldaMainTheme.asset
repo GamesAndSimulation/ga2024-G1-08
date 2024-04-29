@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0b6c867c0b0cd489cecaf9a03f7aa0, type: 3}
   m_Name: SimpleLegendOfZeldaMainTheme
   m_EditorClassIdentifier: 
+  musicName: Legend of Zelda Main Theme
+  sounds: []
