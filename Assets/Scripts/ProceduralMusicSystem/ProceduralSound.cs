@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProceduralSound : MonoBehaviour
+public struct ProceduralSound
 {
-
     public NoteToFreq.Note note; //the note to be played
 
     public float volume; //the volume
