@@ -7,6 +7,6 @@ public class ProceduralMusic : ScriptableObject
 {
     public string musicName;
 
-    public List<ProceduralMusicPlayer.Sound> sounds;
+    public List<ProceduralSound> sounds;
 
 }
