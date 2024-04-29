@@ -17,32 +17,25 @@ public class NotePlayer : MonoBehaviour
 
     private AudioSource audioSource;
 
-    private bool canPlayNote = true;
 
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public bool playSound(NoteToFreq.Note note)
+    public void playSound(NoteToFreq.Note note, int miliDuration)
     {
-        if (canPlayNote)
-        {
+        
 
-            frequency = NoteToFreq.getFrequency(note);
-            gain = volume;
+       frequency = NoteToFreq.getFrequency(note);
+       gain = volume;
 
-            audioSource.Play();
+       audioSource.Play();
 
-            StartCoroutine(playForMiliseconds(160));
+       StartCoroutine(playForMiliseconds(miliDuration));
 
-            return true;
-        } else
-        {
-
-            return false;
-
-        }
+           
+        
         
     }
 
@@ -66,13 +59,11 @@ public class NotePlayer : MonoBehaviour
 
     IEnumerator playForMiliseconds(int milliseconds)
     {
-        canPlayNote = false;
 
         yield return new WaitForSeconds(milliseconds / 1000f); // Convert milliseconds to seconds
 
         audioSource.Stop();
 
-        canPlayNote= true;
     }
 
 
