@@ -12,9 +12,14 @@ public class ProceduralMusicInspector : Editor
 
 
     private SerializedProperty soundList;
+    private SerializedProperty musicName;
+    private SerializedProperty beatsPerMinute;
 
     void OnEnable() {
+
         soundList = serializedObject.FindProperty("sounds");
+        musicName = serializedObject.FindProperty("musicName");
+        beatsPerMinute = serializedObject.FindProperty("beatsPerMinute");
     }
 
 
@@ -22,7 +27,10 @@ public class ProceduralMusicInspector : Editor
 
         serializedObject.Update();
 
+        EditorGUILayout.PropertyField(musicName);
+        EditorGUILayout.PropertyField(beatsPerMinute);
         EditorGUILayout.PropertyField(soundList);
+
 
         serializedObject.ApplyModifiedProperties();
     }

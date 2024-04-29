@@ -11,16 +11,16 @@ public struct ProceduralSound
     public NoteToFreq.Note note; //the note to be played
 
     [SerializeField]
-    public float volume; //the volume
+    public float volume; //the volume multiplier in relation to the rest of the music
 
     [SerializeField]
-    public int timeToPlayMili; //time for the note to play in milliseconds
+    public float playTime; //Time to play the note, in fractions
 
     [SerializeField]
     public int channel; //a channel that'll play the music ( a pair of NotePlayer and an AudioSource, that is in the NotePlayer)
 
     [SerializeField]
-    public int timeToWaitForPlay; //when are we supposed to play this sound in relation to the previous sound played
+    public float waitTime; //time to wait for the note, in fractions
 
 
 }
