@@ -7,6 +7,9 @@ public class ProceduralMusic : ScriptableObject
 {
     public string musicName;
 
+    [SerializeField]
     public List<ProceduralSound> sounds;
+
+
 
 }
