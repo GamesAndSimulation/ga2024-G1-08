@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class notePlayer : MonoBehaviour
+public class NotePlayer : MonoBehaviour
 {
 
     // un-optimized version
