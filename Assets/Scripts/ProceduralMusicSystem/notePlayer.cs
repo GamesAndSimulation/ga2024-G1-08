@@ -24,6 +24,28 @@ public class notePlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    public bool playSound(NoteToFreq.Note note)
+    {
+        if (canPlayNote)
+        {
+
+            frequency = NoteToFreq.getFrequency(note);
+            gain = volume;
+
+            audioSource.Play();
+
+            StartCoroutine(playForMiliseconds(160));
+
+            return true;
+        } else
+        {
+
+            return false;
+
+        }
+        
+    }
+
     public void OnAudioFilterRead(float[] data, int channels)
     {
         // update increment in case frequency has changed
