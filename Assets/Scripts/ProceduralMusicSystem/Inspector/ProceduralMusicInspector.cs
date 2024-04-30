@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 public class ProceduralMusicInspector : Editor
 {
 
-
     public override void OnInspectorGUI() {
 
         serializedObject.Update();
@@ -116,23 +115,26 @@ public class ProceduralMusicInspector : Editor
 
     }
 
+
     private bool renderDeleteButton(ProceduralMusic music, int i) {
 
         bool valueDeleted = false;
 
-        EditorGUILayout.BeginHorizontal();
+        Rect rect = EditorGUILayout.BeginHorizontal();
 
+            GUILayout.FlexibleSpace();
 
-        GUILayout.Space(120);
+            //option to delete this element of the list
+            if (GUILayout.Button("Delete", GUILayout.Width(120))) {
 
-        //option to delete this element of the list
-        if (GUILayout.Button("Delete", GUILayout.Width(120))) {
+                // Add a new empty element to the list
+                music.musicParcels.Remove(music.musicParcels[i]);
+                valueDeleted = true;
 
-            // Add a new empty element to the list
-            music.musicParcels.Remove(music.musicParcels[i]);
-            valueDeleted = true;
+            }
 
-        }
+            GUILayout.FlexibleSpace();
+
 
         EditorGUILayout.EndHorizontal();
 
