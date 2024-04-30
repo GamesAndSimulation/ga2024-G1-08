@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class ProceduralSound : ScriptableObject, ProceduralMusicParcel
+public class ProceduralSound : ProceduralMusicParcel
 {
 
     [SerializeField]
