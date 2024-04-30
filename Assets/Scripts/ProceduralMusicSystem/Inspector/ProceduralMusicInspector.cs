@@ -68,23 +68,9 @@ public class ProceduralMusicInspector : Editor
 
                 }
 
-                EditorGUILayout.BeginHorizontal();
-
-
-                    GUILayout.Space(120);
-
-                    //option to delete this element of the list
-                    if (GUILayout.Button("Delete", GUILayout.Width(120))) {
-
-                        // Add a new empty element to the list
-                        music.musicParcels.Remove(music.musicParcels[i]);
-
-                        break; //because we altered the list, it is best to leave the loop
-             
-
-                    }
-
-                EditorGUILayout.EndHorizontal();
+                //renders the delete button and, if something was deleted, breaks the loop (we should not continue iterating the list after an element was deleted)
+                if(renderDeleteButton(music, i))
+                    break; 
 
                 EditorGUILayout.Separator();
 
@@ -94,7 +80,6 @@ public class ProceduralMusicInspector : Editor
 
         }
 
-        renderAddButton(music);
 
         EditorGUILayout.EndVertical();
 
@@ -131,24 +116,30 @@ public class ProceduralMusicInspector : Editor
 
     }
 
+    private bool renderDeleteButton(ProceduralMusic music, int i) {
 
-
-    private void renderBringDown(ProceduralMusic music, int index) {
+        bool valueDeleted = false;
 
         EditorGUILayout.BeginHorizontal();
 
-        //option to add a new element to the music
-        if (GUILayout.Button("Add Element", GUILayout.Width(100))) {
+
+        GUILayout.Space(120);
+
+        //option to delete this element of the list
+        if (GUILayout.Button("Delete", GUILayout.Width(120))) {
 
             // Add a new empty element to the list
-            music.musicParcels.Add(new ProceduralMusicParcelClass(new ProceduralSound()));
-
+            music.musicParcels.Remove(music.musicParcels[i]);
+            valueDeleted = true;
 
         }
 
         EditorGUILayout.EndHorizontal();
 
+        return valueDeleted;
+
     }
+
 
     private void renderAddButton(ProceduralMusic music) {
 
