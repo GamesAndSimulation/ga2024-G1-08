@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class ProceduralMusicParcelClass
 {
-        [SerializeField]
+        [SerializeReference, SerializeField]
         public ProceduralMusicParcel parcel;
 
         [SerializeField]
