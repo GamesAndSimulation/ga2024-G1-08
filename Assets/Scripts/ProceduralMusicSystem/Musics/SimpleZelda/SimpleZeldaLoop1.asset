@@ -27,13 +27,7 @@ MonoBehaviour:
     fadeout: 0
   - volume: 1
     channel: 0
-    waitTime: 0.75
-    note: 57
-    playTime: 0.125
-    fadeout: 0
-  - volume: 1
-    channel: 0
-    waitTime: 0.75
+    waitTime: 0.125
     note: 57
     playTime: 0.125
     fadeout: 0
@@ -42,16 +36,22 @@ MonoBehaviour:
     waitTime: 0.125
     note: 57
     playTime: 0.125
+    fadeout: 0
+  - volume: 1
+    channel: 0
+    waitTime: 0.125
+    note: 57
+    playTime: 0.25
     fadeout: 0
   - volume: 1
     channel: 0
     waitTime: 0.125
     note: 55
-    playTime: 0.25
+    playTime: 0.125
     fadeout: 0
   - volume: 1
     channel: 0
-    waitTime: 0.25
+    waitTime: 0.125
     note: 57
     playTime: 0.125
     fadeout: 0

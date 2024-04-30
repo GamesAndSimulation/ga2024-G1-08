@@ -29,28 +29,24 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
         nextParcelToPlayIndex = 0;
         nextSoundToPlayIndex = 0;
-        //switchToNextSound();
+        switchToNextSound();
 
     }
 
     public void Update() {
-
-
-       // Debug.Log("Playing: " + musicToPlay.musicName);
-       //
-       //
-       // //if we wait enough to play the next sound
-       // if (timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.waitTime) <= timeWaitingToPlay) {
-       //
-       //
-       //     playSounds();
-       //
-       //
-       // } else {
-       //
-       //     timeWaitingToPlay += Time.deltaTime * 1000;
-       //
-       // }
+       
+       //if we wait enough to play the next sound
+       if (timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.waitTime) <= timeWaitingToPlay) {
+       
+       
+           playSounds();
+       
+       
+       } else {
+       
+           timeWaitingToPlay += Time.deltaTime * 1000;
+       
+       }
 
     }
 

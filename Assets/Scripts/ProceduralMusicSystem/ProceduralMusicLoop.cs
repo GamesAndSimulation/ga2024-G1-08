@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "ProceduralMusicLoop")]
 [System.Serializable]
-public class ProceduralMusicLoop : ScriptableObject, ProceduralMusicParcel {
+public class ProceduralMusicLoop : ScriptableObject {
 
 
     [SerializeField]

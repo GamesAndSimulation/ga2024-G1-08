@@ -36,37 +36,28 @@ public class ProceduralMusicInspector : Editor
         //for each musicParcel 
         for (int i = 0; i < music.musicParcels.Count; i++) {
 
-            
-
             music.musicParcels[i].foldout = EditorGUILayout.BeginFoldoutHeaderGroup(music.musicParcels[i].foldout, "Element " + i.ToString());
 
             if (music.musicParcels[i].foldout) {
 
                 //Display the choice of the type of music parcel to choose
-                music.musicParcels[i].parcelType = (ProceduralMusicParcel.ParcelType)EditorGUILayout.EnumPopup("Parcel Type", music.musicParcels[i].parcelType);
+                music.musicParcels[i].changeTypeTo ( (ProceduralMusicParcelClass.ParcelType)EditorGUILayout.EnumPopup("Parcel Type", music.musicParcels[i].parcelType));
 
                 //Depending on the currently chosen type
                 switch (music.musicParcels[i].parcelType) {
 
-                    case ProceduralMusicParcel.ParcelType.Loop: //in the case this is a loop
-
-                        //if it was not a music parcel of the type loop, we create a new one that is
-                        if (music.musicParcels[i].parcel != null && music.musicParcels[i].parcel.GetType() != typeof(ProceduralMusicLoop))
-                            music.musicParcels[i].parcel = null;
+                    case ProceduralMusicParcelClass.ParcelType.Loop: //in the case this is a loop
 
                         //gives the option to choose the loop
-                        music.musicParcels[i].parcel = (ProceduralMusicLoop)EditorGUILayout.ObjectField("Choose Loop", (ProceduralMusicLoop)music.musicParcels[i].parcel, typeof(ProceduralMusicLoop), false);
+                        music.musicParcels[i].loop = (ProceduralMusicLoop)EditorGUILayout.ObjectField("Choose Loop", (ProceduralMusicLoop)music.musicParcels[i].loop, typeof(ProceduralMusicLoop), false);
                         EditorUtility.SetDirty(target);
 
                         break;
 
-                    case ProceduralMusicParcel.ParcelType.Note: //in the case this is a Note
+                    case ProceduralMusicParcelClass.ParcelType.Note: //in the case this is a Note
 
-                        //if it was not a music parcel of the type Sound or it has no value, we create a new one that is
-                        if (music.musicParcels[i].parcel == null || music.musicParcels[i].parcel.GetType() != typeof(ProceduralSound))
-                            music.musicParcels[i].parcel = new ProceduralSound();
 
-                        ProceduralSound sound = (ProceduralSound)music.musicParcels[i].parcel;
+                        ProceduralSound sound = music.musicParcels[i].sound;
 
                         sound.volume = EditorGUILayout.FloatField("volume", sound.volume);
                         sound.waitTime = EditorGUILayout.FloatField("waitTime", sound.waitTime);

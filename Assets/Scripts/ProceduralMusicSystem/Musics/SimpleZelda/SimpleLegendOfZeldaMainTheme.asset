@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicName: Legend of Zelda Main Theme
   beatsPerMinute: 120
-  noteIntervalDelayMili: 5
+  noteIntervalDelayMili: 0
   musicParcels:
-  - parcelType: 0
-    foldout: 1
-  - parcelType: 0
+  - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
+    sound:
+      volume: 0
+      channel: 0
+      waitTime: 0
+      note: 0
+      playTime: 0
+      fadeout: 0
+    parcelType: 0
     foldout: 1
