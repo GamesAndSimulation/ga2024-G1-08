@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -67,9 +68,9 @@ public class ProceduralMusicInspector : Editor
 
                 }
 
-                //renders the delete button and, if something was deleted, breaks the loop (we should not continue iterating the list after an element was deleted)
-                if(renderDeleteButton(music, i))
-                    break; 
+                //renders the buttons that alter the element in regards to position
+                if(renderMoveButtons(music, i) || renderDeleteButton(music, i))
+                    break;                                                    //breaks the loop if element changes (we should not continue iterating the list after an element was deleted, moved, or other)
 
                 EditorGUILayout.Separator();
 
@@ -102,6 +103,8 @@ public class ProceduralMusicInspector : Editor
 
         EditorGUILayout.EndHorizontal();
 
+
+
         EditorGUILayout.BeginHorizontal();
 
             EditorGUILayout.LabelField("PlayTime:");
@@ -116,11 +119,81 @@ public class ProceduralMusicInspector : Editor
 
         EditorGUILayout.EndHorizontal();
 
+
+
         sound.volume = EditorGUILayout.FloatField("Volume", sound.volume);
 
 
     }
 
+    private bool renderMoveButtons(ProceduralMusic music, int i) {
+
+        EditorGUILayout.BeginHorizontal();
+
+        bool elementMoved;
+
+        //the first element can only be moved down
+        if (i == 0)
+            elementMoved = renderMoveDownButton(music, i);
+
+        //the last element can only be moved up
+        else if(i == music.musicParcels.Count - 1)
+            elementMoved = renderMoveUpButton(music, i);
+
+        else
+            elementMoved = renderMoveDownButton(music, i) || renderMoveUpButton(music, i);
+
+        EditorGUILayout.EndHorizontal();
+
+        return elementMoved;
+
+    }
+
+    private bool renderMoveUpButton(ProceduralMusic music, int i) {
+
+
+        bool movedUp = false;
+
+        GUILayout.FlexibleSpace();
+
+        if (GUILayout.Button("Up", GUILayout.Width(120))) {
+
+            ProceduralMusicParcelClass toMoveUp = music.musicParcels[i];
+
+            music.musicParcels[i] = music.musicParcels[i - 1];
+
+            music.musicParcels[i - 1] = toMoveUp;
+
+            movedUp = true;
+
+        }
+
+        return movedUp;
+
+
+    }
+
+    private bool renderMoveDownButton(ProceduralMusic music, int i) {
+
+        bool movedDown = false;
+
+
+        if (GUILayout.Button("Down", GUILayout.Width(120))) {
+
+            ProceduralMusicParcelClass toMoveDown = music.musicParcels[i];
+
+            music.musicParcels[i] = music.musicParcels[i + 1];
+
+            music.musicParcels[i + 1] = toMoveDown;
+
+            movedDown = true;
+
+        }
+
+        return movedDown;
+
+
+    }
 
     private bool renderDeleteButton(ProceduralMusic music, int i) {
 
