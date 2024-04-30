@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be0b6c867c0b0cd489cecaf9a03f7aa0, type: 3}
-  m_Name: SimpleLegendOfZeldaMainTheme
+  m_Name: SimpleScale
   m_EditorClassIdentifier: 
-  musicName: Legend of Zelda Main Theme
-  beatsPerMinute: 130
-  noteIntervalDelayMili: 2
+  musicName: SimpleScale
+  beatsPerMinute: 120
+  noteIntervalDelayMili: 0
   musicParcels:
   - loop: {fileID: 0}
     sound:
-      volume: 1
+      volume: 0
       channel: 0
-      note: 57
+      note: 0
       playTimeNumerator: 0
       playTimeDenumerator: 0
       fadeout: 0
     parcelType: 1
     foldout: 1
-  - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
+  - loop: {fileID: 0}
     sound:
       volume: 0
       channel: 0
@@ -34,9 +34,9 @@ MonoBehaviour:
       playTimeNumerator: 0
       playTimeDenumerator: 0
       fadeout: 0
-    parcelType: 0
-    foldout: 1
-  - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
+    parcelType: 1
+    foldout: 0
+  - loop: {fileID: 0}
     sound:
       volume: 0
       channel: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
       playTimeNumerator: 0
       playTimeDenumerator: 0
       fadeout: 0
-    parcelType: 0
-    foldout: 1
-  - loop: {fileID: 11400000, guid: 6287fb9391cb32949a5176bb0a132483, type: 2}
+    parcelType: 1
+    foldout: 0
+  - loop: {fileID: 0}
     sound:
       volume: 0
       channel: 0
@@ -54,9 +54,9 @@ MonoBehaviour:
       playTimeNumerator: 0
       playTimeDenumerator: 0
       fadeout: 0
-    parcelType: 0
-    foldout: 1
-  - loop: {fileID: 11400000, guid: 96d743b3c0329b141869aae9f2e1a169, type: 2}
+    parcelType: 1
+    foldout: 0
+  - loop: {fileID: 0}
     sound:
       volume: 0
       channel: 0
@@ -64,5 +64,5 @@ MonoBehaviour:
       playTimeNumerator: 0
       playTimeDenumerator: 0
       fadeout: 0
-    parcelType: 0
-    foldout: 1
+    parcelType: 1
+    foldout: 0
