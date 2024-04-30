@@ -29,6 +29,8 @@ public class ProceduralMusicInspector : Editor
 
         EditorGUILayout.Separator();
 
+        EditorGUILayout.BeginVertical();
+
         EditorGUILayout.LabelField("Procedural Music Definition: ");
 
         EditorGUILayout.Separator();
@@ -88,6 +90,8 @@ public class ProceduralMusicInspector : Editor
 
         renderAddButton(music);
 
+        EditorGUILayout.EndVertical();
+
         //apply the modifications done in the inspector for the object
         serializedObject.ApplyModifiedProperties();
 
@@ -108,8 +112,6 @@ public class ProceduralMusicInspector : Editor
         EditorGUILayout.EndHorizontal();
 
         sound.volume = EditorGUILayout.FloatField("volume", sound.volume);
-        sound.waitTime = EditorGUILayout.FloatField("waitTime", sound.waitTime);
-        sound.channel = EditorGUILayout.IntField("channel", sound.channel);
 
 
     }
