@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ProceduralMusic")]
+[System.Serializable]
 public class ProceduralMusic : ScriptableObject
 {
     [SerializeField]
@@ -12,7 +14,10 @@ public class ProceduralMusic : ScriptableObject
     public int beatsPerMinute;
 
     [SerializeField]
-    public List<ProceduralSound> sounds;
+    public int noteIntervalDelayMili; //additional delay between notes in miliseconds
+
+    [SerializeField]
+    public List<ProceduralMusicParcelClass> musicParcels;
 
 
 

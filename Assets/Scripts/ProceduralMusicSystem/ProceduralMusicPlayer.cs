@@ -6,14 +6,19 @@ using UnityEngine;
 public class ProceduralMusicPlayer : MonoBehaviour
 {
 
-    //the channels that'll play the music
+    //the channels that'll play the music, no channel can play notes at the same time
     public List<NotePlayer> channels;
 
 
     public ProceduralMusic musicToPlay;
 
-    private float timeWaitingToPlay;
-    private int nextSoundToPlay;
+    private int nextParcelToPlayIndex; //the index of the next parcel to play (or that we're currently playing)
+    private int nextSoundToPlayIndex; //the index of the next sound to play in the next or current parcel
+
+    private ProceduralSound nextToPlay; //next sound to play
+
+    private float timeWaitingToPlay; //the time we already waited to play the next sound
+    
 
 
     [SerializeField]
@@ -22,27 +27,58 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
     public void Start() {
 
-        timeWaitingToPlay = 0;
-        nextSoundToPlay = 0;
+        nextParcelToPlayIndex = 0;
+        nextSoundToPlayIndex = 0;
+        //switchToNextSound();
 
     }
 
     public void Update() {
 
-        //the next sound to play
-        ProceduralSound nextToPlay = musicToPlay.sounds[nextSoundToPlay];
 
-        //if we wait enough to play the next sound
-        if (timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.waitTime) <= timeWaitingToPlay) {
+       // Debug.Log("Playing: " + musicToPlay.musicName);
+       //
+       //
+       // //if we wait enough to play the next sound
+       // if (timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.waitTime) <= timeWaitingToPlay) {
+       //
+       //
+       //     playSounds();
+       //
+       //
+       // } else {
+       //
+       //     timeWaitingToPlay += Time.deltaTime * 1000;
+       //
+       // }
 
-            playSounds();
+    }
 
+    private void switchToNextSound() {
 
-        } else {
+        nextToPlay = musicToPlay.musicParcels[nextParcelToPlayIndex].getSound(nextSoundToPlayIndex);
 
-            timeWaitingToPlay += Time.deltaTime * 1000;
+        //if this parcel does not have more sounds
+        if(nextToPlay == null) {
 
+            //switch to next parcel and reset soundToPlayIndex
+            nextSoundToPlayIndex = 0;
+            nextParcelToPlayIndex++;
+
+            if (nextParcelToPlayIndex >= channels.Count) {
+
+                if (!toRepeat)
+                    gameObject.SetActive(false);
+
+                nextParcelToPlayIndex = 0;
+
+            }
+
+            nextToPlay = musicToPlay.musicParcels[nextParcelToPlayIndex].getSound(nextSoundToPlayIndex);
+        
         }
+
+        Debug.Log("Next audio to play: " + nextToPlay);
 
     }
 
@@ -52,28 +88,20 @@ public class ProceduralMusicPlayer : MonoBehaviour
      */
     private void playSounds() {
 
-        //the next sound to play
-        ProceduralSound nextToPlay = musicToPlay.sounds[nextSoundToPlay]; ;
-
+        //we already know that we can play the next sound
         do {
 
-            channels[nextToPlay.channel].playSound(nextToPlay.note, timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.playTime));
-            nextSoundToPlay++;
+            channels[nextToPlay.channel].playSound(nextToPlay.note, 
+                timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.playTime) - musicToPlay.noteIntervalDelayMili, //the time to play the music, the delay is used here
+                nextToPlay.fadeout);
+
+            nextSoundToPlayIndex++;
             timeWaitingToPlay = 0;
 
-            if (nextSoundToPlay >= musicToPlay.sounds.Count) {
+            switchToNextSound();
 
-                if (toRepeat) {
-
-                    nextSoundToPlay = 0;
-                    break;
-
-                } else
-                    gameObject.SetActive(false);
-
-            }
-
-
+        
+            //this while is so if the next sound had a time of 0, we can play it in the same frame
         } while (timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.waitTime) <= timeWaitingToPlay);
 
   
@@ -83,6 +111,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
     //calculates the actual time in miliseconds of a note
     public static int timeFromMusic(int bpm, float timeFraction) {
+
 
         //60000 is the normal beats per minute
         //4 is because we refer to quarters
