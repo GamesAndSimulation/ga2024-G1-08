@@ -68,17 +68,23 @@ public class ProceduralMusicInspector : Editor
 
                 }
 
-                //option to delete this element of the list
-                if (GUILayout.Button("Delete")) {
+                EditorGUILayout.BeginHorizontal();
 
-                    // Add a new empty element to the list
-                    music.musicParcels.Remove(music.musicParcels[i]);
 
-                    break; //because we altered the list, it is best to leave the loop
+                    GUILayout.Space(120);
 
-                    
+                    //option to delete this element of the list
+                    if (GUILayout.Button("Delete", GUILayout.Width(120))) {
 
-                }
+                        // Add a new empty element to the list
+                        music.musicParcels.Remove(music.musicParcels[i]);
+
+                        break; //because we altered the list, it is best to leave the loop
+             
+
+                    }
+
+                EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.Separator();
 
@@ -120,7 +126,7 @@ public class ProceduralMusicInspector : Editor
 
         EditorGUILayout.EndHorizontal();
 
-        sound.volume = EditorGUILayout.FloatField("volume", sound.volume);
+        sound.volume = EditorGUILayout.FloatField("Volume", sound.volume);
 
 
     }
