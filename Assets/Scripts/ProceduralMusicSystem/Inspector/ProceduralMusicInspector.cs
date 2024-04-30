@@ -79,6 +79,8 @@ public class ProceduralMusicInspector : Editor
 
         }
 
+        renderAddButton(music);
+
 
         EditorGUILayout.EndVertical();
 
@@ -104,9 +106,13 @@ public class ProceduralMusicInspector : Editor
 
             EditorGUILayout.LabelField("PlayTime:");
 
+            GUILayout.FlexibleSpace();
+
             sound.playTimeNumerator = EditorGUILayout.IntField("", sound.playTimeNumerator, GUILayout.Width(30));
             EditorGUILayout.LabelField("/", GUILayout.Width(10));
             sound.playTimeDenumerator = EditorGUILayout.IntField("", sound.playTimeDenumerator, GUILayout.Width(30));
+
+            GUILayout.FlexibleSpace();
 
         EditorGUILayout.EndHorizontal();
 
@@ -146,10 +152,9 @@ public class ProceduralMusicInspector : Editor
     private void renderAddButton(ProceduralMusic music) {
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
 
         //option to add a new element to the music
-        if (GUILayout.Button("Add Element", GUILayout.Width(100))) {
+        if (GUILayout.Button("Add Element")) {
 
             // Add a new empty element to the list
             music.musicParcels.Add(new ProceduralMusicParcelClass(new ProceduralSound()));
