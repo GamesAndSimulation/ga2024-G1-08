@@ -43,13 +43,22 @@ public class NoteToFreq : MonoBehaviour
 
     public static float getFrequency(Note note) {
 
-        return frequenciesOfFirstOctaveNotes[(int)note % frequenciesOfFirstOctaveNotes.Length] * (Mathf.FloorToInt((int)note / frequenciesOfFirstOctaveNotes.Length) + 1);
+        return getFrequency((int)note % frequenciesOfFirstOctaveNotes.Length, Mathf.FloorToInt((int)note / frequenciesOfFirstOctaveNotes.Length) + 1);
 
     }
 
     public static float getFrequency(NoteOnOctave note, int octave) {
 
-        return frequenciesOfFirstOctaveNotes[(int)note] * (octave + 1);
+
+        return getFrequency((int)note, octave);
+
+    }
+
+    public static float getFrequency(int note, int octave) {
+
+        Debug.Log("Calculating frequency of " + note + " in octave " + octave + " result: " + (frequenciesOfFirstOctaveNotes[(int)note] * (octave + 1)));
+
+        return frequenciesOfFirstOctaveNotes[note] * Mathf.Pow(2, (octave));
 
     }
 
