@@ -99,7 +99,16 @@ public class ProceduralMusicInspector : Editor
 
     private void renderNote(ProceduralSound sound) {
 
-        sound.note = (NoteToFreq.Note)EditorGUILayout.EnumPopup("Note ", sound.note);
+
+        EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.LabelField("Note: ", GUILayout.Width(60));
+            sound.note = (NoteToFreq.NoteOnOctave)EditorGUILayout.EnumPopup("", sound.note, GUILayout.Width(120));
+
+            EditorGUILayout.LabelField("Octave: ", GUILayout.Width(80));
+            sound.octave = EditorGUILayout.IntField("", sound.octave, GUILayout.Width(120));
+
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
 

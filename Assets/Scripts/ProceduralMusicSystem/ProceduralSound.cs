@@ -15,9 +15,11 @@ public class ProceduralSound
     public int channel; //a channel that'll play the music ( a pair of NotePlayer and an AudioSource, that is in the NotePlayer)
 
     [SerializeField]
-    public NoteToFreq.Note note; //the note to be played
+    public NoteToFreq.NoteOnOctave note; //the note to be played
 
-    
+    [SerializeField]
+    public int octave; //the note to be played
+
     //the time to play the note is defined by a fracti
     [SerializeField]
     public int playTimeNumerator = 1; 

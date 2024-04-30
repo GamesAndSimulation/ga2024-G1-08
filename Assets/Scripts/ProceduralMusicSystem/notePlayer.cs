@@ -26,20 +26,20 @@ public class NotePlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void playSound(NoteToFreq.Note note, int miliDuration, bool fadeout) {
+    public void playSound(NoteToFreq.NoteOnOctave note, int octave, int miliDuration, bool fadeout) {
 
         if(fadeout)
-            playSoundFadeout(note, miliDuration);
+            playSoundFadeout(note, octave, miliDuration);
 
         else
-            playSound(note, miliDuration);
+            playSound(note, octave, miliDuration);
 
     }
 
-    public void playSound(NoteToFreq.Note note, int miliDuration)
+    public void playSound(NoteToFreq.NoteOnOctave note, int octave, int miliDuration)
     {
         
-       frequency = NoteToFreq.getFrequency(note);
+       frequency = NoteToFreq.getFrequency(note, octave);
        gain = volume;
 
        audioSource.Play();
@@ -49,14 +49,14 @@ public class NotePlayer : MonoBehaviour
     }
 
     //Faded out the sound
-    public void playSoundFadeout(NoteToFreq.Note note, int miliDuration) {
+    public void playSoundFadeout(NoteToFreq.NoteOnOctave note, int octave, int miliDuration) {
 
-        playSound(note, miliDuration / 2);
+        playSound(note, octave, miliDuration / 2);
 
         for(int i = 9; i >= 0;  i--) {
 
             gain = volume * (i / 10);
-            playSound(note, miliDuration / (2 * 10));
+            playSound(note, octave, miliDuration / (2 * 10));
 
 
         }
