@@ -20,11 +20,23 @@ public class ProceduralSound
     [SerializeField]
     public NoteToFreq.Note note; //the note to be played
 
+    
+    //the time to play the note is defined by a fracti
     [SerializeField]
-    public float playTime; //Time to play the note, in fractions
+    public int playTimeNumerator; 
+
+    [SerializeField]
+    public int playTimeDenumerator; 
+
 
     [SerializeField]
     public bool fadeout;
+
+    public float getPlayTimeFrac() {
+
+        return playTimeNumerator / playTimeDenumerator;
+
+    }
 
     public ProceduralSound getSound(int index) {
 

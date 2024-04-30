@@ -59,11 +59,7 @@ public class ProceduralMusicInspector : Editor
 
                         ProceduralSound sound = music.musicParcels[i].sound;
 
-                        sound.volume = EditorGUILayout.FloatField("volume", sound.volume);
-                        sound.waitTime = EditorGUILayout.FloatField("waitTime", sound.waitTime);
-                        sound.playTime = EditorGUILayout.FloatField("playTime", sound.playTime);
-                        sound.channel = EditorGUILayout.IntField("channel", sound.channel);
-                        sound.note = (NoteToFreq.Note)EditorGUILayout.EnumPopup("Note ", sound.note);
+                        renderNote(sound);
 
 
                         break;
@@ -90,8 +86,42 @@ public class ProceduralMusicInspector : Editor
 
         }
 
+        renderAddButton(music);
+
+        //apply the modifications done in the inspector for the object
+        serializedObject.ApplyModifiedProperties();
+
+    }
+
+    private void renderNote(ProceduralSound sound) {
+
+        sound.note = (NoteToFreq.Note)EditorGUILayout.EnumPopup("Note ", sound.note);
+
+        EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.LabelField("PlayTime:");
+
+            sound.playTimeNumerator = EditorGUILayout.IntField("", sound.playTimeNumerator, GUILayout.Width(30));
+            EditorGUILayout.LabelField("/", GUILayout.Width(10));
+            sound.playTimeDenumerator = EditorGUILayout.IntField("", sound.playTimeDenumerator, GUILayout.Width(30));
+
+        EditorGUILayout.EndHorizontal();
+
+        sound.volume = EditorGUILayout.FloatField("volume", sound.volume);
+        sound.waitTime = EditorGUILayout.FloatField("waitTime", sound.waitTime);
+        sound.channel = EditorGUILayout.IntField("channel", sound.channel);
+
+
+    }
+
+
+
+    private void renderBringDown(ProceduralMusic music, int index) {
+
+        EditorGUILayout.BeginHorizontal();
+
         //option to add a new element to the music
-        if (GUILayout.Button("Add Element")) {
+        if (GUILayout.Button("Add Element", GUILayout.Width(100))) {
 
             // Add a new empty element to the list
             music.musicParcels.Add(new ProceduralMusicParcelClass(new ProceduralSound()));
@@ -99,8 +129,25 @@ public class ProceduralMusicInspector : Editor
 
         }
 
-        //apply the modifications done in the inspector for the object
-        serializedObject.ApplyModifiedProperties();
+        EditorGUILayout.EndHorizontal();
+
+    }
+
+    private void renderAddButton(ProceduralMusic music) {
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        //option to add a new element to the music
+        if (GUILayout.Button("Add Element", GUILayout.Width(100))) {
+
+            // Add a new empty element to the list
+            music.musicParcels.Add(new ProceduralMusicParcelClass(new ProceduralSound()));
+
+
+        }
+
+        EditorGUILayout.EndHorizontal();
 
     }
 

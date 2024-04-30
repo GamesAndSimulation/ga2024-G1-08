@@ -44,7 +44,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
        
        } else {
        
-           timeWaitingToPlay += Time.deltaTime * 1000;
+           timeWaitingToPlay += Time.deltaTime * 1000; //the miliseconds we're waiting
        
        }
 
@@ -52,7 +52,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
     private void switchToNextSound() {
 
-        nextToPlay = musicToPlay.musicParcels[nextParcelToPlayIndex].getSound(nextSoundToPlayIndex);
+        nextToPlay = musicToPlay.musicParcels[nextParcelToPlayIndex].getSound(nextSoundToPlayIndex); //the first time this is called, the index is already 0
 
         //if this parcel does not have more sounds
         if(nextToPlay == null) {
@@ -61,7 +61,8 @@ public class ProceduralMusicPlayer : MonoBehaviour
             nextSoundToPlayIndex = 0;
             nextParcelToPlayIndex++;
 
-            if (nextParcelToPlayIndex >= channels.Count) {
+            //if there is no next parcel
+            if (nextParcelToPlayIndex >= musicToPlay.musicParcels.Count) {
 
                 if (!toRepeat)
                     gameObject.SetActive(false);
@@ -74,8 +75,6 @@ public class ProceduralMusicPlayer : MonoBehaviour
         
         }
 
-        Debug.Log("Next audio to play: " + nextToPlay);
-
     }
 
     /**
@@ -87,8 +86,10 @@ public class ProceduralMusicPlayer : MonoBehaviour
         //we already know that we can play the next sound
         do {
 
+            Debug.Log("Playing sound at " + nextSoundToPlayIndex + " at batch " + nextParcelToPlayIndex);
+
             channels[nextToPlay.channel].playSound(nextToPlay.note, 
-                timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.playTime) - musicToPlay.noteIntervalDelayMili, //the time to play the music, the delay is used here
+                timeFromMusic(musicToPlay.beatsPerMinute, nextToPlay.getPlayTimeFrac()) - musicToPlay.noteIntervalDelayMili, //the time to play the music, the delay is used here
                 nextToPlay.fadeout);
 
             nextSoundToPlayIndex++;

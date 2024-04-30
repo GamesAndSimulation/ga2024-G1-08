@@ -13,10 +13,50 @@ MonoBehaviour:
   m_Name: SimpleLegendOfZeldaMainTheme
   m_EditorClassIdentifier: 
   musicName: Legend of Zelda Main Theme
-  beatsPerMinute: 120
-  noteIntervalDelayMili: 0
+  beatsPerMinute: 130
+  noteIntervalDelayMili: 2
   musicParcels:
+  - loop: {fileID: 0}
+    sound:
+      volume: 1
+      channel: 0
+      waitTime: 0
+      note: 57
+      playTime: 0.5
+      fadeout: 0
+    parcelType: 1
+    foldout: 1
   - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
+    sound:
+      volume: 0
+      channel: 0
+      waitTime: 0
+      note: 0
+      playTime: 0
+      fadeout: 0
+    parcelType: 0
+    foldout: 1
+  - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
+    sound:
+      volume: 0
+      channel: 0
+      waitTime: 0
+      note: 0
+      playTime: 0
+      fadeout: 0
+    parcelType: 0
+    foldout: 1
+  - loop: {fileID: 11400000, guid: 6287fb9391cb32949a5176bb0a132483, type: 2}
+    sound:
+      volume: 0
+      channel: 0
+      waitTime: 0
+      note: 0
+      playTime: 0
+      fadeout: 0
+    parcelType: 0
+    foldout: 1
+  - loop: {fileID: 11400000, guid: 96d743b3c0329b141869aae9f2e1a169, type: 2}
     sound:
       volume: 0
       channel: 0

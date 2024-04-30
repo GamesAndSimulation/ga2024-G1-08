@@ -53,7 +53,7 @@ public class ProceduralMusicParcelClass
 
                 case ParcelType.Loop:
 
-                    loop = new ProceduralMusicLoop();
+                    loop = null;
                     sound = null;
                     break;
 
@@ -61,7 +61,7 @@ public class ProceduralMusicParcelClass
                 case ParcelType.Note:
 
                     loop = null;
-                    sound = null;
+                    sound = new ProceduralSound();
                     break;
 
             }
