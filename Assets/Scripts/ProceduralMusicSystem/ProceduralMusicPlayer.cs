@@ -39,8 +39,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
             switchToNextSound();
             channels[soundPlayingNow.channel].playSound(soundPlayingNow.note, soundPlayingNow.octave,
-                                            timeFromMusic(musicToPlay.beatsPerMinute, soundPlayingNow.getPlayTimeFrac()) - musicToPlay.noteIntervalDelayMili, //the time to play the music, the delay is used here
-                                            soundPlayingNow.fadeout);
+                                                    soundPlayingNow.fadeout);
 
 
             timeToWait = timeFromMusic(musicToPlay.beatsPerMinute, soundPlayingNow.getPlayTimeFrac());

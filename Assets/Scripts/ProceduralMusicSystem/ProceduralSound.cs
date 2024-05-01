@@ -22,10 +22,10 @@ public class ProceduralSound
 
     //the time to play the note is defined by a fracti
     [SerializeField]
-    public int playTimeNumerator = 1; 
+    public float playTimeNumerator = 1; 
 
     [SerializeField]
-    public int playTimeDenumerator = 1; 
+    public float playTimeDenominator = 1; 
 
 
     [SerializeField]
@@ -33,7 +33,9 @@ public class ProceduralSound
 
     public float getPlayTimeFrac() {
 
-        return playTimeNumerator / playTimeDenumerator;
+        Debug.Log("Getting play time frac, num: " + playTimeNumerator + ", den: " + playTimeDenominator + ", result: " + (playTimeNumerator / playTimeDenominator));
+
+        return playTimeNumerator / playTimeDenominator;
 
     }
 

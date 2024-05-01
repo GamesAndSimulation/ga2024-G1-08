@@ -358,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frequency: 440
   gain: 0
-  volume: 0.5
+  volume: 1
 --- !u!82 &1227499689
 AudioSource:
   m_ObjectHideFlags: 0

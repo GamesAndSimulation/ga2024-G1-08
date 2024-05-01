@@ -111,9 +111,9 @@ public class ProceduralMusicInspector : Editor
 
             GUILayout.FlexibleSpace();
 
-            sound.playTimeNumerator = EditorGUILayout.IntField("", sound.playTimeNumerator, GUILayout.Width(30));
+            sound.playTimeNumerator = EditorGUILayout.IntField("", (int)sound.playTimeNumerator, GUILayout.Width(30));
             EditorGUILayout.LabelField("/", GUILayout.Width(10));
-            sound.playTimeDenumerator = EditorGUILayout.IntField("", sound.playTimeDenumerator, GUILayout.Width(30));
+            sound.playTimeDenominator = EditorGUILayout.IntField("", (int)sound.playTimeDenominator, GUILayout.Width(30));
 
             GUILayout.FlexibleSpace();
 
