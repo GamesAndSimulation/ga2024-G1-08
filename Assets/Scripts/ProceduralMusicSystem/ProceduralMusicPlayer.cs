@@ -17,7 +17,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
     private ProceduralSound soundPlayingNow; //next sound to play
 
-    private float timeToWait; //the time we need to wait to play the next note
+    private double timeToWait; //the time we need to wait to play the next note
     
 
 
@@ -38,7 +38,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
        if (timeToWait <= 0) {
 
             switchToNextSound();
-            channels[soundPlayingNow.channel].playSound(soundPlayingNow);
+            channels[soundPlayingNow.channel].playSound(soundPlayingNow, timeFromMusic(musicToPlay.beatsPerMinute, soundPlayingNow.getPlayTimeFrac()));
 
 
             timeToWait = timeFromMusic(musicToPlay.beatsPerMinute, soundPlayingNow.getPlayTimeFrac());
@@ -47,7 +47,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
         } else {
 
-            timeToWait -= Time.deltaTime * 1000; //the miliseconds we're waiting
+            timeToWait -= Time.deltaTime; //the seconds we're waiting
        
        }
 
@@ -83,12 +83,11 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
 
     //calculates the actual time in miliseconds of a note
-    public static int timeFromMusic(int bpm, float timeFraction) {
+    public static double timeFromMusic(int bpm, float timeFraction) {
 
 
         //60000 is the normal beats per minute
-        //4 is because we refer to quarters
-        return (int) (60000 * timeFraction / bpm);
+        return (double) (60 * timeFraction / bpm);
 
     }
 
