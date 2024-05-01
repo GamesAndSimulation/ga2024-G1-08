@@ -24,7 +24,7 @@ MonoBehaviour:
       octave: 4
       playTimeNumerator: 2
       playTimeDenominator: 1
-      fadeoutMult: 0.005
+      fadeoutMult: 0.03
     parcelType: 1
     foldout: 0
     foldoutSpecific: 1
@@ -110,5 +110,17 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0
     parcelType: 0
-    foldout: 0
+    foldout: 1
+    foldoutSpecific: 1
+  - loop: {fileID: 11400000, guid: 49db1a5c65c098b4a81f2b76ff483e03, type: 2}
+    sound:
+      volume: 1
+      channel: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
+    parcelType: 0
+    foldout: 1
     foldoutSpecific: 1

@@ -10,9 +10,13 @@ public class SoundPlayer : MonoBehaviour
 
     public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation };
     public enum WaveFunctions { Sign, Cos, Saw, Square };
+    public enum GainFunctions { EntranceExit};
+
 
     public SoundFunctions soundFunction = SoundFunctions.Base;
     public WaveFunctions waveFunction = WaveFunctions.Sign;
+    public GainFunctions gainFuntion = GainFunctions.EntranceExit;
+    
 
     private double sampling_frequency = 48000; //frequency of sample creation (from continuous signals to discrete signals)
 
@@ -77,6 +81,7 @@ public class SoundPlayer : MonoBehaviour
 
     delegate float ValueOfSound(SoundBeingPlayed sound, double phase, double timePassed); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
     delegate double BaseWaveFunction(double x);
+    delegate double GainFunction(double timePlayed);
 
     struct SoundBeingPlayed {
 
@@ -349,7 +354,7 @@ public class SoundPlayer : MonoBehaviour
 
     public double squareWave(double x) {
 
-        return (((x + 0.5) % 1) - 0.5) * 2;
+        return (x % 1) < 0.5 ? 1 : -1;
 
     }
 
