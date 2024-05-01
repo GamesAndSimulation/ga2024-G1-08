@@ -9,8 +9,10 @@ public class SoundPlayer : MonoBehaviour
 {
 
     public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation };
+    public enum WaveFunctions { Sign, Cos, Saw, Square };
 
     public SoundFunctions soundFunction = SoundFunctions.Base;
+    public WaveFunctions waveFunction = WaveFunctions.Sign;
 
     private double sampling_frequency = 48000; //frequency of sample creation (from continuous signals to discrete signals)
 
@@ -18,7 +20,7 @@ public class SoundPlayer : MonoBehaviour
     //these are used in the functions, no point in altering their values
     private double increment;
 
-    private double phase; //the phase can be though as the X value for the wave, if the wave had a frequency of 1
+    private double phase; //the phase can be though as the X value for the wave, this goes from 0 to 1. This means that  wave funtions must have their domain compensated accordingly
 
 
     //this class exists because the normal implementations of LinkedList or List don't let us having freedom of iterating over the elements
@@ -74,6 +76,7 @@ public class SoundPlayer : MonoBehaviour
     }
 
     delegate float ValueOfSound(SoundBeingPlayed sound, double phase, double timePassed); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
+    delegate double BaseWaveFunction(double x);
 
     struct SoundBeingPlayed {
 
@@ -86,6 +89,7 @@ public class SoundPlayer : MonoBehaviour
         public double duration;
 
         public ValueOfSound value;
+        public BaseWaveFunction baseWaveFunction;
 
 
 
@@ -95,7 +99,7 @@ public class SoundPlayer : MonoBehaviour
 
     public void Start() {
 
-        increment = 2 * Math.PI / sampling_frequency;
+        increment = 1 / sampling_frequency;
         soundsBeingPlayed = new LinkedListSounds();
 
 
@@ -115,6 +119,7 @@ public class SoundPlayer : MonoBehaviour
         newSound.startTime = AudioSettings.dspTime;
 
         newSound.value = defineFuntionOfSound();
+        newSound.baseWaveFunction = defineWaveFuntionOfSound();
 
         
 
@@ -177,6 +182,8 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
+    #region ValueFunctions
+
     private ValueOfSound defineFuntionOfSound() {
 
         switch (soundFunction) {
@@ -216,7 +223,7 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(sound.gain * 
-            (Math.Sin(phase * sound.frequency)));
+            (sound.baseWaveFunction(phase * sound.frequency)));
 
     }
 
@@ -224,12 +231,12 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
-            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 3)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 4)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 5)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 6))
+            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 6))
             );
 
     }
@@ -238,12 +245,12 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
-            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) +
-            (sound.gain / 32) * (Math.Sin(phase * sound.frequency * 4)) +
-            (sound.gain / 64) * (Math.Sin(phase * sound.frequency * 5)) +
-            (sound.gain / 128) * (Math.Sin(phase * sound.frequency * 6))
+            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gain / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gain / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gain / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6))
             );
 
     }
@@ -252,18 +259,18 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
-            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) +
-            (sound.gain / 32) * (Math.Sin(phase * sound.frequency * 4)) +
-            (sound.gain / 64) * (Math.Sin(phase * sound.frequency * 5)) +
-            (sound.gain / 128) * (Math.Sin(phase * sound.frequency * 6)) +
-            (sound.gain / 254) * (Math.Sin(phase * sound.frequency) * 7) +
-            (sound.gain / 512) * (Math.Sin(phase * sound.frequency * 8)) +
-            (sound.gain / 1024) * (Math.Sin(phase * sound.frequency * 9)) +
-            (sound.gain / 2048) * (Math.Sin(phase * sound.frequency * 10)) +
-            (sound.gain / 4096) * (Math.Sin(phase * sound.frequency * 11)) +
-            (sound.gain / 8192) * (Math.Sin(phase * sound.frequency * 12))
+            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gain / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gain / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gain / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6)) +
+            (sound.gain / 254) * (sound.baseWaveFunction(phase * sound.frequency) * 7) +
+            (sound.gain / 512) * (sound.baseWaveFunction(phase * sound.frequency * 8)) +
+            (sound.gain / 1024) * (sound.baseWaveFunction(phase * sound.frequency * 9)) +
+            (sound.gain / 2048) * (sound.baseWaveFunction(phase * sound.frequency * 10)) +
+            (sound.gain / 4096) * (sound.baseWaveFunction(phase * sound.frequency * 11)) +
+            (sound.gain / 8192) * (sound.baseWaveFunction(phase * sound.frequency * 12))
             );
 
     }
@@ -272,13 +279,13 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 4) * (Math.Sin(phase * sound.frequency)) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 2 - increment )) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3 - increment * 2 )) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 4 - increment * 4 )) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 5 - increment * 8 )) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 6 - increment * 16)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 7 - increment * 32))
+            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 2 - increment )) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3 - increment * 2 )) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 4 - increment * 4 )) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 5 - increment * 8 )) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 6 - increment * 16)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 7 - increment * 32))
             );
 
     }
@@ -288,13 +295,65 @@ public class SoundPlayer : MonoBehaviour
 
         return (float)(
 
-            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
+            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
+            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
 
             );
 
     }
+
+    #endregion
+
+
+    #region WaveFuntions
+
+    private BaseWaveFunction defineWaveFuntionOfSound() {
+
+        switch (waveFunction) {
+
+            case WaveFunctions.Cos:
+                return new BaseWaveFunction(cosFunction);
+
+            case WaveFunctions.Saw:
+                return new BaseWaveFunction(sawFuntion);
+
+            case WaveFunctions.Square:
+                return new BaseWaveFunction(squareWave);
+
+
+            default:
+                return sinFunction;
+        }
+
+    }
+
+    public double sinFunction(double x) {
+
+        return Math.Sin(2 * Math.PI * x);
+
+    }
+
+    public double cosFunction(double x) {
+
+        return Math.Cos(2 * Math.PI * x);
+
+    }
+
+    public double sawFuntion(double x) {
+
+        return (((x + 0.5) % 1) - 0.5) * 2;
+
+    }
+
+    public double squareWave(double x) {
+
+        return (((x + 0.5) % 1) - 0.5) * 2;
+
+    }
+
+
+    #endregion
 
 }
