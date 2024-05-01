@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundPlayer;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundPlayer : MonoBehaviour
 {
 
-    // un-optimized version
-    public double frequency = 440;
+    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset};
+
+    public SoundFunctions soundFunction = SoundFunctions.Base;
 
     private double sampling_frequency = 48000; //frequency of sample creation (from continuous signals to discrete signals)
 
@@ -71,6 +73,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
+    delegate float ValueOfSound(SoundBeingPlayed sound, double phase); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
 
     struct SoundBeingPlayed {
 
@@ -81,6 +84,10 @@ public class SoundPlayer : MonoBehaviour
 
         public double startTime;
         public double duration;
+
+        public ValueOfSound value;
+
+
 
     }
 
@@ -107,6 +114,38 @@ public class SoundPlayer : MonoBehaviour
         newSound.duration = duration;
         newSound.startTime = AudioSettings.dspTime;
 
+        switch (soundFunction) {
+
+            case SoundFunctions.DecayingHarmonic:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonics);
+                break;
+
+            case SoundFunctions.DecayingHarmonic2:
+
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV2);
+                break;
+
+            case SoundFunctions.DecayingHarmonic3:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV3);
+                break;
+
+
+            case SoundFunctions.DecayingHarmonicOffset:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsOffsets);
+                break;
+
+            default:
+                newSound.value = new ValueOfSound(valueOfSound);
+                break;
+        
+        }
+
+        
+
         soundsBeingPlayed.add(newSound);
 
     }
@@ -128,7 +167,7 @@ public class SoundPlayer : MonoBehaviour
 
             while (currentNode != null) {
 
-                value = valueOfSound(currentNode.sound, phase); //the value in the y axis
+                value = currentNode.sound.value(currentNode.sound, phase); //the value in the y axis
 
                 for (int channel = 0; channel < channels; channel++) {
 
@@ -165,12 +204,75 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private static float valueOfSound(SoundBeingPlayed sound, double phase) {
+    private float valueOfSound(SoundBeingPlayed sound, double phase) {
 
 
-        return (float)(sound.gain * (Math.Sin(phase * sound.frequency)));
+        return (float)(sound.gain * 
+            (Math.Sin(phase * sound.frequency)));
 
     }
 
+    private float valueOfSoundDecayingHarmonics(SoundBeingPlayed sound, double phase) {
+
+
+        return (float)(
+            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
+            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 3)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 4)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 5)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 6))
+            );
+
+    }
+
+    private float valueOfSoundDecayingHarmonicsV2(SoundBeingPlayed sound, double phase) {
+
+
+        return (float)(
+            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
+            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) +
+            (sound.gain / 32) * (Math.Sin(phase * sound.frequency * 4)) +
+            (sound.gain / 64) * (Math.Sin(phase * sound.frequency * 5)) +
+            (sound.gain / 128) * (Math.Sin(phase * sound.frequency * 6))
+            );
+
+    }
+
+    private float valueOfSoundDecayingHarmonicsV3(SoundBeingPlayed sound, double phase) {
+
+
+        return (float)(
+            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) +
+            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) +
+            (sound.gain / 32) * (Math.Sin(phase * sound.frequency * 4)) +
+            (sound.gain / 64) * (Math.Sin(phase * sound.frequency * 5)) +
+            (sound.gain / 128) * (Math.Sin(phase * sound.frequency * 6)) +
+            (sound.gain / 254) * (Math.Sin(phase * sound.frequency) * 7) +
+            (sound.gain / 512) * (Math.Sin(phase * sound.frequency * 8)) +
+            (sound.gain / 1024) * (Math.Sin(phase * sound.frequency * 9)) +
+            (sound.gain / 2048) * (Math.Sin(phase * sound.frequency * 10)) +
+            (sound.gain / 4096) * (Math.Sin(phase * sound.frequency * 11)) +
+            (sound.gain / 8192) * (Math.Sin(phase * sound.frequency * 12))
+            );
+
+    }
+
+    private float valueOfSoundDecayingHarmonicsOffsets(SoundBeingPlayed sound, double phase) {
+
+
+        return (float)(
+            (sound.gain / 4) * (Math.Sin(phase * sound.frequency)) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 2 - increment )) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3 - increment * 2 )) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 4 - increment * 4 )) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 5 - increment * 8 )) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 6 - increment * 16)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 7 - increment * 32))
+            );
+
+    }
 
 }

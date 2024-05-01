@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SimpleLegendOfZeldaMainTheme
   m_EditorClassIdentifier: 
   musicName: Legend of Zelda Main Theme
-  beatsPerMinute: 130
+  beatsPerMinute: 120
   noteIntervalDelayMili: 0
   musicParcels:
   - loop: {fileID: 0}
@@ -110,5 +110,5 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0
     parcelType: 0
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 1
