@@ -26,7 +26,7 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0.005
     parcelType: 1
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 1
   - loop: {fileID: 0}
     sound:
@@ -38,7 +38,7 @@ MonoBehaviour:
       playTimeDenominator: 2
       fadeoutMult: 0
     parcelType: 1
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 1
   - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
     sound:
@@ -50,7 +50,7 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0
     parcelType: 0
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 0
   - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
     sound:
@@ -62,7 +62,7 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0
     parcelType: 0
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 1
   - loop: {fileID: 11400000, guid: 6839d4ef037509145a79cd8d664722b1, type: 2}
     sound:
@@ -74,9 +74,33 @@ MonoBehaviour:
       playTimeDenominator: 1
       fadeoutMult: 0
     parcelType: 0
-    foldout: 1
+    foldout: 0
     foldoutSpecific: 1
   - loop: {fileID: 11400000, guid: 96d743b3c0329b141869aae9f2e1a169, type: 2}
+    sound:
+      volume: 1
+      channel: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
+    parcelType: 0
+    foldout: 0
+    foldoutSpecific: 1
+  - loop: {fileID: 11400000, guid: eea0c16cc536790438ff62a24eb94180, type: 2}
+    sound:
+      volume: 1
+      channel: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
+    parcelType: 0
+    foldout: 0
+    foldoutSpecific: 1
+  - loop: {fileID: 11400000, guid: c1709ddcffc8c5640a8e356b9b07150d, type: 2}
     sound:
       volume: 1
       channel: 0

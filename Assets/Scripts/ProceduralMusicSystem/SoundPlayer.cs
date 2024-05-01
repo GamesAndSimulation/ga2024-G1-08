@@ -16,16 +16,21 @@ public class SoundPlayer : MonoBehaviour
     public float volume = 0.1f;
     public float fadeoutMult = 0f;
 
-    private AudioSource audioSource;
-
     //these are used in the functions, no point in altering their values
     private double increment;
     private double phase; //the phase can be though as the X value for the wave, if the wave had a frequency of 1
 
-    public void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
+    struct SoungBeingPlayed {
+
+        public float gain;
+        public float fadeoutMult;
+        
+        public double increment;
+        public double phase;
+
     }
+
+    List<SoungBeingPlayed> soundsBeingPlayed;
 
     public void playSound(ProceduralSound sound) {
 
@@ -35,7 +40,8 @@ public class SoundPlayer : MonoBehaviour
     }
 
 
-    //data is an array of floats, comprising of audio data
+    //data is an array of floats, comprising of audio data to filter
+    //In this case, the values of data are 0 because we're generating the sound
     public void OnAudioFilterRead(float[] data, int channels)
     {
 
