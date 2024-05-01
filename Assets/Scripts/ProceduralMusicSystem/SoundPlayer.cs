@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundPlayer;
 
 [RequireComponent(typeof(AudioSource))]
-public class SoundPlayer : MonoBehaviour {
+public class SoundPlayer : MonoBehaviour
+{
 
-    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation };
+    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset};
 
     public SoundFunctions soundFunction = SoundFunctions.Base;
 
@@ -51,27 +53,27 @@ public class SoundPlayer : MonoBehaviour {
             Node oldHead = head;
             head = new Node(toAdd, oldHead);
 
-            if (oldHead != null)
+            if(oldHead != null)
                 oldHead.prev = head;
 
         }
 
         public void remove(Node toRemove) {
 
-            if (toRemove.next != null)
+            if(toRemove.next != null)
                 toRemove.next.prev = toRemove.prev;
 
-            if (toRemove.prev != null)
+            if(toRemove.prev != null)
                 toRemove.prev.next = toRemove.next;
 
-            if (toRemove == head)
+            if(toRemove == head)
                 head = null;
 
         }
 
     }
 
-    delegate float ValueOfSound(SoundBeingPlayed sound, double phase, double timePlayed); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
+    delegate float ValueOfSound(SoundBeingPlayed sound, double phase); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
 
     struct SoundBeingPlayed {
 
@@ -112,8 +114,37 @@ public class SoundPlayer : MonoBehaviour {
         newSound.duration = duration;
         newSound.startTime = AudioSettings.dspTime;
 
-        //newSound.value = defineFuntionOfSound();
-        newSound.value = null;
+        switch (soundFunction) {
+
+            case SoundFunctions.DecayingHarmonic:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonics);
+                break;
+
+            case SoundFunctions.DecayingHarmonic2:
+
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV2);
+                break;
+
+            case SoundFunctions.DecayingHarmonic3:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV3);
+                break;
+
+
+            case SoundFunctions.DecayingHarmonicOffset:
+
+                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsOffsets);
+                break;
+
+            default:
+                newSound.value = new ValueOfSound(valueOfSound);
+                break;
+        
+        }
+
+        
 
         soundsBeingPlayed.add(newSound);
 
@@ -122,20 +153,10 @@ public class SoundPlayer : MonoBehaviour {
 
     //data is an array of floats, comprising of audio data to filter
     //In this case, the values of data are 0 because we're generating the sound
-    public void OnAudioFilterRead(float[] data, int channels) {
+    public void OnAudioFilterRead(float[] data, int channels)
+    {
         LinkedListSounds.Node currentNode;
         float value;
-        double timeCalled = AudioSettings.dspTime;
-
-        currentNode = soundsBeingPlayed.head;
-
-        while (currentNode != null)
-
-            //if sound has reached the end of its duration, remove it
-            if (currentNode.sound.duration <= timeCalled - currentNode.sound.startTime)
-                soundsBeingPlayed.remove(currentNode);
-
-
 
         //for each data for each channel
         for (int i = 0; i < data.Length / channels; i++) {
@@ -146,8 +167,7 @@ public class SoundPlayer : MonoBehaviour {
 
             while (currentNode != null) {
 
-                //value = currentNode.sound.value(currentNode.sound, phase, timeCalled - currentNode.sound.startTime); //the value in the y axis
-                value = valueOfSound(currentNode.sound, phase, 0);
+                value = currentNode.sound.value(currentNode.sound, phase); //the value in the y axis
 
                 for (int channel = 0; channel < channels; channel++) {
 
@@ -184,42 +204,7 @@ public class SoundPlayer : MonoBehaviour {
 
     }
 
-    private ValueOfSound defineFuntionOfSound() {
-
-        switch (soundFunction) {
-
-            case SoundFunctions.DecayingHarmonic:
-
-                return new ValueOfSound(valueOfSoundDecayingHarmonics);
-
-            case SoundFunctions.DecayingHarmonic2:
-
-
-                return new ValueOfSound(valueOfSoundDecayingHarmonicsV2);
-
-            case SoundFunctions.DecayingHarmonic3:
-
-                return new ValueOfSound(valueOfSoundDecayingHarmonicsV3);
-
-
-            case SoundFunctions.DecayingHarmonicOffset:
-
-                return new ValueOfSound(valueOfSoundDecayingHarmonicsOffsets);
-
-            case SoundFunctions.DecayingHarmonicTimeVariation:
-
-                return new ValueOfSound(valueOfSoundDecayingHarmonicsTimeVariation);
-
-
-
-            default:
-                return new ValueOfSound(valueOfSound);
-
-        }
-
-    }
-
-    private float valueOfSound(SoundBeingPlayed sound, double phase, double timePlayed) {
+    private float valueOfSound(SoundBeingPlayed sound, double phase) {
 
 
         return (float)(sound.gain * 
@@ -227,7 +212,7 @@ public class SoundPlayer : MonoBehaviour {
 
     }
 
-    private float valueOfSoundDecayingHarmonics(SoundBeingPlayed sound, double phase, double timePlaye) {
+    private float valueOfSoundDecayingHarmonics(SoundBeingPlayed sound, double phase) {
 
 
         return (float)(
@@ -241,7 +226,7 @@ public class SoundPlayer : MonoBehaviour {
 
     }
 
-    private float valueOfSoundDecayingHarmonicsV2(SoundBeingPlayed sound, double phase, double timePlaye) {
+    private float valueOfSoundDecayingHarmonicsV2(SoundBeingPlayed sound, double phase) {
 
 
         return (float)(
@@ -255,7 +240,7 @@ public class SoundPlayer : MonoBehaviour {
 
     }
 
-    private float valueOfSoundDecayingHarmonicsV3(SoundBeingPlayed sound, double phase, double timePlaye) {
+    private float valueOfSoundDecayingHarmonicsV3(SoundBeingPlayed sound, double phase) {
 
 
         return (float)(
@@ -275,21 +260,7 @@ public class SoundPlayer : MonoBehaviour {
 
     }
 
-    private float valueOfSoundDecayingHarmonicsTimeVariation(SoundBeingPlayed sound, double phase, double timePlayed) {
-
-
-        return (float)(
-
-            (sound.gain / 2)  * (Math.Sin(phase * sound.frequency))     * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 4)  * (Math.Sin(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
-            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
-
-            );
-
-    }
-
-    private float valueOfSoundDecayingHarmonicsOffsets(SoundBeingPlayed sound, double phase, double timePlaye) {
+    private float valueOfSoundDecayingHarmonicsOffsets(SoundBeingPlayed sound, double phase) {
 
 
         return (float)(
