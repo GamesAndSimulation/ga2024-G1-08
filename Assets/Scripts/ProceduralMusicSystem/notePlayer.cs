@@ -10,7 +10,7 @@ public class NotePlayer : MonoBehaviour
     // un-optimized version
     public double frequency = 440;
 
-    private double sampling_frequency = 48000;
+    private double sampling_frequency = 48000; //frequency of sample creation (from continuous signals to discrete signals)
 
     public float gain;
     public float volume = 0.1f;
@@ -19,7 +19,7 @@ public class NotePlayer : MonoBehaviour
 
     //these are used in the functions, no point in altering their values
     private double increment;
-    private double phase;
+    private double phase; //the phase can be though as the X value for the wave, if the wave had a frequency of 1
 
     public void Start()
     {
@@ -39,10 +39,13 @@ public class NotePlayer : MonoBehaviour
     public void playSound(NoteToFreq.NoteOnOctave note, int octave)
     {
         
-       frequency = NoteToFreq.getFrequency(note, octave);
+       float newFrequency = NoteToFreq.getFrequency(note, octave);
+
+        phase = Math.Sin(phase);
+
        gain = volume;
 
-       audioSource.Play();
+       //audioSource.Play();
 
     }
 
