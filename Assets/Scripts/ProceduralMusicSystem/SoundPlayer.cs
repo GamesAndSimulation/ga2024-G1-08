@@ -8,7 +8,7 @@ using static SoundPlayer;
 public class SoundPlayer : MonoBehaviour
 {
 
-    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset};
+    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation };
 
     public SoundFunctions soundFunction = SoundFunctions.Base;
 
@@ -114,35 +114,7 @@ public class SoundPlayer : MonoBehaviour
         newSound.duration = duration;
         newSound.startTime = AudioSettings.dspTime;
 
-        switch (soundFunction) {
-
-            case SoundFunctions.DecayingHarmonic:
-
-                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonics);
-                break;
-
-            case SoundFunctions.DecayingHarmonic2:
-
-
-                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV2);
-                break;
-
-            case SoundFunctions.DecayingHarmonic3:
-
-                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsV3);
-                break;
-
-
-            case SoundFunctions.DecayingHarmonicOffset:
-
-                newSound.value = new ValueOfSound(valueOfSoundDecayingHarmonicsOffsets);
-                break;
-
-            default:
-                newSound.value = new ValueOfSound(valueOfSound);
-                break;
-        
-        }
+        newSound.value = defineFuntionOfSound();
 
         
 
@@ -200,6 +172,41 @@ public class SoundPlayer : MonoBehaviour
             }
 
             currentNode = currentNode.next;
+
+        }
+
+    }
+
+    private ValueOfSound defineFuntionOfSound() {
+
+        switch (soundFunction) {
+
+            case SoundFunctions.DecayingHarmonic:
+
+                return new ValueOfSound(valueOfSoundDecayingHarmonics);
+
+            case SoundFunctions.DecayingHarmonic2:
+
+
+                return new ValueOfSound(valueOfSoundDecayingHarmonicsV2);
+
+            case SoundFunctions.DecayingHarmonic3:
+
+                return new ValueOfSound(valueOfSoundDecayingHarmonicsV3);
+
+
+            case SoundFunctions.DecayingHarmonicOffset:
+
+                return new ValueOfSound(valueOfSoundDecayingHarmonicsOffsets);
+
+            case SoundFunctions.DecayingHarmonicTimeVariation:
+
+                return new ValueOfSound(valueOfSoundDecayingHarmonicsTimeVariation);
+
+
+
+            default:
+                return new ValueOfSound(valueOfSound);
 
         }
 
@@ -276,6 +283,18 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
+    private float valueOfSoundDecayingHarmonicsTimeVariation(SoundBeingPlayed sound, double phase, double timePlayed) {
 
+
+        return (float)(
+
+            (sound.gain / 2) * (Math.Sin(phase * sound.frequency)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gain / 4) * (Math.Sin(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
+            (sound.gain / 8) * (Math.Sin(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gain / 16) * (Math.Sin(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
+
+            );
+
+    }
 
 }
