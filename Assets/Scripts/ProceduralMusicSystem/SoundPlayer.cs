@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class NotePlayer : MonoBehaviour
+public class SoundPlayer : MonoBehaviour
 {
 
     // un-optimized version
@@ -14,6 +14,7 @@ public class NotePlayer : MonoBehaviour
 
     public float gain;
     public float volume = 0.1f;
+    public float fadeoutMult = 0f;
 
     private AudioSource audioSource;
 
@@ -26,34 +27,11 @@ public class NotePlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void playSound(NoteToFreq.NoteOnOctave note, int octave, bool fadeout) {
+    public void playSound(ProceduralSound sound) {
 
-        if(fadeout)
-            playSoundFadeout(note, octave);
-
-        else
-            playSound(note, octave);
-
-    }
-
-    public void playSound(NoteToFreq.NoteOnOctave note, int octave)
-    {
-        
-       float newFrequency = NoteToFreq.getFrequency(note, octave);
-
-        phase = Math.Sin(phase);
-
-       gain = volume;
-
-       //audioSource.Play();
-
-    }
-
-    //Faded out the sound
-    public void playSoundFadeout(NoteToFreq.NoteOnOctave note, int octave) {
-
-        playSound(note, octave);
-
+        gain = sound.volume;
+        frequency = NoteToFreq.getFrequency(sound.note, sound.octave);
+        fadeoutMult = sound.fadeoutMult;
     }
 
 
@@ -79,6 +57,8 @@ public class NotePlayer : MonoBehaviour
             }
 
         }
+
+        gain = gain * (1 - fadeoutMult);
 
 
     }

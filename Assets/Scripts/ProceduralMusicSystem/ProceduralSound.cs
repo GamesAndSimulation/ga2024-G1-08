@@ -29,11 +29,21 @@ public class ProceduralSound
 
 
     [SerializeField]
-    public bool fadeout;
+    public float fadeoutMult;
+
+    public ProceduralSound() {
+
+        volume = 1;
+        channel = 0;
+        note = NoteToFreq.NoteOnOctave.A;
+        octave = 4;
+        playTimeNumerator = 1;
+        playTimeDenominator = 1;
+        fadeoutMult = 0;
+
+    }
 
     public float getPlayTimeFrac() {
-
-        Debug.Log("Getting play time frac, num: " + playTimeNumerator + ", den: " + playTimeDenominator + ", result: " + (playTimeNumerator / playTimeDenominator));
 
         return playTimeNumerator / playTimeDenominator;
 

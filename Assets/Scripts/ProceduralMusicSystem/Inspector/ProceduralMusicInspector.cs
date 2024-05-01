@@ -59,9 +59,8 @@ public class ProceduralMusicInspector : Editor
                     case ProceduralMusicParcelClass.ParcelType.Note: //in the case this is a Note
 
 
-                        ProceduralSound sound = music.musicParcels[i].sound;
 
-                        renderNote(sound);
+                        renderNote(music.musicParcels[i]);
 
 
                         break;
@@ -90,7 +89,9 @@ public class ProceduralMusicInspector : Editor
 
     }
 
-    private void renderNote(ProceduralSound sound) {
+    private void renderNote(ProceduralMusicParcelClass parcel) {
+
+        ProceduralSound sound = parcel.sound;
 
 
         EditorGUILayout.BeginHorizontal();
@@ -123,6 +124,18 @@ public class ProceduralMusicInspector : Editor
 
         sound.volume = EditorGUILayout.FloatField("Volume", sound.volume);
 
+
+        parcel.foldoutSpecific = EditorGUILayout.Foldout(parcel.foldoutSpecific, "Specific data");
+
+        if(parcel.foldoutSpecific)
+            renderNoteSpecific(sound);
+
+
+    }
+
+    private void renderNoteSpecific(ProceduralSound sound) {
+
+        sound.fadeoutMult = EditorGUILayout.FloatField("Fadeout", sound.fadeoutMult);
 
     }
 

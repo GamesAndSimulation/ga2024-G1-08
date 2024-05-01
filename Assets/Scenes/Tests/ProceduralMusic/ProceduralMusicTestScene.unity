@@ -342,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   channels:
   - {fileID: 1227499688}
-  musicToPlay: {fileID: 11400000, guid: 1469c6ee1a37eac4cadea2f82f92be49, type: 2}
+  musicToPlay: {fileID: 11400000, guid: 77921b91c5471004fbccf940e5ad237e, type: 2}
   toRepeat: 1
 --- !u!114 &1227499688
 MonoBehaviour:
@@ -359,6 +359,7 @@ MonoBehaviour:
   frequency: 440
   gain: 0
   volume: 1
+  fadeoutMult: 0
 --- !u!82 &1227499689
 AudioSource:
   m_ObjectHideFlags: 0

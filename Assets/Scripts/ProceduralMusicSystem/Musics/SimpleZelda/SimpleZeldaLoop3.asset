@@ -15,55 +15,57 @@ MonoBehaviour:
   sounds:
   - volume: 1
     channel: 0
-    waitTime: 0.25
-    note: 57
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 1
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
+    note: 4
+    octave: 4
+    playTimeNumerator: 3
+    playTimeDenominator: 2
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.0625
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.0625
-    note: 50
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 4
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
+    note: 11
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 4
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.0625
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
+    note: 1
+    octave: 5
+    playTimeNumerator: 1
+    playTimeDenominator: 4
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.0625
-    note: 50
-    playTime: 0.125
-    fadeout: 0
+    note: 2
+    octave: 5
+    playTimeNumerator: 1
+    playTimeDenominator: 4
+    fadeoutMult: 0.05
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
-  - volume: 1
-    channel: 0
-    waitTime: 0.0625
-    note: 50
-    playTime: 0.0625
-    fadeout: 0
+    note: 4
+    octave: 5
+    playTimeNumerator: 2
+    playTimeDenominator: 1
+    fadeoutMult: 0.03

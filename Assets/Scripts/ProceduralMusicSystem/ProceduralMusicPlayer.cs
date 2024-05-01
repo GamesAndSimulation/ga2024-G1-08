@@ -7,7 +7,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 {
 
     //the channels that'll play the music, no channel can play notes at the same time
-    public List<NotePlayer> channels;
+    public List<SoundPlayer> channels;
 
 
     public ProceduralMusic musicToPlay;
@@ -28,7 +28,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
     public void Start() {
 
         parcelPlayingIndex = 0;
-        soundPlayingNowIndex = 0;
+        soundPlayingNowIndex = -1;
 
     }
 
@@ -38,8 +38,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
        if (timeToWait <= 0) {
 
             switchToNextSound();
-            channels[soundPlayingNow.channel].playSound(soundPlayingNow.note, soundPlayingNow.octave,
-                                                    soundPlayingNow.fadeout);
+            channels[soundPlayingNow.channel].playSound(soundPlayingNow);
 
 
             timeToWait = timeFromMusic(musicToPlay.beatsPerMinute, soundPlayingNow.getPlayTimeFrac());
@@ -89,7 +88,7 @@ public class ProceduralMusicPlayer : MonoBehaviour
 
         //60000 is the normal beats per minute
         //4 is because we refer to quarters
-        return (int) (60000 * 4 * timeFraction / bpm);
+        return (int) (60000 * timeFraction / bpm);
 
     }
 

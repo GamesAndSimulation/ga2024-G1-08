@@ -26,9 +26,10 @@ public class ProceduralMusicParcelClass
     [SerializeField]
     public ParcelType parcelType; //the type of this parcel
 
-    [SerializeField]
-    public bool foldout = false; //this is for the inspector, if the attributes are collapsed or not
 
+
+    public bool foldout = true; //this is for the inspector, if the attributes are collapsed or not
+    public bool foldoutSpecific = true;
 
 
 

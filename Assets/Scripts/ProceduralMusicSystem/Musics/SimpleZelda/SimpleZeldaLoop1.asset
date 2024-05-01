@@ -15,37 +15,57 @@ MonoBehaviour:
   sounds:
   - volume: 1
     channel: 0
-    waitTime: 0.75
-    note: 57
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.08
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 57
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.08
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 57
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.08
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 57
-    playTime: 0.25
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.08
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 55
-    playTime: 0.125
-    fadeout: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 1
+    fadeoutMult: 0.03
   - volume: 1
     channel: 0
-    waitTime: 0.125
-    note: 57
-    playTime: 0.125
-    fadeout: 0
+    note: 7
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0.03
+  - volume: 1
+    channel: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 1
+    fadeoutMult: 0.03
+  - volume: 0
+    channel: 0
+    note: 9
+    octave: 4
+    playTimeNumerator: 1
+    playTimeDenominator: 2
+    fadeoutMult: 0

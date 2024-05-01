@@ -14,55 +14,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicName: Legend of Zelda Main Theme
   beatsPerMinute: 130
-  noteIntervalDelayMili: 2
+  noteIntervalDelayMili: 0
   musicParcels:
   - loop: {fileID: 0}
     sound:
       volume: 1
       channel: 0
-      note: 57
-      playTimeNumerator: 0
-      playTimeDenumerator: 0
-      fadeout: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 2
+      playTimeDenominator: 1
+      fadeoutMult: 0.005
     parcelType: 1
     foldout: 1
+    foldoutSpecific: 1
+  - loop: {fileID: 0}
+    sound:
+      volume: 0
+      channel: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 2
+      fadeoutMult: 0
+    parcelType: 1
+    foldout: 1
+    foldoutSpecific: 1
   - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
     sound:
-      volume: 0
+      volume: 1
       channel: 0
       note: 0
-      playTimeNumerator: 0
-      playTimeDenumerator: 0
-      fadeout: 0
+      octave: 0
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
     parcelType: 0
     foldout: 1
+    foldoutSpecific: 0
   - loop: {fileID: 11400000, guid: f539c82dd3e82604aa979d84ae13d83c, type: 2}
     sound:
-      volume: 0
+      volume: 1
       channel: 0
-      note: 0
-      playTimeNumerator: 0
-      playTimeDenumerator: 0
-      fadeout: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
     parcelType: 0
     foldout: 1
-  - loop: {fileID: 11400000, guid: 6287fb9391cb32949a5176bb0a132483, type: 2}
+    foldoutSpecific: 1
+  - loop: {fileID: 11400000, guid: 6839d4ef037509145a79cd8d664722b1, type: 2}
     sound:
-      volume: 0
+      volume: 1
       channel: 0
-      note: 0
-      playTimeNumerator: 0
-      playTimeDenumerator: 0
-      fadeout: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
     parcelType: 0
     foldout: 1
+    foldoutSpecific: 1
   - loop: {fileID: 11400000, guid: 96d743b3c0329b141869aae9f2e1a169, type: 2}
     sound:
-      volume: 0
+      volume: 1
       channel: 0
-      note: 0
-      playTimeNumerator: 0
-      playTimeDenumerator: 0
-      fadeout: 0
+      note: 9
+      octave: 4
+      playTimeNumerator: 1
+      playTimeDenominator: 1
+      fadeoutMult: 0
     parcelType: 0
     foldout: 1
+    foldoutSpecific: 1
