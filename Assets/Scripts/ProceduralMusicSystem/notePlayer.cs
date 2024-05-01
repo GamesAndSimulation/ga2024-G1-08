@@ -58,38 +58,27 @@ public class NotePlayer : MonoBehaviour
     public void OnAudioFilterRead(float[] data, int channels)
     {
 
-        for(int channel = 0; channel < channels; channel++) {
-
-            onAudioFilterReadFOrChannel(data, channel, channels);
-
-        }
-
-    }
-
-    public void onAudioFilterReadFOrChannel(float[] data, int channel, int channels) {
-
-
         // update increment in case frequency has changed
         increment = frequency * 2 * Math.PI / sampling_frequency;
 
-        int nextData = channel;
+        float value;
 
-        while (nextData < data.Length) {
+        //for each data for each channel
+        for (int i = 0; i < data.Length / channels; i++) {
 
             phase = phase + increment; //the advance we make in the x axis of the funtion
+            value = (float)(gain * Math.Sin(phase)); //the value in the y axis
 
-            // this is where we copy audio data to make them “available” to Unity
+            for (int channel = 0; channel < channels; channel++) {
 
-            data[nextData] = (float)(gain * Math.Sin(phase)); //the Y valye we have in the current phase we're in
+                data[channel + i * channels] = value; //the data of that channel is equal to the current value
 
-            if (phase > 2 * Math.PI) phase = phase - 2 * Math.PI; //the sin funtion repeats for every 2 PI
-
-            nextData += channels;
-
+            }
 
         }
 
 
     }
+
 
 }
