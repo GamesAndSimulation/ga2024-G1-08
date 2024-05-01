@@ -73,7 +73,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    delegate float ValueOfSound(SoundBeingPlayed sound, double phase); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
+    delegate float ValueOfSound(SoundBeingPlayed sound, double phase, double timePassed); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
 
     struct SoundBeingPlayed {
 
@@ -156,6 +156,7 @@ public class SoundPlayer : MonoBehaviour
     public void OnAudioFilterRead(float[] data, int channels)
     {
         LinkedListSounds.Node currentNode;
+        double currentTIme = AudioSettings.dspTime;
         float value;
 
         //for each data for each channel
@@ -167,7 +168,7 @@ public class SoundPlayer : MonoBehaviour
 
             while (currentNode != null) {
 
-                value = currentNode.sound.value(currentNode.sound, phase); //the value in the y axis
+                value = currentNode.sound.value(currentNode.sound, phase, currentTIme - currentNode.sound.startTime); //the value in the y axis
 
                 for (int channel = 0; channel < channels; channel++) {
 
@@ -204,7 +205,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private float valueOfSound(SoundBeingPlayed sound, double phase) {
+    private float valueOfSound(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
         return (float)(sound.gain * 
@@ -212,7 +213,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private float valueOfSoundDecayingHarmonics(SoundBeingPlayed sound, double phase) {
+    private float valueOfSoundDecayingHarmonics(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
         return (float)(
@@ -226,7 +227,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private float valueOfSoundDecayingHarmonicsV2(SoundBeingPlayed sound, double phase) {
+    private float valueOfSoundDecayingHarmonicsV2(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
         return (float)(
@@ -240,7 +241,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private float valueOfSoundDecayingHarmonicsV3(SoundBeingPlayed sound, double phase) {
+    private float valueOfSoundDecayingHarmonicsV3(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
         return (float)(
@@ -260,7 +261,7 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    private float valueOfSoundDecayingHarmonicsOffsets(SoundBeingPlayed sound, double phase) {
+    private float valueOfSoundDecayingHarmonicsOffsets(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
         return (float)(
@@ -274,5 +275,7 @@ public class SoundPlayer : MonoBehaviour
             );
 
     }
+
+
 
 }
