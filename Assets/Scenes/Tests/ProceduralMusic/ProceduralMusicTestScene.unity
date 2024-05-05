@@ -356,10 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db9fdfcc16741974b892cd66eb026d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 440
-  gain: 0
-  volume: 1
-  fadeoutMult: 0
+  soundFunction: 0
+  waveFunction: 0
+  gainFuntion: 1
 --- !u!82 &1227499689
 AudioSource:
   m_ObjectHideFlags: 0

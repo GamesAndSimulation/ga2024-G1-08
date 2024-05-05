@@ -22,13 +22,6 @@ MonoBehaviour:
     fadeoutMult: 0.03
   - volume: 1
     channel: 0
-    note: 4
-    octave: 5
-    playTimeNumerator: 1
-    playTimeDenominator: 1
-    fadeoutMult: 0.03
-  - volume: 1
-    channel: 0
     note: 2
     octave: 5
     playTimeNumerator: 1

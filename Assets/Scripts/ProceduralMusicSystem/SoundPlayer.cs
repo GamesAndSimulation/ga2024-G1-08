@@ -8,14 +8,14 @@ using static SoundPlayer;
 public class SoundPlayer : MonoBehaviour
 {
 
-    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation };
+    public enum SoundFunctions { Base, DecayingHarmonic, DecayingHarmonic2, DecayingHarmonic3, DecayingHarmonicOffset, DecayingHarmonicTimeVariation, PianoApprox };
     public enum WaveFunctions { Sign, Cos, Saw, Square };
-    public enum GainFunctions { EntranceExit};
+    public enum GainFunctions { LinearExit, CosExit, SinChangeCosExit};
 
 
     public SoundFunctions soundFunction = SoundFunctions.Base;
     public WaveFunctions waveFunction = WaveFunctions.Sign;
-    public GainFunctions gainFuntion = GainFunctions.EntranceExit;
+    public GainFunctions gainFuntion = GainFunctions.LinearExit;
     
 
     private double sampling_frequency = 48000; //frequency of sample creation (from continuous signals to discrete signals)
@@ -81,7 +81,7 @@ public class SoundPlayer : MonoBehaviour
 
     delegate float ValueOfSound(SoundBeingPlayed sound, double phase, double timePassed); //this declares a type, "ValueOfSound", that describes functions with a certain return type and list of parameters
     delegate double BaseWaveFunction(double x);
-    delegate double GainFunction(double timePlayed);
+    delegate float GainFunction(SoundBeingPlayed sound, double timePlayed);
 
     struct SoundBeingPlayed {
 
@@ -95,6 +95,7 @@ public class SoundPlayer : MonoBehaviour
 
         public ValueOfSound value;
         public BaseWaveFunction baseWaveFunction;
+        public GainFunction gainFunction;
 
 
 
@@ -125,7 +126,7 @@ public class SoundPlayer : MonoBehaviour
 
         newSound.value = defineFuntionOfSound();
         newSound.baseWaveFunction = defineWaveFuntionOfSound();
-
+        newSound.gainFunction = defineGainFunctionOfSound();
         
 
         soundsBeingPlayed.add(newSound);
@@ -175,11 +176,11 @@ public class SoundPlayer : MonoBehaviour
                 soundsBeingPlayed.remove(currentNode);
 
             //else, treat it
-            else {
+            //else {
 
-                currentNode.sound.gain = currentNode.sound.gain * (1 - currentNode.sound.fadeoutMult);
+                //currentNode.sound.gain = currentNode.sound.gain * (1 - currentNode.sound.fadeoutMult);
 
-            }
+            //}
 
             currentNode = currentNode.next;
 
@@ -215,6 +216,10 @@ public class SoundPlayer : MonoBehaviour
 
                 return new ValueOfSound(valueOfSoundDecayingHarmonicsTimeVariation);
 
+            case SoundFunctions.PianoApprox:
+
+                return new ValueOfSound(valueOfSoundPianoApproximation);
+
 
 
             default:
@@ -227,7 +232,7 @@ public class SoundPlayer : MonoBehaviour
     private float valueOfSound(SoundBeingPlayed sound, double phase, double timePassed) {
 
 
-        return (float)(sound.gain * 
+        return (float)(sound.gainFunction(sound, timePassed) * 
             (sound.baseWaveFunction(phase * sound.frequency)));
 
     }
@@ -236,12 +241,12 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
-            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 6))
+            (sound.gainFunction(sound, timePassed) / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gainFunction(sound, timePassed) / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gainFunction(sound, timePassed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gainFunction(sound, timePassed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gainFunction(sound, timePassed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gainFunction(sound, timePassed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 6))
             );
 
     }
@@ -250,12 +255,12 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
-            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
-            (sound.gain / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
-            (sound.gain / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
-            (sound.gain / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6))
+            (sound.gainFunction(sound, timePassed) / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gainFunction(sound, timePassed) / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gainFunction(sound, timePassed) / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gainFunction(sound, timePassed) / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gainFunction(sound, timePassed) / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6))
             );
 
     }
@@ -264,18 +269,18 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
-            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
-            (sound.gain / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
-            (sound.gain / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
-            (sound.gain / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6)) +
-            (sound.gain / 254) * (sound.baseWaveFunction(phase * sound.frequency) * 7) +
-            (sound.gain / 512) * (sound.baseWaveFunction(phase * sound.frequency * 8)) +
-            (sound.gain / 1024) * (sound.baseWaveFunction(phase * sound.frequency * 9)) +
-            (sound.gain / 2048) * (sound.baseWaveFunction(phase * sound.frequency * 10)) +
-            (sound.gain / 4096) * (sound.baseWaveFunction(phase * sound.frequency * 11)) +
-            (sound.gain / 8192) * (sound.baseWaveFunction(phase * sound.frequency * 12))
+            (sound.gainFunction(sound, timePassed) / 2) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gainFunction(sound, timePassed) / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) +
+            (sound.gainFunction(sound, timePassed) / 32) * (sound.baseWaveFunction(phase * sound.frequency * 4)) +
+            (sound.gainFunction(sound, timePassed) / 64) * (sound.baseWaveFunction(phase * sound.frequency * 5)) +
+            (sound.gainFunction(sound, timePassed) / 128) * (sound.baseWaveFunction(phase * sound.frequency * 6)) +
+            (sound.gainFunction(sound, timePassed) / 254) * (sound.baseWaveFunction(phase * sound.frequency) * 7) +
+            (sound.gainFunction(sound, timePassed) / 512) * (sound.baseWaveFunction(phase * sound.frequency * 8)) +
+            (sound.gainFunction(sound, timePassed) / 1024) * (sound.baseWaveFunction(phase * sound.frequency * 9)) +
+            (sound.gainFunction(sound, timePassed) / 2048) * (sound.baseWaveFunction(phase * sound.frequency * 10)) +
+            (sound.gainFunction(sound, timePassed) / 4096) * (sound.baseWaveFunction(phase * sound.frequency * 11)) +
+            (sound.gainFunction(sound, timePassed) / 8192) * (sound.baseWaveFunction(phase * sound.frequency * 12))
             );
 
     }
@@ -284,13 +289,13 @@ public class SoundPlayer : MonoBehaviour
 
 
         return (float)(
-            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency)) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 2 - increment )) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3 - increment * 2 )) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 4 - increment * 4 )) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 5 - increment * 8 )) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 6 - increment * 16)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 7 - increment * 32))
+            (sound.gainFunction(sound, timePassed) / 4) * (sound.baseWaveFunction(phase * sound.frequency)) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 2 - increment )) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3 - increment * 2 )) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 4 - increment * 4 )) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 5 - increment * 8 )) +
+            (sound.gainFunction(sound, timePassed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 6 - increment * 16)) +
+            (sound.gainFunction(sound, timePassed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 7 - increment * 32))
             );
 
     }
@@ -300,13 +305,29 @@ public class SoundPlayer : MonoBehaviour
 
         return (float)(
 
-            (sound.gain / 2) * (sound.baseWaveFunction(phase * sound.frequency)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
-            (sound.gain / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
-            (sound.gain / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
+            (sound.gainFunction(sound, timePlayed) / 2) * (sound.baseWaveFunction(phase * sound.frequency)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gainFunction(sound, timePlayed) / 4) * (sound.baseWaveFunction(phase * sound.frequency * 2)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed)) +
+            (sound.gainFunction(sound, timePlayed) / 8) * (sound.baseWaveFunction(phase * sound.frequency * 3)) * (0.8 * Math.Sin(timePlayed) + 0.2 * Math.Cos(timePlayed)) +
+            (sound.gainFunction(sound, timePlayed) / 16) * (sound.baseWaveFunction(phase * sound.frequency * 4)) * (0.2 * Math.Sin(timePlayed) + 0.8 * Math.Cos(timePlayed))
 
             );
 
+    }
+
+    private float valueOfSoundPianoApproximation(SoundBeingPlayed sound, double phase, double timePlayed) {
+
+
+        double toReturn =
+
+            sound.baseWaveFunction(    sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) +
+            sound.baseWaveFunction(2 * sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) / 2 +
+            sound.baseWaveFunction(3 * sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) / 4 +
+            sound.baseWaveFunction(4 * sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) / 8 +
+            sound.baseWaveFunction(5 * sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) / 16 +
+            sound.baseWaveFunction(6 * sound.frequency * phase) * Math.Exp(-0.0004 * 2 * Math.PI * sound.frequency * phase) / 32;
+
+        //return sound.gainFunction(sound, timePlayed) * (float)(Math.Pow(toReturn, 3) + toReturn); 
+        return 10 * (float)(Math.Pow(toReturn, 3) + toReturn);
     }
 
     #endregion
@@ -334,27 +355,74 @@ public class SoundPlayer : MonoBehaviour
 
     }
 
-    public double sinFunction(double x) {
+    private double sinFunction(double x) {
 
         return Math.Sin(2 * Math.PI * x);
 
     }
 
-    public double cosFunction(double x) {
+    private double cosFunction(double x) {
 
         return Math.Cos(2 * Math.PI * x);
 
     }
 
-    public double sawFuntion(double x) {
+    private double sawFuntion(double x) {
 
         return (((x + 0.5) % 1) - 0.5) * 2;
 
     }
 
-    public double squareWave(double x) {
+    private double squareWave(double x) {
 
         return (x % 1) < 0.5 ? 1 : -1;
+
+    }
+
+
+    #endregion
+
+    #region GainFunctions
+
+    private GainFunction defineGainFunctionOfSound() {
+
+        switch (gainFuntion) {
+
+            case GainFunctions.CosExit:
+                return cosExit;
+
+            case GainFunctions.SinChangeCosExit: 
+                return sinChangeCosExit;
+
+            default:
+                return new GainFunction(linearExit);
+
+        }
+
+    }
+
+
+    private float linearExit(SoundBeingPlayed sound, double timePlayed) {
+
+
+        return (float)(1 - (timePlayed / sound.duration));
+
+
+    }
+
+    private float cosExit(SoundBeingPlayed sound, double timePlayed) {
+
+
+        return (float) Math.Cos( Math.PI * (timePlayed / sound.duration) / 2 );
+
+
+    }
+
+    private float sinChangeCosExit(SoundBeingPlayed sound, double timePlayed) {
+
+
+        return (float) ( 0.5 + 0.5 * (Math.Cos(Math.PI * (timePlayed / sound.duration))) + (0.25 * Math.Sin(  Math.PI * 2 * (timePlayed /sound.duration)))  );
+
 
     }
 
