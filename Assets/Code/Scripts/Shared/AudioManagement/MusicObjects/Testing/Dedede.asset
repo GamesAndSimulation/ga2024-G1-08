@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d156a3f5c711944a70243a13d6f217, type: 3}
+  m_Name: Dedede
+  m_EditorClassIdentifier: 
+  musicName: Dedede
+  musicNodes:
+  - clip: {fileID: 11400000, guid: 621a2d2f120b4cd4daeaf9ae77f5fca5, type: 2}
+    musicState: 0
+    passiveNextNodeIndex: 1
+    activeNextNodeIndex: 1
+  - clip: {fileID: 11400000, guid: 57e7a25a4b187c6499720cb90eb0f9df, type: 2}
+    musicState: 0
+    passiveNextNodeIndex: 2
+    activeNextNodeIndex: 2
+  - clip: {fileID: 11400000, guid: ada027b025cb2a4449d8edb5eb258210, type: 2}
+    musicState: 0
+    passiveNextNodeIndex: 2
+    activeNextNodeIndex: 3
+  - clip: {fileID: 11400000, guid: 7d09a8631b5e0244d8016019cc1764ed, type: 2}
+    musicState: 1
+    passiveNextNodeIndex: 4
+    activeNextNodeIndex: 4
+  - clip: {fileID: 11400000, guid: 54601c2a03770a04eb57df5364068226, type: 2}
+    musicState: 1
+    passiveNextNodeIndex: 4
+    activeNextNodeIndex: 5
+  - clip: {fileID: 11400000, guid: ddabb27087c249c45b1b7c615915aed9, type: 2}
+    musicState: 2
+    passiveNextNodeIndex: 6
+    activeNextNodeIndex: 6
+  - clip: {fileID: 11400000, guid: ea5200762f5c2464d8e1eae6d4e84c0a, type: 2}
+    musicState: 2
+    passiveNextNodeIndex: 6
+    activeNextNodeIndex: 7
+  - clip: {fileID: 11400000, guid: 34ed1cab58e3ec14198b62733bd13ca1, type: 2}
+    musicState: 3
+    passiveNextNodeIndex: 0
+    activeNextNodeIndex: 0
+  - clip: {fileID: 11400000, guid: 6d2bc1a5acf43ae499c1e174fc8c5a0a, type: 2}
+    musicState: 3
+    passiveNextNodeIndex: 8
+    activeNextNodeIndex: 9
+  - clip: {fileID: 11400000, guid: 963e211e1d68d8240acd671c3e83d024, type: 2}
+    musicState: 4
+    passiveNextNodeIndex: 0
+    activeNextNodeIndex: 0
