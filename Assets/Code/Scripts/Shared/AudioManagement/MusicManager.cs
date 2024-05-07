@@ -9,17 +9,20 @@ public class MusicManager : MonoBehaviour
     [SerializeReference]
     private MusicObject musicToPlay;
 
-    [SerializeField]
-    private AudioSource musicSource;
 
-    private MusicObject.MusicNode currentNode;
+    [SerializeField]  private AudioSource currentMusicSource; //we use 2 music sources to switch from one to the other without delay
+    [SerializeField]  private AudioSource nextMusicSource;
 
-    private int currentMusicState;
+    private MusicObject.MusicNode currentNode; //we keep track of the current node (music we're playing and musics that should follow it)
+    private MusicObject.MusicNode nextNode; //and the current next in line music
+
+    private int currentMusicState; //what defines if we should advance in the music
     private int maxMusicState;
-    public bool toPlayMusic;
+
+    private bool toPlayMusic;
 
 
-    private List<MusicObject.MusicNode> musicNodes;
+    private List<MusicObject.MusicNode> musicNodes; //the nodes of the music
 
     // Start is called before the first frame update
     void Start()
@@ -42,32 +45,36 @@ public class MusicManager : MonoBehaviour
             maxMusicState = Mathf.Max(maxMusicState, node.musicState);
 
         currentNode = musicNodes[0];
-        musicSource.clip = currentNode.clip.clip;
+        currentMusicSource.clip = currentNode.clip.clip;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKeyDown(KeyCode.A)) 
+            changeMusicState(currentMusicState + 1);
 
-            currentMusicState += 1;
-            Debug.Log("Changed current state: " + currentMusicState);
 
-        }
+        
+    }
 
-        if (Input.GetKeyDown(KeyCode.B)) {
-            currentMusicState = 0;
-            Debug.Log("Reset current state: " + currentMusicState);
+    private void changeMusicState(int newState) {
+        
+        currentMusicState = newState;
 
-        }
+        decideNextMusic();
+
+        Debug.Log("Changed current state: " + currentMusicState);
+
     }
 
     public void stopMusic() {
 
         Debug.Log("Stopping music");
         toPlayMusic = false;
-        musicSource.Stop();
+        currentMusicSource.Stop();
+        nextMusicSource.Stop();
 
     }
 
@@ -79,43 +86,65 @@ public class MusicManager : MonoBehaviour
 
             toPlayMusic = true;
             
+            decideNextMusic() ;
+
             StartCoroutine(playMusic());
         }
 
     }
     private IEnumerator playMusic() {
 
-        musicSource.Play();
+        currentMusicSource.Play();
 
         while (toPlayMusic) {
 
             //we wait until the music stops playing or until the point we should not be playing music
-            yield return new WaitUntil(() => (musicSource.time >= musicSource.clip.length) || !toPlayMusic || !musicSource.isPlaying);
+            yield return new WaitUntil(() => (currentMusicSource.time >= currentMusicSource.clip.length - 0.15f) || !toPlayMusic || !currentMusicSource.isPlaying);
 
-            decideNextMusic();
 
-            musicSource.Play();
+            if (toPlayMusic)
+                schedulePlayMusic();
+
 
         }
 
     }
 
+    private void schedulePlayMusic() {
+
+        nextMusicSource.clip = nextNode.clip.clip;
+
+        nextMusicSource.PlayDelayed(currentMusicSource.clip.length - currentMusicSource.time - 0.04f); //schedule to play the next clip
+
+        currentNode = nextNode;
+
+        AudioSource placeholder = currentMusicSource; //switch the sources
+        currentMusicSource = nextMusicSource;
+        nextMusicSource = placeholder;
+
+        decideNextMusic();
+
+    }
+
     private void decideNextMusic() {
 
-        if (currentMusicState > maxMusicState && currentNode.musicState == maxMusicState) {
+        //if we looped our music
+        if (currentMusicState >= maxMusicState && currentNode.musicState == maxMusicState) {
             
             currentMusicState = 0;
-            currentNode = musicNodes[currentNode.activeNextNodeIndex];
+            nextNode = musicNodes[currentNode.activeNextNodeIndex];
         }
-        else if(currentMusicState > currentNode.musicState) { 
-            currentNode = musicNodes[currentNode.activeNextNodeIndex];
 
-            }
+        //if we're behind the currentMusicState
+        else if(currentMusicState > currentNode.musicState) 
+            nextNode = musicNodes[currentNode.activeNextNodeIndex];
+
+        //if we're stable in the current music state    
         else
-            currentNode = musicNodes[currentNode.passiveNextNodeIndex];
+            nextNode = musicNodes[currentNode.passiveNextNodeIndex];
 
+        
 
-        musicSource.clip = currentNode.clip.clip;
     }
 
 }

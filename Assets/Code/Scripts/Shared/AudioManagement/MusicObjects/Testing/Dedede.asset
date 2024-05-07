@@ -44,8 +44,8 @@ MonoBehaviour:
     activeNextNodeIndex: 7
   - clip: {fileID: 11400000, guid: 34ed1cab58e3ec14198b62733bd13ca1, type: 2}
     musicState: 3
-    passiveNextNodeIndex: 0
-    activeNextNodeIndex: 0
+    passiveNextNodeIndex: 8
+    activeNextNodeIndex: 8
   - clip: {fileID: 11400000, guid: 6d2bc1a5acf43ae499c1e174fc8c5a0a, type: 2}
     musicState: 3
     passiveNextNodeIndex: 8
