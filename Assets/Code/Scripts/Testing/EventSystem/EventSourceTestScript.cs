@@ -5,11 +5,11 @@ using UnityEngine;
 public class EventSourceTestScript : MonoBehaviour
 {
 
-    [SerializeField]
-    private string RandomString = "Bart";
+    //[SerializeField]
+    //private string RandomString = "Bart";
 
-    [SerializeField]
-    private int RandomInt = 7;
+    //[SerializeField]
+    //private int RandomInt = 7;
 
     [Header("Events")]
 
