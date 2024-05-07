@@ -21,7 +21,7 @@ public class FrameRateShower : MonoBehaviour
     void Update()
     {
 
-        currentFrameRate = (1 / Time.deltaTime);
+        currentFrameRate = Mathf.Round(1 / Time.deltaTime);
         
     }
 
