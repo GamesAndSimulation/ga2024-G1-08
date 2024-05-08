@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MainSystemScript : MonoBehaviour
 {
+    public CaptionsScript captionsScript;
+    public GameObject captions;
+    public GameObject image;
+    public FadeCanvas fadeCanvas;
     public Animator lampSwitchAnimator;
     public Animator cameraAnimator;
     public Material lampMaterial;
     public Light lampLight;
     public GameObject particleSystem;
-    public float waitTime = 0.5f;
+    public AudioSource lightSwitchAudio;
+    public float waitTime_LightSwitch = 0.5f;
+    public float waitTime_DialogueStart = 4.0f;
     public Vector4 emissionColor = new Vector4(0.9471698f, 0.7891425f, 0.112588f, 1f);
     // Start is called before the first frame update
     void Start()
@@ -28,15 +35,37 @@ public class MainSystemScript : MonoBehaviour
         particleSystem.SetActive(false);
         lampSwitchAnimator.SetBool("hasBeenClicked", true);
 
-        StartCoroutine(TurnOffLight(waitTime));
+        StartCoroutine(TurnOffLight(waitTime_LightSwitch));
 
     }
 
     IEnumerator TurnOffLight(float timeInSeconds)
     {
+        lightSwitchAudio.PlayDelayed(timeInSeconds - 0.1f);
         yield return new WaitForSeconds(timeInSeconds);
         lampMaterial.SetColor("_EmissionColor", Color.black);
         lampLight.enabled = false;
         cameraAnimator.SetBool("isCameraMoving", true);
+        StartCoroutine(DialogueStart(waitTime_DialogueStart));
+
     }
+
+    IEnumerator DialogueStart(float timeInSeconds)
+    {
+        yield return new WaitForSeconds(timeInSeconds);
+        captions.SetActive(true);
+        image.SetActive(true);
+
+        foreach (var caption in captionsScript.captions)
+        {
+            captions.GetComponent<TextMeshProUGUI>().text = caption.text;
+            yield return new WaitForSeconds(caption.time);
+        }
+
+        captions.SetActive(false);
+        image.SetActive(false);
+        fadeCanvas.QuickFadeIn();
+    }
+
+
 }
