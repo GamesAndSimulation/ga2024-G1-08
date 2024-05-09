@@ -5,11 +5,11 @@ using UnityEngine;
 public class EventListenerTestScript : MonoBehaviour
 {
 
-    [SerializeField]
-    private string RandomString = "Homer";
+    //[SerializeField]
+    //private string RandomString = "Homer";
 
-    [SerializeField]
-    private int RandomInt = 13;
+    //[SerializeField]
+    //private int RandomInt = 13;
 
 
 
