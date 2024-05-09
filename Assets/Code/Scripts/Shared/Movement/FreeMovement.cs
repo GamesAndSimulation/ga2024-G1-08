@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class FreeMovement : MonoBehaviour
 {
@@ -27,18 +28,19 @@ public class FreeMovement : MonoBehaviour
 
     private void move() {
 
-
+        
         moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+«
 
         if (isSprinting) {
 
-            transform.Translate( moveDirection.normalized * moveSpeed * sprintMultiplier * Time.deltaTime);
+            transform.position +=  moveDirection.normalized * moveSpeed * sprintMultiplier * Time.deltaTime;
 
 
         } else {
 
 
-            transform.Translate(moveDirection.normalized * moveSpeed * Time.deltaTime);
+            transform.position += moveDirection.normalized * moveSpeed * Time.deltaTime;
 
         }
 

@@ -17,16 +17,20 @@ public class FreeMovingCamera : MonoBehaviour
 
     private void OnEnable() {
 
+        Debug.Log("This object: " + gameObject.name);
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         this.transform.position = head.position;
         this.transform.parent = null;
 
+        this.transform.rotation = Quaternion.identity;
+
     }
 
     private void OnDisable() {
 
-        this.transform.parent = head;
+        this.transform.parent = head.transform;
 
     }
 
