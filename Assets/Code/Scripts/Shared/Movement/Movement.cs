@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
 
 
     //For input in outside scripts
-    [HideInInspector] public bool isSprinting;
+    [HideInInspector] public bool  isSprinting;
     [HideInInspector] public float verticalInput;
     [HideInInspector] public float horizontalInput;
     
@@ -51,7 +51,6 @@ public class Movement : MonoBehaviour
     void Update() {
 
         groundCheck();
-        MyInput();
         StateHandler();
         MovePlayer();
 
@@ -83,24 +82,7 @@ public class Movement : MonoBehaviour
         
     }
 
-
-    private void MyInput() {
-
-        if (Input.GetKey(KeyCode.Space))
-            tryJump();
-
-        if (Input.GetKey(KeyCode.LeftShift))
-            isSprinting = true;
-
-        else
-            isSprinting = false;
-
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-    }
-
-    private void tryJump() {
+    public void tryJump() {
 
         Debug.Log("Trying to jump: " + readyToJump);
 
