@@ -33,7 +33,7 @@ public class MainSystemScript : MonoBehaviour
     public void switchLampOff(Component sender, object data)
     {
         particleSystem.SetActive(false);
-        lampSwitchAnimator.SetBool("hasBeenClicked", true);
+        lampSwitchAnimator.SetTrigger("hasBeenClicked");
 
         StartCoroutine(TurnOffLight(waitTime_LightSwitch));
 
@@ -45,7 +45,7 @@ public class MainSystemScript : MonoBehaviour
         yield return new WaitForSeconds(timeInSeconds);
         lampMaterial.SetColor("_EmissionColor", Color.black);
         lampLight.enabled = false;
-        cameraAnimator.SetBool("isCameraMoving", true);
+        cameraAnimator.SetTrigger("isCameraMoving");
         StartCoroutine(DialogueStart(waitTime_DialogueStart));
 
     }
