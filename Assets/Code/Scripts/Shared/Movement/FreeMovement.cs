@@ -30,7 +30,7 @@ public class FreeMovement : MonoBehaviour
 
         
         moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-«
+
 
         if (isSprinting) {
 
