@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class GravityAffectedMovement : MonoBehaviour
 {
 
     [Header("Movement")]
@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
 
         groundCheck();
         StateHandler();
-        MovePlayer();
+        move();
 
         if (grounded) 
             rb.drag = groundDrag;
@@ -97,7 +97,7 @@ public class Movement : MonoBehaviour
     }
 
 
-    private void MovePlayer() {
+    private void move() {
 
 
         moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
@@ -106,21 +106,15 @@ public class Movement : MonoBehaviour
 
             rb.velocity = moveDirection.normalized * moveSpeed + new Vector3(0, rb.velocity.y, 0);
 
-            Debug.Log("Walking " + rb.velocity);
-
 
         } else if (state == MovementState.sprinting) {
 
             rb.velocity = moveDirection.normalized * moveSpeed * sprintMultiplier + new Vector3(0, rb.velocity.y, 0);
 
-            Debug.Log("Sprinting " + rb.velocity);
-
 
         } else {
 
             rb.velocity = moveDirection.normalized * moveSpeed * airMultiplier + new Vector3(0, rb.velocity.y, 0);
-
-            Debug.Log("Gliding " + rb.velocity);
 
         }
 
