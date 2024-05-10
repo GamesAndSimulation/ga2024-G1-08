@@ -23,9 +23,6 @@ public class FirstPersonCameraScript : CameraScript
 
         base.rotateCamera(mouseX, mouseY);
 
-        Debug.Log("Camera rotated 2: " + mouseX + ", " + mouseY);
-
-
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);

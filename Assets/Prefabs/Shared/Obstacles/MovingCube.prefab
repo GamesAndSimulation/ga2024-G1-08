@@ -97,6 +97,8 @@ GameObject:
   - component: {fileID: 3149697617294190367}
   - component: {fileID: 223790852484289344}
   - component: {fileID: 5703673970213946918}
+  - component: {fileID: 2503521619046782867}
+  - component: {fileID: -1982502283644647962}
   m_Layer: 3
   m_Name: MovingCube
   m_TagString: Untagged
@@ -204,12 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193ff3a0e895cbb40b0c5c4e7bb0f4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  baseSpeed: 0.5
   referenceCubes:
   - {fileID: 1078087652178001219}
   - {fileID: 6663956115661763441}
   continuous: 0
-  movingInThisFrame: {x: 0, y: 0, z: 0}
 --- !u!54 &5703673970213946918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -237,6 +238,48 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2503521619046782867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966758971917250711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def9021f59c1c9a4ab2481297a525d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectedBehaviors:
+  - {fileID: 223790852484289344}
+--- !u!114 &-1982502283644647962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966758971917250711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2503521619046782867}
+        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6663956115661763441
 GameObject:
   m_ObjectHideFlags: 0

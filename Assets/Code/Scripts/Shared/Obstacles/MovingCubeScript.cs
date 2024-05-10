@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovingCubeScript : MonoBehaviour
 {
 
-    public float speed = 0.5f;
+    public float baseSpeed = 0.5f;
 
     public List<GameObject> referenceCubes; //the cubes used as a reference to decide the course of this cube
 
@@ -23,16 +23,11 @@ public class MovingCubeScript : MonoBehaviour
     private int prevPosIndex;
     private bool indexIncreasing;
 
-    private float prevPosMoment;
-
-    private Rigidbody rigidBody;
-
 
     // Start is called before the first frame update
     void Start()
     {
 
-        rigidBody = GetComponent<Rigidbody>();
         positions = new List<Vector3>(referenceCubes.Count);
 
         for (int i = 0; i < referenceCubes.Count; i++) {
@@ -50,7 +45,6 @@ public class MovingCubeScript : MonoBehaviour
         prevPosIndex = 0;
         indexIncreasing = true;
 
-        prevPosMoment = Time.time;
 
 
     }
@@ -64,7 +58,7 @@ public class MovingCubeScript : MonoBehaviour
             updatePos();
 
 
-        float toMoveInThisFrame = speed * Time.deltaTime;
+        float toMoveInThisFrame = baseSpeed * Time.deltaTime;
 
         transform.Translate(toMoveInThisFrame * dirVectorFromPos, Space.World);
 
@@ -79,20 +73,13 @@ public class MovingCubeScript : MonoBehaviour
      */
     private void updatePos() {
 
-        //Debug.Log("Changing cube pos: LastPos: " + currentPrevPos + " NextPos: " + currentNextPos + " currentPos: " + transform.position);
-
-
         if (continuous)
             updatePosIndexContMov();
 
         else
             updatePosIndexInvMov();
 
-        prevPosMoment = Time.time;
         currentPosDis = Vector3.Distance(currentPrevPos, currentNextPos);
-
-        //Debug.Log("Changed cube pos: LastPos: " + currentPrevPos + " NextPos: " + currentNextPos);
-
 
     }
 
