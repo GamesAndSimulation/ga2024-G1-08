@@ -10,8 +10,6 @@ public class FirstPersonCameraScript : CameraScript
     public Transform playerObject;
     public Transform head;
 
-
-
     void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;

@@ -58,7 +58,7 @@ public class MovingCubeScript : MonoBehaviour
             updatePos();
 
 
-        float toMoveInThisFrame = baseSpeed * Time.deltaTime;
+        float toMoveInThisFrame = baseSpeed * Time.deltaTime; //declaring this here is bad performance?
 
         transform.Translate(toMoveInThisFrame * dirVectorFromPos, Space.World);
 
