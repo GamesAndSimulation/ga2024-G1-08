@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+using UnityEngine.XR;
 
 public class GravityAffectedMovement : MonoBehaviour
 {
@@ -26,14 +28,21 @@ public class GravityAffectedMovement : MonoBehaviour
 
     [Header("Ground Detection")]
     [SerializeField] private float height = 2;
-    
+    [SerializeField] private LayerMask groundLayer;
+
+    private Transform trueParent; //the normal parent of this object, can be null
+
+
     private bool grounded; //if is touching ground
 
     Rigidbody rb;
 
     public MovementState state;
 
+
     public enum MovementState {
+
+        idle,
         walking,
         sprinting,
         airborne
@@ -42,9 +51,13 @@ public class GravityAffectedMovement : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        
+        trueParent = transform.parent;
+
     }
 
     // Update is called once per frame
@@ -66,15 +79,20 @@ public class GravityAffectedMovement : MonoBehaviour
     private void StateHandler() {
 
 
-        // Mode - Walking
+        // if we're grounded
         if (grounded) {
 
-            if(isSprinting)
-                state = MovementState.sprinting;
+            //if we're moving
+            if (verticalInput != 0 || horizontalInput != 0) {
 
-            else
-                state = MovementState.walking;
+                if (isSprinting)
+                    state = MovementState.sprinting;
 
+                else
+                    state = MovementState.walking;
+
+            } else
+                state = MovementState.idle;
 
             // Mode - Air
         } else
@@ -83,8 +101,6 @@ public class GravityAffectedMovement : MonoBehaviour
     }
 
     public void tryJump() {
-
-        Debug.Log("Trying to jump: " + readyToJump);
 
         if (readyToJump && grounded) {
 
@@ -102,19 +118,35 @@ public class GravityAffectedMovement : MonoBehaviour
 
         moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
-        if (state == MovementState.walking) {
 
-            rb.velocity = moveDirection.normalized * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+        switch (state) {
+
+            case MovementState.sprinting:
+
+                rb.velocity = moveDirection.normalized * moveSpeed * sprintMultiplier + new Vector3(0, rb.velocity.y, 0);
+
+                break;
+
+            case MovementState.walking:
+
+                rb.velocity = moveDirection.normalized * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+
+                break;
+
+            case MovementState.idle:
+
+                break;
+
+            case MovementState.airborne:
+
+                transform.parent = trueParent;
 
 
-        } else if (state == MovementState.sprinting) {
-
-            rb.velocity = moveDirection.normalized * moveSpeed * sprintMultiplier + new Vector3(0, rb.velocity.y, 0);
+                rb.velocity = moveDirection.normalized * moveSpeed * airMultiplier + new Vector3(0, rb.velocity.y, 0);
 
 
-        } else {
+                break;
 
-            rb.velocity = moveDirection.normalized * moveSpeed * airMultiplier + new Vector3(0, rb.velocity.y, 0);
 
         }
 
@@ -122,13 +154,27 @@ public class GravityAffectedMovement : MonoBehaviour
     }
 
     private void groundCheck() {
-        grounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.2f);
+
+        RaycastHit hit;
+
+        grounded = Physics.Raycast(transform.position, Vector3.down, out hit, height * 0.5f + 0.2f, groundLayer);
+
+        if (grounded)
+            transform.parent = hit.rigidbody.transform;
+        
+
     }
 
 
     private void Jump() {
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+
+        state = MovementState.airborne;
+
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        transform.position += new Vector3(0, 0.01f, 0);
+
+        transform.parent = trueParent;
     }
 
     private void ResetJump() {

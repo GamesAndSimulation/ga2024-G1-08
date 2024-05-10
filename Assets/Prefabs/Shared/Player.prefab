@@ -136,7 +136,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &7820021181087151403
@@ -170,11 +170,14 @@ MonoBehaviour:
   groundDrag: 6
   jumpForce: 10
   jumpCooldown: 0.25
-  airMultiplier: 0.4
+  airMultiplier: 0.8
   isSprinting: 0
   verticalInput: 0
   horizontalInput: 0
   height: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   state: 0
 --- !u!1 &2716234968749599018
 GameObject:

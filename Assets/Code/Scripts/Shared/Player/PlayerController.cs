@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     //player movement stuff
     private GravityAffectedMovement movementController;
-    private Rigidbody rb;
 
     public GameObject firstPersonCamera;
 
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         movementController = GetComponent<GravityAffectedMovement>();
-        rb = GetComponent<Rigidbody>();
 
         freeMovingCameraController = freeMovingCamera.GetComponent<FreeMovement>();
 
@@ -88,7 +86,6 @@ public class PlayerController : MonoBehaviour
         freeMovingCameraMode = true;
 
         movementController.enabled = false;
-        rb.isKinematic = true;
 
         firstPersonCamera.SetActive(false);
         freeMovingCamera.SetActive(true);
@@ -101,7 +98,6 @@ public class PlayerController : MonoBehaviour
         freeMovingCameraMode = false;
 
         movementController.enabled = true;
-        rb.isKinematic = false;
 
         firstPersonCamera.SetActive(true);
         freeMovingCamera.SetActive(false);

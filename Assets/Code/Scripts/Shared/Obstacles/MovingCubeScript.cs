@@ -14,11 +14,11 @@ public class MovingCubeScript : MonoBehaviour
     //means that the last and first pos must be the same and the movement does not invert
     public bool continuous = false;
 
-    public Vector3 movingInThisFrame;
-
     private Vector3 currentPrevPos;
     private Vector3 currentNextPos;
+    private Vector3 dirVectorFromPos;
     private float currentPosDis;
+    private float distanceMovedSinceLastPos;
 
     private int prevPosIndex;
     private bool indexIncreasing;
@@ -44,6 +44,8 @@ public class MovingCubeScript : MonoBehaviour
         currentPrevPos = positions[0];
         currentNextPos = positions[1];
         currentPosDis = Vector3.Distance(currentPrevPos, currentNextPos);
+        distanceMovedSinceLastPos = 0;
+        dirVectorFromPos = (currentNextPos - currentPrevPos).normalized;
 
         prevPosIndex = 0;
         indexIncreasing = true;
@@ -56,15 +58,18 @@ public class MovingCubeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //from 0 to 1
-        float deltaMov = ((Time.time - prevPosMoment) * speed) / currentPosDis;
 
         //if we moved enough
-        if (deltaMov >= 1) 
+        if (distanceMovedSinceLastPos >= currentPosDis) 
             updatePos();
 
 
-        rigidBody.velocity = speed * ((currentNextPos - transform.position).normalized);
+        float toMoveInThisFrame = speed * Time.deltaTime;
+
+        transform.Translate(toMoveInThisFrame * dirVectorFromPos, Space.World);
+
+        distanceMovedSinceLastPos += toMoveInThisFrame;
+
 
 
     }
@@ -151,6 +156,9 @@ public class MovingCubeScript : MonoBehaviour
             }
 
         }
+
+        distanceMovedSinceLastPos = 0;
+        dirVectorFromPos = (currentNextPos - currentPrevPos).normalized;
 
     }
 
