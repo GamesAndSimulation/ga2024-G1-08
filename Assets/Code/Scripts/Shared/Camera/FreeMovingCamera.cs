@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.Rendering.PostProcessing;
 
-public class FreeMovingCamera : MonoBehaviour
+public class FreeMovingCamera : CameraScript
 {
 
-    public float sensX = 400;
-    public float sensY = 400;
 
-    public Transform head;
 
-    float xRotation;
-    float yRotation;
+    [SerializeField] private Transform head;
 
 
     private void OnEnable() {
@@ -34,21 +30,12 @@ public class FreeMovingCamera : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
-        
-        yRotation += mouseX;
-        xRotation -= mouseY;
+    public override void rotateCamera(float mouseX, float mouseY) {
+
+        base.rotateCamera(mouseX, mouseY);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
-    }
-
-    public float getCurrentFOV()
-    {
-        return GetComponent<Camera>().fieldOfView;
     }
 
 

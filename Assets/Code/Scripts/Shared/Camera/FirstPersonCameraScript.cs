@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.Rendering.PostProcessing;
 
-public class FirstPersonCameraScript : MonoBehaviour
+public class FirstPersonCameraScript : CameraScript
 {
 
-    public float sensX;
-    public float sensY;
 
     public Transform playerObject;
     public Transform head;
 
-    float xRotation;
-    float yRotation;
 
 
     void OnEnable()
@@ -23,24 +19,18 @@ public class FirstPersonCameraScript : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
-        
-        yRotation += mouseX;
-        xRotation -= mouseY;
+    public override void rotateCamera(float mouseX, float mouseY) {
+
+        base.rotateCamera(mouseX, mouseY);
+
+        Debug.Log("Camera rotated 2: " + mouseX + ", " + mouseY);
+
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         playerObject.rotation = Quaternion.Euler(0, yRotation, 0);
-    }
 
-    public float getCurrentFOV()
-    {
-        return GetComponent<Camera>().fieldOfView;
     }
-
 
 }
