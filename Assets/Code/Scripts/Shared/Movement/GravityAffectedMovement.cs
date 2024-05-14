@@ -160,7 +160,7 @@ public class GravityAffectedMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, out hit, height * 0.5f + 0.2f, groundLayer);
 
         if (grounded)
-            transform.parent = hit.rigidbody.transform;
+            transform.parent = hit.collider.transform;
         
 
     }
