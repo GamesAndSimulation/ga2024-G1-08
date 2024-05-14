@@ -16,7 +16,7 @@ public class GameEventListener : MonoBehaviour
 
     public GameEvent gameEvent;
 
-    public CustomGameEvent response;
+    public CustomGameEvent response; //give the option to define the function to be called
 
     private void OnEnable() {
         gameEvent.RegisterListener(this);
