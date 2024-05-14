@@ -527,6 +527,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1345882739}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1345882741}
   m_SourcePrefab: {fileID: 100100000, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
 --- !u!4 &311052768 stripped
 Transform:
@@ -895,8 +898,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  targetRadius: 0.5
   ballTarget: {fileID: 45168362}
   moveScript: {fileID: 1345882739}
+  animScript: {fileID: 1345882741}
+--- !u!114 &1345882741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345882733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29991631256c9ba478c7ecbc8a562233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1345882737}
 --- !u!4 &1351730658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1777128131067316063, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}

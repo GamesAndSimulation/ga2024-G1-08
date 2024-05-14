@@ -7,20 +7,23 @@ public class DogMovement : MonoBehaviour
 {
 
     private NavMeshAgent navAgent;
-    private Transform currentTarget;
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
     }
 
-    public void MoveToTarget(Transform target)
+    public void WalkToTarget(Transform target)
     {
-        if(target != null && navAgent != null && target != currentTarget)
-        {
-            currentTarget = target;
-            navAgent.SetDestination(currentTarget.position);
-        }
+        navAgent.speed = 2.5f;
+        navAgent.SetDestination(target.position);
     }
+
+    public void StopWalking()
+    {
+        navAgent.SetDestination(transform.position);
+    }
+
+
 
 }
