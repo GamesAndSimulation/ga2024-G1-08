@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6963975145010144609}
   - component: {fileID: 7820021181087151403}
   - component: {fileID: 964401793961050220}
+  - component: {fileID: -1047153984244335597}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -36,6 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 746565148358785803}
+  - {fileID: 5406309826933466162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4789837814547775673
@@ -135,7 +137,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &7820021181087151403
@@ -150,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfcac0ccb82bbf46afe9d7b9fc2c3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstPersonCamera: {fileID: 3463692978677949560}
+  freeMovingCamera: {fileID: 4095025562969555407}
+  pauseEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
 --- !u!114 &964401793961050220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,12 +172,43 @@ MonoBehaviour:
   groundDrag: 6
   jumpForce: 10
   jumpCooldown: 0.25
-  airMultiplier: 0.4
+  airMultiplier: 0.8
   isSprinting: 0
   verticalInput: 0
   horizontalInput: 0
   height: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   state: 0
+--- !u!114 &-1047153984244335597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347961699052973988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7820021181087151403}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2716234968749599018
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,3 +350,129 @@ MonoBehaviour:
   sensY: 400
   playerObject: {fileID: 4987126005366071088}
   head: {fileID: 746565148358785803}
+--- !u!1 &4095025562969555407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5406309826933466162}
+  - component: {fileID: 6304429944136436024}
+  - component: {fileID: 3491192809306268756}
+  - component: {fileID: 5832218742101686372}
+  - component: {fileID: 1056270063179599363}
+  m_Layer: 0
+  m_Name: FreeMovingCamera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5406309826933466162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095025562969555407}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.531, z: 0.002000004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4987126005366071088}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &6304429944136436024
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095025562969555407}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &3491192809306268756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095025562969555407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9e76de3706d0649b39ec4964cb0043, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensX: 400
+  sensY: 400
+  head: {fileID: 746565148358785803}
+--- !u!81 &5832218742101686372
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095025562969555407}
+  m_Enabled: 1
+--- !u!114 &1056270063179599363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095025562969555407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cca812f47a02c4e9e193f3743d3019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  sprintMultiplier: 2
+  isSprinting: 0
+  verticalInput: 0
+  horizontalInput: 0

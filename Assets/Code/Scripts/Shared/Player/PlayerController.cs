@@ -9,23 +9,36 @@ public class PlayerController : MonoBehaviour
 
     //player movement stuff
     private GravityAffectedMovement movementController;
-    private Rigidbody rb;
 
-    public GameObject firstPersonCamera;
+    [Header("Cameras")]
 
-    public GameObject freeMovingCamera;
+    [SerializeReference] public GameObject firstPersonCamera;
+
+    [SerializeReference] public GameObject freeMovingCamera;
     private FreeMovement freeMovingCameraController;
+
+    private CameraScript currentCameraScript;
 
     private bool freeMovingCameraMode = false;
 
+    private Rigidbody rb;
+
+    private bool paused = false;
+
+    [Header("Events")]
+
+    [SerializeReference] GameEvent pauseEvent;
 
     // Start is called before the first frame update
     void Awake()
     {
         movementController = GetComponent<GravityAffectedMovement>();
-        rb = GetComponent<Rigidbody>();
 
         freeMovingCameraController = freeMovingCamera.GetComponent<FreeMovement>();
+
+        rb = GetComponent<Rigidbody>();
+
+        currentCameraScript = firstPersonCamera.GetComponent<CameraScript>();
 
 
         freeMovingCameraMode = false;
@@ -46,20 +59,26 @@ public class PlayerController : MonoBehaviour
 
         if (!freeMovingCameraMode) {
 
-            if (Input.GetKey(KeyCode.Space))
-                movementController.tryJump();
+            if(!paused) {
 
-            if (Input.GetKey(KeyCode.LeftShift))
-                movementController.isSprinting = true;
+                if (Input.GetKey(KeyCode.Space))
+                    movementController.tryJump();
 
-            else
-                movementController.isSprinting = false;
+                if (Input.GetKey(KeyCode.LeftShift))
+                    movementController.isSprinting = true;
 
-            movementController.horizontalInput = Input.GetAxis("Horizontal");
-            movementController.verticalInput = Input.GetAxis("Vertical");
+                else
+                    movementController.isSprinting = false;
+
+                movementController.horizontalInput = Input.GetAxis("Horizontal");
+                movementController.verticalInput = Input.GetAxis("Vertical");
+
+                currentCameraScript.rotateCamera(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
 
-            if(Input.GetKeyDown(KeyCode.U))
+            }
+
+            if (Input.GetKeyDown(KeyCode.U))
                 switchToFreeMovingCamera();
 
         }else {
@@ -78,8 +97,15 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.U))
                 switchFromFreeMovingCamera();
 
+            currentCameraScript.rotateCamera(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+
 
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+            pauseEvent.Raise(this, !paused);
+
 
     }
 
@@ -88,10 +114,11 @@ public class PlayerController : MonoBehaviour
         freeMovingCameraMode = true;
 
         movementController.enabled = false;
-        rb.isKinematic = true;
 
         firstPersonCamera.SetActive(false);
         freeMovingCamera.SetActive(true);
+
+        currentCameraScript = freeMovingCamera.GetComponent<CameraScript>();
 
 
     }
@@ -101,10 +128,41 @@ public class PlayerController : MonoBehaviour
         freeMovingCameraMode = false;
 
         movementController.enabled = true;
-        rb.isKinematic = false;
 
         firstPersonCamera.SetActive(true);
         freeMovingCamera.SetActive(false);
+
+        currentCameraScript = firstPersonCamera.GetComponent<CameraScript>();
+
+    }
+
+    public void onPauseEvent(Component sender, object data) {
+
+        bool toPause = (bool)data;
+
+        if (toPause)
+            pausePlayer();
+
+        else
+            unpausePlayer();
+
+    }
+
+    private void pausePlayer() {
+
+        paused = true;
+        rb.isKinematic = true;
+        movementController.enabled = false;
+
+
+    }
+
+    private void unpausePlayer() {
+
+        paused = false;
+        rb.isKinematic = false;
+        movementController.enabled = true;
+
 
     }
 
