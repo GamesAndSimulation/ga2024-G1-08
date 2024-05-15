@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 45168358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 0.44, z: 0.92}
+  m_LocalPosition: {x: 10.62, y: 0.441, z: -4.84}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,13 +313,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53900714}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.79, z: -10}
+  m_LocalRotation: {x: 0.02180589, y: 0.9553295, z: -0.0729489, w: 0.2855671}
+  m_LocalPosition: {x: -0.59, y: 0.85, z: 1.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1345882738}
+  m_LocalEulerAnglesHint: {x: 8.733, y: 146.715, z: 0}
 --- !u!4 &60332064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7640245124573660172, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.885002
+      value: -12.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       propertyPath: m_LocalRotation.w
@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5549888717878756329, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1307065
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       propertyPath: m_Name
       value: Dog_001
@@ -508,6 +512,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       insertIndex: -1
       addedObject: {fileID: 447572111}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 53900717}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       insertIndex: -1
@@ -546,6 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447572111}
   - component: {fileID: 447572110}
+  - component: {fileID: 447572112}
   m_Layer: 0
   m_Name: Rig 1
   m_TagString: Untagged
@@ -582,6 +590,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1345882738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &447572112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447572109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 0.51
+  m_Data:
+    m_ConstrainedObject: {fileID: 1758268280}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 45168362}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_MinLimit: -180
+    m_MaxLimit: 180
+    m_AimAxis: 2
+    m_UpAxis: 4
+    m_WorldUpType: 1
+    m_WorldUpObject: {fileID: 0}
+    m_WorldUpAxis: 2
+    m_MaintainOffset: 0
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
 --- !u!4 &472786675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -208778690719428233, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
@@ -765,16 +827,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 1345882733}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.67
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 2
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.82
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -793,9 +855,9 @@ MonoBehaviour:
   boneShape: 1
   drawBones: 1
   drawTripods: 0
-  boneSize: 1
+  boneSize: 0.4
   tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  boneColor: {r: 0.322986, g: 1, b: 0, a: 0.5}
   m_Transforms:
   - {fileID: 1499528706}
   - {fileID: 1871965630}
@@ -1048,7 +1110,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 53900717}
   - {fileID: 1328532289}
   - {fileID: 1471724409}
   - {fileID: 274464723}

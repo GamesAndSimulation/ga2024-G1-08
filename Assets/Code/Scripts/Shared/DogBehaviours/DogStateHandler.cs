@@ -52,12 +52,12 @@ public class DogStateHandler : MonoBehaviour
                 if(hasReachedTarget)
                 {
                     currentState = DogState.idle;
-                    animScript.toStandingTailWag();
+                    animScript.StartIdle();
                     hasReachedTarget = false;
                 }
                 else
                 {
-                    animScript.toWalk();
+                    animScript.MovingAnim(moveScript.GetSpeed());
                     moveScript.WalkToTarget(target);
                 }
                 

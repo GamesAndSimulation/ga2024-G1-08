@@ -9,12 +9,12 @@ public class DogAnimation : MonoBehaviour
 
     private const string VEL = "Velocity";
 
-    public void toWalk()
+    public void MovingAnim(float velocity)
     {
-        animator.SetFloat(VEL, 1);
+        animator.SetFloat(VEL, velocity);
     }
 
-    public void toStandingTailWag()
+    public void StartIdle()
     {
         animator.SetFloat(VEL, 0);
     }
