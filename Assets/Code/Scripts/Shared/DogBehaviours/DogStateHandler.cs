@@ -18,6 +18,7 @@ public class DogStateHandler : MonoBehaviour
     [Header("Scripts")]
     public DogMovement moveScript;
     public DogAnimation animScript;
+    public DogSounds soundScript;
 
     public enum DogState
     {
@@ -73,6 +74,12 @@ public class DogStateHandler : MonoBehaviour
             currentState = DogState.moving;
             hasReachedTarget = false;
             
-        }   
+        }
+
+        if (Input.GetKeyDown("g"))
+        {
+            animScript.PlaySingleBark();
+            soundScript.PlaySingleBark();
+        }
     }
 }
