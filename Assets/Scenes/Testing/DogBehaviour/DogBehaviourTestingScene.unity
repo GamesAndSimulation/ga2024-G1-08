@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 45168358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.441, z: -4.84}
+  m_LocalPosition: {x: 0, y: 0.441, z: 13}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,13 +313,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53900714}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02180589, y: 0.9553295, z: -0.0729489, w: 0.2855671}
-  m_LocalPosition: {x: -0.59, y: 0.85, z: 1.41}
+  m_LocalRotation: {x: 0.075066745, y: 0.16670147, z: -0.012729311, w: 0.9830634}
+  m_LocalPosition: {x: -0.663, y: 0.85, z: -1.279}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1345882738}
-  m_LocalEulerAnglesHint: {x: 8.733, y: 146.715, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.733, y: 19.249, z: 0}
 --- !u!4 &60332064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7640245124573660172, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
@@ -1005,6 +1005,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 76ecde98d2ab21c448d096470073a5fa, type: 3}
   - {fileID: 8300000, guid: 521072de8deb3a743826154789ff71aa, type: 3}
   - {fileID: 8300000, guid: 05b1e92ca79852440801b50e1272e1ef, type: 3}
+  lastBark: 0
 --- !u!82 &1345882743
 AudioSource:
   m_ObjectHideFlags: 0
