@@ -1895,6 +1895,10 @@ PrefabInstance:
       propertyPath: m_AdditionalVertexStreams
       value: 
       objectReference: {fileID: 1255553214}
+    - target: {fileID: 2020951688237175114, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.478
+      objectReference: {fileID: 0}
     - target: {fileID: 2301207240285161818, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
       propertyPath: m_AdditionalVertexStreams
       value: 
@@ -1998,8 +2002,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1005897047}
   - {fileID: 192634578}
-  - {fileID: 8420262059494222575}
   - {fileID: 1946213635}
+  - {fileID: 8420262059494222575}
   - {fileID: 1826808587}
   - {fileID: 892669669}
   - {fileID: 1744462326}

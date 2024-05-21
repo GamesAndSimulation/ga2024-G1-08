@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class MainSystemScript : MonoBehaviour
+public class InitialMainScript : MonoBehaviour
 {
     public CaptionsScript captionsScript;
     public GameObject captions;
@@ -15,8 +16,10 @@ public class MainSystemScript : MonoBehaviour
     public Light lampLight;
     public GameObject particleSystem;
     public AudioSource lightSwitchAudio;
-    public float waitTime_LightSwitch = 0.5f;
-    public float waitTime_DialogueStart = 4.0f;
+    public float WAITTIME_LIGHTSWITCH = 0.5f;
+    public float WAITTIME_DIALOGUESTART = 4.0f;
+    public float WAITTIME_SWITCHSCENES = 2.0f;
+    public string LEVEL1 = "Level1";
     public Vector4 emissionColor = new Vector4(0.9471698f, 0.7891425f, 0.112588f, 1f);
     // Start is called before the first frame update
     void Start()
@@ -35,24 +38,24 @@ public class MainSystemScript : MonoBehaviour
         particleSystem.SetActive(false);
         lampSwitchAnimator.SetTrigger("hasBeenClicked");
 
-        StartCoroutine(TurnOffLight(waitTime_LightSwitch));
+        StartCoroutine(TurnOffLight());
 
     }
 
-    IEnumerator TurnOffLight(float timeInSeconds)
+    IEnumerator TurnOffLight()
     {
-        lightSwitchAudio.PlayDelayed(timeInSeconds - 0.1f);
-        yield return new WaitForSeconds(timeInSeconds);
+        lightSwitchAudio.PlayDelayed(WAITTIME_LIGHTSWITCH - 0.1f);
+        yield return new WaitForSeconds(WAITTIME_LIGHTSWITCH);
         lampMaterial.SetColor("_EmissionColor", Color.black);
         lampLight.enabled = false;
         cameraAnimator.SetTrigger("isCameraMoving");
-        StartCoroutine(DialogueStart(waitTime_DialogueStart));
+        StartCoroutine(DialogueStart());
 
     }
 
-    IEnumerator DialogueStart(float timeInSeconds)
+    IEnumerator DialogueStart()
     {
-        yield return new WaitForSeconds(timeInSeconds);
+        yield return new WaitForSeconds(WAITTIME_DIALOGUESTART);
         captions.SetActive(true);
         image.SetActive(true);
 
@@ -65,7 +68,15 @@ public class MainSystemScript : MonoBehaviour
         captions.SetActive(false);
         image.SetActive(false);
         fadeCanvas.QuickFadeIn();
+
+        StartCoroutine(SwitchScenes());
     }
 
+    IEnumerator SwitchScenes()
+    {
+        yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
 
+        SceneManager.LoadScene(LEVEL1);
+
+    }
 }
