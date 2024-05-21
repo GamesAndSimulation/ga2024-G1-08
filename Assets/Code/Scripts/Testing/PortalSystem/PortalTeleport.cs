@@ -23,6 +23,8 @@ public class PortalTeleport : MonoBehaviour
 
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
+            Debug.Log("DOT PRODUCT " + dotProduct);
+
             if(dotProduct < 0f)
             {
                 float rotationDiff = -Quaternion.Angle(transform.rotation, receiver.rotation);
@@ -30,7 +32,14 @@ public class PortalTeleport : MonoBehaviour
                 player.Rotate(Vector3.up, rotationDiff);
                 Vector3 posOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
                 player.position = receiver.position + posOffset;
+
+                //push player
+                //Vector3 force = receiver.forward * 10f;
+                //player.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+
                 enter = false;
+                Debug.Log("TELEPORT " + dotProduct);
+
             }
 
         }
@@ -40,6 +49,7 @@ public class PortalTeleport : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            Debug.Log("Entered " + this.name);
             enter = true;
         }
     }
@@ -48,6 +58,7 @@ public class PortalTeleport : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Debug.Log("Exit " + this.name);
             enter = false;
         }
     }
