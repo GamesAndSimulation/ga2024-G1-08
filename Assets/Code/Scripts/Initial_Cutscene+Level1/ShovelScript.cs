@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShovelScript : MonoBehaviour
 {
     public Animator shovelAnimator;
-    public float distance = 2.4f;
+    public float distance = 3f;
     public const string POOP_LAYER = "Poop";
   
 
