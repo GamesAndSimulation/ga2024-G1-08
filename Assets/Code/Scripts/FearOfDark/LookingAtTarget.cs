@@ -15,13 +15,13 @@ public class LookingAtTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 lookAtOrientation = Quaternion.LookRotation(target.position - transform.position).eulerAngles;
 
+        this.transform.LookAt(target);
 
-        //this.transform.LookAt(targetCamera.transform);
+        //Vector3 lookAtOrientation = Quaternion.LookRotation(target.position - transform.position).eulerAngles;
 
         //this.transform.Rotate(0, lookAtOrientation.y - this.transform.eulerAngles.y, lookAtOrientation.z - this.transform.eulerAngles.z);
-        this.transform.Rotate(0, lookAtOrientation.y - this.transform.eulerAngles.y, 0);
+        //this.transform.Rotate(0, lookAtOrientation.y - this.transform.eulerAngles.y, 0);
 
 
     }
