@@ -6,11 +6,11 @@ using UnityEngine;
 public class LookingAtTarget : MonoBehaviour
 {
 
+
     /// <summary>
-    /// The transform of the object this entity will be loocked at 
+    /// The transform of the object this entity will be looking at 
     /// </summary>
     public Transform target;
-
 
     // Update is called once per frame
     void Update()
