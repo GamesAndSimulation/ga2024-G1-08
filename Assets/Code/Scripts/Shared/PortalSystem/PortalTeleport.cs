@@ -36,21 +36,12 @@ public class PortalTeleport : MonoBehaviour
                     player.Rotate(Vector3.up, rotationDiff);
                     Vector3 posOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
 
-                    Debug.Log("vel + portal: " + (vel + portalToPlayer).magnitude + " portal: " + portalToPlayer.magnitude + "vel + portal: " + (vel + portalToPlayer) + " portal: " + portalToPlayer + " this: " + gameObject.name);
-
-                    Debug.Log("Old position: " + player.position);
-
                     player.position = receiver.position + posOffset;
                     player.GetComponent<Rigidbody>().position = receiver.position + posOffset;
 
                     Debug.Log("New position: " + player.position);
 
                     enter = false;
-
-                    //push player
-                    //Vector3 force = receiver.forward * 10f;
-                    //player.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
-
 
                 }
             }
