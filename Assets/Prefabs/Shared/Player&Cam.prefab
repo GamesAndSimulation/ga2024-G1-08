@@ -354,6 +354,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  movablePlatformTag: MovingPlatform
   state: 0
 --- !u!114 &5394762899029566041
 MonoBehaviour:

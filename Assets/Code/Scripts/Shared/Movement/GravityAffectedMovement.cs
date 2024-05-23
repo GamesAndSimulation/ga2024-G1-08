@@ -29,6 +29,7 @@ public class GravityAffectedMovement : MonoBehaviour
     [Header("Ground Detection")]
     [SerializeField] private float height = 2;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private string movablePlatformTag;
 
     private Transform trueParent; //the normal parent of this object, can be null
 
@@ -159,8 +160,8 @@ public class GravityAffectedMovement : MonoBehaviour
 
         grounded = Physics.Raycast(transform.position, Vector3.down, out hit, height * 0.5f + 0.2f, groundLayer);
 
-        if (grounded)
-            transform.parent = hit.collider.transform;
+        if (grounded && hit.transform.tag.Equals(movablePlatformTag))
+                transform.parent = hit.collider.transform.parent;
         
 
     }
