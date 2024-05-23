@@ -9,6 +9,8 @@ public class MovingCubeScript : MonoBehaviour
 
     public List<GameObject> referenceCubes; //the cubes used as a reference to decide the course of this cube
 
+    public Transform parentTransform;
+
     private List<Vector3> positions; //the actual positions of the course
 
     //means that the last and first pos must be the same and the movement does not invert
@@ -22,6 +24,7 @@ public class MovingCubeScript : MonoBehaviour
 
     private int prevPosIndex;
     private bool indexIncreasing;
+
 
 
     // Start is called before the first frame update
@@ -45,6 +48,8 @@ public class MovingCubeScript : MonoBehaviour
         prevPosIndex = 0;
         indexIncreasing = true;
 
+        parentTransform = transform.parent;
+
 
 
     }
@@ -60,7 +65,7 @@ public class MovingCubeScript : MonoBehaviour
 
         float toMoveInThisFrame = baseSpeed * Time.deltaTime; //declaring this here is bad performance?
 
-        transform.Translate(toMoveInThisFrame * dirVectorFromPos, Space.World);
+        parentTransform.Translate(toMoveInThisFrame * dirVectorFromPos, Space.World);
 
         distanceMovedSinceLastPos += toMoveInThisFrame;
 
