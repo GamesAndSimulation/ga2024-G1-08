@@ -21,27 +21,39 @@ public class PortalTeleport : MonoBehaviour
         {
             Vector3 portalToPlayer = player.position - transform.position;
 
-            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+            Vector3 vel = player.gameObject.GetComponent<Rigidbody>().velocity;
 
-            Debug.Log("DOT PRODUCT " + dotProduct);
-
-            if(dotProduct < 0f)
+            if ((vel + portalToPlayer).magnitude > portalToPlayer.magnitude)
             {
-                float rotationDiff = -Quaternion.Angle(transform.rotation, receiver.rotation);
-                rotationDiff += 180;
-                player.Rotate(Vector3.up, rotationDiff);
-                Vector3 posOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
-                player.position = receiver.position + posOffset;
 
-                //push player
-                //Vector3 force = receiver.forward * 10f;
-                //player.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+                float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
-                enter = false;
-                Debug.Log("TELEPORT " + dotProduct);
 
+                if (dotProduct < 0f)
+                {
+                    float rotationDiff = -Quaternion.Angle(transform.rotation, receiver.rotation);
+                    rotationDiff += 180;
+                    player.Rotate(Vector3.up, rotationDiff);
+                    Vector3 posOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
+
+                    Debug.Log("vel + portal: " + (vel + portalToPlayer).magnitude + " portal: " + portalToPlayer.magnitude + "vel + portal: " + (vel + portalToPlayer) + " portal: " + portalToPlayer + " this: " + gameObject.name);
+
+                    Debug.Log("Old position: " + player.position);
+
+                    player.position = receiver.position + posOffset;
+                    player.GetComponent<Rigidbody>().position = receiver.position + posOffset;
+
+                    Debug.Log("New position: " + player.position);
+
+                    enter = false;
+
+                    //push player
+                    //Vector3 force = receiver.forward * 10f;
+                    //player.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+
+
+                }
             }
-
         }
     }
 
@@ -49,16 +61,16 @@ public class PortalTeleport : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Entered " + this.name);
             enter = true;
         }
+
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Exit " + this.name);
             enter = false;
         }
     }
