@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 5394762899029566041}
   m_Layer: 0
   m_Name: Player
+  m_TagString: Untagged
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,6 +329,7 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 2257132699607991386}
   freeMovingCamera: {fileID: 8773202912926230616}
   pauseEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  playerAnnouncedEvent: {fileID: 11400000, guid: 46e5c100cde8c9543a634124ae00fccd, type: 2}
 --- !u!114 &3506545228691208307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +355,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  movablePlatformTag: MovingPlatform
   state: 0
 --- !u!114 &5394762899029566041
 MonoBehaviour:
