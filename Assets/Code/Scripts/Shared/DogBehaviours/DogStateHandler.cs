@@ -66,6 +66,14 @@ public class DogStateHandler : MonoBehaviour
         }
     }
 
+    public void MoveDogToTarget(Transform target)
+    {
+        this.target = target;
+        currentState = DogState.moving;
+        hasReachedTarget = false;
+    }
+
+
     void CheckForOrders()
     {
         if(Input.GetKeyDown("f"))
