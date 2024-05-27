@@ -15,12 +15,10 @@ public class MazeGenerator : MonoBehaviour
 
     public void CreateGrid()
     {
-        // Clear any existing grid
         DestroyGrid();
 
-        // Create a new parent GameObject to hold all cells
         cellsParent = new GameObject("MazeCells").transform;
-        cellsParent.SetParent(transform); // Set this GameObject as a child of the MazeGenerator object
+        cellsParent.SetParent(transform); 
 
         cellWidth = cellPrefab.width;
         cellHeight = cellPrefab.height;
@@ -31,7 +29,7 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                MazeCell newCell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, z * cellHeight), Quaternion.identity, cellsParent);
+                MazeCell newCell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, z * cellHeight) + this.transform.position, Quaternion.identity, cellsParent);
                 grid[x, z] = newCell;
             }
         }
@@ -60,7 +58,6 @@ public class MazeGenerator : MonoBehaviour
 
         grid = null;
 
-        // Destroy the parent GameObject as well
         if (cellsParent != null)
         {
             DestroyImmediate(cellsParent.gameObject);
@@ -69,10 +66,8 @@ public class MazeGenerator : MonoBehaviour
 
     public void GenerateMaze()
     {
-        // Always create a new grid before generating the maze
         CreateGrid();
 
-        // Start maze generation from the initial cell
         MazeCell startCell = grid[0, 0];
         GenerateMazeRecursive(null, startCell);
     }
