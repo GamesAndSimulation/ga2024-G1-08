@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Events")]
 
-    [SerializeReference] GameEvent pauseEvent;
+    [SerializeReference] private GameEvent pauseEvent;
+    [SerializeReference] private GameEvent playerAnnouncedEvent;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,6 +44,12 @@ public class PlayerController : MonoBehaviour
 
         freeMovingCameraMode = false;
         
+
+    }
+
+    private void Start() {
+
+        playerAnnouncedEvent.Raise(this, null);
 
     }
 
