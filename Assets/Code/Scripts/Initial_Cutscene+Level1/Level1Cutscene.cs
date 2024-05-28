@@ -6,12 +6,13 @@ public class Level1Cutscene : MonoBehaviour
 {
     public GameObject player;
     public GameObject cutsceneCamera;
+    public GameObject door;
     public FadeCanvas fadeCanvas;
     public Animator doorAnimator;
     public Animator cameraAnimator;
     
 
-    public const float WAITTIME_DOOROPEN = 1.8f;
+    public const float WAITTIME_DOOROPEN = 1.0f;
     public const float WAITTIME_CAMERAMOVE = 1.5f;
     public const float WAITTIME_CHANGETOPLAYER = 3.0f;
 
@@ -20,7 +21,7 @@ public class Level1Cutscene : MonoBehaviour
     {
         fadeCanvas.StartFadeOut();
 
-        StartCoroutine(OpenDoor(WAITTIME_DOOROPEN));
+        StartCoroutine(OpenDoor());
     }
 
     // Update is called once per frame
@@ -28,18 +29,18 @@ public class Level1Cutscene : MonoBehaviour
     {
     }
 
-    IEnumerator OpenDoor(float timeInSeconds)
+    IEnumerator OpenDoor()
     {
-        yield return new WaitForSeconds(timeInSeconds);
-        doorAnimator.SetTrigger("doorOpen");
-
         yield return new WaitForSeconds(WAITTIME_CAMERAMOVE);
         cameraAnimator.SetTrigger("cameraMove");
 
         yield return new WaitForSeconds(WAITTIME_CHANGETOPLAYER);
-
         cutsceneCamera.SetActive(false);
         player.SetActive(true);
+        door.SetActive(true);
+
+        yield return new WaitForSeconds(WAITTIME_DOOROPEN);
+        doorAnimator.SetTrigger("doorOpen");
 
     }
 

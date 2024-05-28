@@ -47,10 +47,10 @@ public class DogStateHandler : MonoBehaviour
                 break;
 
             case DogState.moving:
-                
+
                 hasReachedTarget = Vector3.Distance(transform.position, target.position) < targetRadius;
 
-                if(hasReachedTarget)
+                if (hasReachedTarget)
                 {
                     currentState = DogState.idle;
                     animScript.StartIdle();
@@ -61,27 +61,19 @@ public class DogStateHandler : MonoBehaviour
                     animScript.MovingAnim(moveScript.GetSpeed());
                     moveScript.WalkToTarget(target);
                 }
-                
+
                 break;
         }
     }
 
-    public void MoveDogToTarget(Transform target)
-    {
-        this.target = target;
-        currentState = DogState.moving;
-        hasReachedTarget = false;
-    }
-
-
     void CheckForOrders()
     {
-        if(Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("f"))
         {
             target = ballTarget.transform;
             currentState = DogState.moving;
             hasReachedTarget = false;
-            
+
         }
 
         if (Input.GetKeyDown("g"))
