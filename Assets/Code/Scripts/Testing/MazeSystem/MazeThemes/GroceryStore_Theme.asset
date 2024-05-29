@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4690680781300a549a8736e5cb613f58, type: 3}
+  m_Name: GroceryStore_Theme
+  m_EditorClassIdentifier: 
+  themeName: GroceryStore
+  floorMaterial: {fileID: 2100000, guid: 0f7f1d197310a944bb21cf8393b3604c, type: 2}
+  wallMaterial: {fileID: -4523872500402983279, guid: eca1e6b6bc158844eb278f0e6e340a87, type: 3}
+  ceilingMaterial: {fileID: -3963241562183589234, guid: 3824182ab9ffc274aaa8526f1e4e95e8, type: 3}
+  decorations:
+  - {fileID: 6944208201895821489, guid: fe57d3b163c1fdb47b2464b3980326ff, type: 3}
+  - {fileID: 4475942803340415322, guid: 3b60d05b53d66c64b8979ce57a276f25, type: 3}
+  - {fileID: 7259272000924636390, guid: 2c4943378445ab24cae855dfa949f535, type: 3}
+  - {fileID: 1544753325289424374, guid: dd67fd2aeaec2a94f9e8a98a6cd09c17, type: 3}
+  wallDecor:
+  - {fileID: 417278078711858258, guid: 94464eff0458e524f8ac844e633e08d1, type: 3}
+  enemies: []

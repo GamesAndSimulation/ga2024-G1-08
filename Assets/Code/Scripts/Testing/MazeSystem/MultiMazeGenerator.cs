@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiMazeGenerator : MonoBehaviour
@@ -15,7 +13,6 @@ public class MultiMazeGenerator : MonoBehaviour
         {
             Vector3 prevGen = mazes[i-1].transform.position;
             mazes[i] = Instantiate(mazeGenPrefab, new Vector3(prevGen.x, prevGen.y + distanceBetweenMazes, prevGen.z), Quaternion.identity, this.transform);
-            Debug.Log("y: " + mazes[i].transform.position.y);
         }
         else
         {
@@ -53,7 +50,7 @@ public class MultiMazeGenerator : MonoBehaviour
             if (mazes[i] != null)
             {
                 mazes[i].DestroyGrid();
-                DestroyImmediate(mazes[i]);
+                DestroyImmediate(mazes[i].gameObject);
             }
 
             mazes[i] = null;

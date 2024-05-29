@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private MazeCell cellPrefab;
     [SerializeField] private int width;
     [SerializeField] private int height;
+    [SerializeField] private MazeTheme theme;
 
     private MazeCell[,] grid;
     private int cellWidth;
@@ -18,6 +20,7 @@ public class MazeGenerator : MonoBehaviour
         DestroyGrid();
 
         cellsParent = new GameObject("MazeCells").transform;
+        cellsParent.transform.position = this.transform.position;
         cellsParent.SetParent(transform); 
 
         cellWidth = cellPrefab.width;
@@ -29,7 +32,7 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                MazeCell newCell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, z * cellHeight) + this.transform.position, Quaternion.identity, cellsParent);
+                MazeCell newCell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, z * cellHeight) + cellsParent.transform.position, Quaternion.identity, cellsParent);
                 grid[x, z] = newCell;
             }
         }
@@ -80,6 +83,10 @@ public class MazeGenerator : MonoBehaviour
         {
             RemoveWall(previousCell, currentCell);
         }
+        else
+        {
+            currentCell.GenerateDecor();
+        }
 
         List<MazeCell> unvisitedNeighbours;
         MazeCell nextCell;
@@ -90,7 +97,7 @@ public class MazeGenerator : MonoBehaviour
 
             if (unvisitedNeighbours.Count > 0)
             {
-                nextCell = unvisitedNeighbours[Random.Range(0, unvisitedNeighbours.Count)];
+                nextCell = unvisitedNeighbours[UnityEngine.Random.Range(0, unvisitedNeighbours.Count)];
                 GenerateMazeRecursive(currentCell, nextCell);
             }
             else
@@ -98,15 +105,17 @@ public class MazeGenerator : MonoBehaviour
                 break;
             }
         } while (nextCell != null);
+
     }
 
     private List<MazeCell> GetUnvisitedNeighbours(MazeCell cell)
     {
         List<MazeCell> neighbours = new List<MazeCell>();
-        int x = (int)cell.transform.position.x / cellWidth;
-        int z = (int)cell.transform.position.z / cellHeight;
+        int x = (int) Math.Round(cell.transform.localPosition.x) / cellWidth;
+        int z = (int) Math.Round(cell.transform.localPosition.z) / cellHeight;
 
-        if (x > 0 && !grid[x - 1, z].visited)
+
+        if (x > 0 && !grid[x - 1, z].visited) 
         {
             neighbours.Add(grid[x - 1, z]);
         }
@@ -123,35 +132,41 @@ public class MazeGenerator : MonoBehaviour
             neighbours.Add(grid[x, z + 1]);
         }
 
+        Debug.Log("Cell: " + cell.transform.localPosition + " X: " + cell.transform.localPosition.x + "/" + cellWidth + " = " + cell.transform.localPosition.x / cellWidth
+        + " Z: " + cell.transform.localPosition.z + "/" + cellHeight + " = " + cell.transform.localPosition.z / cellHeight + " Neigbours: " + neighbours.Count);
         return neighbours;
     }
 
-    private void RemoveWall(MazeCell currentCell, MazeCell neighbour)
+    private void RemoveWall(MazeCell previousCell, MazeCell currentCell)
     {
-        int x = (int)currentCell.transform.position.x / cellWidth;
-        int z = (int)currentCell.transform.position.z / cellHeight;
-        int nx = (int)neighbour.transform.position.x / cellWidth;
-        int nz = (int)neighbour.transform.position.z / cellHeight;
+        int x = (int)previousCell.transform.position.x / cellWidth;
+        int z = (int)previousCell.transform.position.z / cellHeight;
+        int nx = (int)currentCell.transform.position.x / cellWidth;
+        int nz = (int)currentCell.transform.position.z / cellHeight;
 
         if (x > nx)
         {
-            currentCell.RemoveWall(Direction.West);
-            neighbour.RemoveWall(Direction.East);
+            previousCell.RemoveWall(Direction.West);
+            currentCell.RemoveWall(Direction.East);
         }
         else if (x < nx)
         {
-            currentCell.RemoveWall(Direction.East);
-            neighbour.RemoveWall(Direction.West);
+            previousCell.RemoveWall(Direction.East);
+            currentCell.RemoveWall(Direction.West);
         }
         else if (z > nz)
         {
-            currentCell.RemoveWall(Direction.South);
-            neighbour.RemoveWall(Direction.North);
+            previousCell.RemoveWall(Direction.South);
+            currentCell.RemoveWall(Direction.North);
         }
         else if (z < nz)
         {
-            currentCell.RemoveWall(Direction.North);
-            neighbour.RemoveWall(Direction.South);
+            previousCell.RemoveWall(Direction.North);
+            currentCell.RemoveWall(Direction.South);
         }
+
+        currentCell.SetTheme(theme);
+        currentCell.GenerateDecor();
+
     }
 }
