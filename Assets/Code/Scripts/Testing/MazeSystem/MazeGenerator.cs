@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,11 +82,7 @@ public class MazeGenerator : MonoBehaviour
         {
             RemoveWall(previousCell, currentCell);
         }
-        else
-        {
-            currentCell.GenerateDecor();
-        }
-
+       
         List<MazeCell> unvisitedNeighbours;
         MazeCell nextCell;
 
@@ -102,6 +97,12 @@ public class MazeGenerator : MonoBehaviour
             }
             else
             {
+                if(!currentCell.hasGeneratedDecor)
+                {
+                    currentCell.SetTheme(theme);
+                    currentCell.GenerateDecor();
+                }
+
                 break;
             }
         } while (nextCell != null);
@@ -165,8 +166,11 @@ public class MazeGenerator : MonoBehaviour
             currentCell.RemoveWall(Direction.South);
         }
 
-        currentCell.SetTheme(theme);
-        currentCell.GenerateDecor();
+        if(!previousCell.hasGeneratedDecor)
+        {
+            previousCell.SetTheme(theme);
+            previousCell.GenerateDecor();
+        }
 
     }
 }

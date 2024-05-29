@@ -31,6 +31,7 @@ public class MazeCell : MonoBehaviour
     [SerializeField] private MazeTheme theme;
 
     public bool visited = false;
+    public bool hasGeneratedDecor = false;
 
     private void Start()
     {
@@ -69,7 +70,7 @@ public class MazeCell : MonoBehaviour
 
     public void GenerateDecor()
     {
-        if(theme != null)
+        if(theme != null && !hasGeneratedDecor)
         {
             //Apply Materials
             n_wall.GetComponentInChildren<Renderer>().material = theme.wallMaterial;
@@ -96,28 +97,28 @@ public class MazeCell : MonoBehaviour
                 switch (dir)
                 {
                     case Direction.North:
-                        if (n_wall.activeSelf)
+                        if (n_wall.activeInHierarchy)
                         {
                             decorPlace = n_decor;
                             wallDecorPlace = n_wall_decor;
                         }
                         break;
                     case Direction.South:
-                        if (s_wall.activeSelf)
+                        if (s_wall.activeInHierarchy)
                         {
                             decorPlace = s_decor;
                             wallDecorPlace = s_wall_decor;
                         }
                         break;
                     case Direction.East:
-                        if (e_wall.activeSelf)
+                        if (e_wall.activeInHierarchy)
                         {
                             decorPlace = e_decor;
                             wallDecorPlace = e_wall_decor;
                         }
                         break;
                     case Direction.West:
-                        if (w_wall.activeSelf)
+                        if (w_wall.activeInHierarchy)
                         {
                             decorPlace = w_decor;
                             wallDecorPlace = w_wall_decor;
@@ -143,6 +144,7 @@ public class MazeCell : MonoBehaviour
                 decor.GetComponent<Decoration>().GenObject(dir);
             }
 
+            hasGeneratedDecor = true;
 
         }
 
