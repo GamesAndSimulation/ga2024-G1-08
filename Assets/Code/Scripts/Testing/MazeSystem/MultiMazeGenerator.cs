@@ -1,14 +1,17 @@
+using System.Collections;
 using UnityEngine;
 
 public class MultiMazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeGenerator mazeGenPrefab;
     [SerializeField] private MazeGenerator[] mazes;
+    [SerializeField] private MazeTheme[] themes;
     [SerializeField] private int nMazes;
     [SerializeField] private int distanceBetweenMazes;
 
     private void AddMaze(int i)
     {
+
         if(i > 0)
         {
             Vector3 prevGen = mazes[i-1].transform.position;
@@ -25,6 +28,7 @@ public class MultiMazeGenerator : MonoBehaviour
     {
 
         mazes = new MazeGenerator[nMazes];
+        themes = new MazeTheme[nMazes];
 
 
         for(int i = 0; i < nMazes; i++)
@@ -39,6 +43,10 @@ public class MultiMazeGenerator : MonoBehaviour
         for(int i = 0; i < nMazes; i++)
         {
             mazes[i].CreateGrid();
+
+            if (themes[i] != null)
+                mazes[i].SetTheme(themes[i]);
+                  
             mazes[i].GenerateMaze();
         }
     }
@@ -57,5 +65,6 @@ public class MultiMazeGenerator : MonoBehaviour
         }
 
         mazes = null;
+        themes = null;
     }
 }

@@ -133,8 +133,6 @@ public class MazeGenerator : MonoBehaviour
             neighbours.Add(grid[x, z + 1]);
         }
 
-        Debug.Log("Cell: " + cell.transform.localPosition + " X: " + cell.transform.localPosition.x + "/" + cellWidth + " = " + cell.transform.localPosition.x / cellWidth
-        + " Z: " + cell.transform.localPosition.z + "/" + cellHeight + " = " + cell.transform.localPosition.z / cellHeight + " Neigbours: " + neighbours.Count);
         return neighbours;
     }
 
@@ -172,5 +170,10 @@ public class MazeGenerator : MonoBehaviour
             previousCell.GenerateDecor();
         }
 
+    }
+
+    public void SetTheme(MazeTheme theme)
+    {
+        this.theme = theme;
     }
 }
