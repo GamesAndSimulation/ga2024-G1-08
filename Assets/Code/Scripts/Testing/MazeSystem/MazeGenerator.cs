@@ -8,11 +8,30 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private MazeTheme theme;
+    [SerializeField] private MazeGenerator from;
+    [SerializeField] private MazeGenerator to;
 
     private MazeCell[,] grid;
     private int cellWidth;
     private int cellHeight;
     private Transform cellsParent;
+
+    private List<MazeCell> deadEnds;
+
+    public void SetFrom(MazeGenerator from)
+    {
+        this.from = from;
+    }
+
+    public void SetTo(MazeGenerator to)
+    {
+        this.to = to;
+    }
+
+    public void SetTheme(MazeTheme theme)
+    {
+        this.theme = theme;
+    }
 
     public void CreateGrid()
     {
@@ -20,7 +39,7 @@ public class MazeGenerator : MonoBehaviour
 
         cellsParent = new GameObject("MazeCells").transform;
         cellsParent.transform.position = this.transform.position;
-        cellsParent.SetParent(transform); 
+        cellsParent.SetParent(transform);
 
         cellWidth = cellPrefab.width;
         cellHeight = cellPrefab.height;
@@ -82,7 +101,7 @@ public class MazeGenerator : MonoBehaviour
         {
             RemoveWall(previousCell, currentCell);
         }
-       
+
         List<MazeCell> unvisitedNeighbours;
         MazeCell nextCell;
 
@@ -97,11 +116,13 @@ public class MazeGenerator : MonoBehaviour
             }
             else
             {
-                if(!currentCell.hasGeneratedDecor)
+                
+                if(deadEnds == null)
                 {
-                    currentCell.SetTheme(theme);
-                    currentCell.GenerateDecor();
+                    deadEnds = new List<MazeCell>();
                 }
+
+                deadEnds.Add(currentCell);  
 
                 break;
             }
@@ -112,11 +133,11 @@ public class MazeGenerator : MonoBehaviour
     private List<MazeCell> GetUnvisitedNeighbours(MazeCell cell)
     {
         List<MazeCell> neighbours = new List<MazeCell>();
-        int x = (int) Math.Round(cell.transform.localPosition.x) / cellWidth;
-        int z = (int) Math.Round(cell.transform.localPosition.z) / cellHeight;
+        int x = (int)Math.Round(cell.transform.localPosition.x) / cellWidth;
+        int z = (int)Math.Round(cell.transform.localPosition.z) / cellHeight;
 
 
-        if (x > 0 && !grid[x - 1, z].visited) 
+        if (x > 0 && !grid[x - 1, z].visited)
         {
             neighbours.Add(grid[x - 1, z]);
         }
@@ -164,16 +185,42 @@ public class MazeGenerator : MonoBehaviour
             currentCell.RemoveWall(Direction.South);
         }
 
-        if(!previousCell.hasGeneratedDecor)
-        {
-            previousCell.SetTheme(theme);
-            previousCell.GenerateDecor();
-        }
-
     }
 
-    public void SetTheme(MazeTheme theme)
+    public void GenDecorations()
     {
-        this.theme = theme;
+        for(int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                MazeCell cell = grid[x,y];
+                cell.SetTheme(theme);
+                cell.GenerateDecor();
+            }
+        }
     }
+
+    public void GenPortals()
+    {
+        //from portal
+        MazeCell mazeCell = grid[0, 0];
+
+        GameObject fromPortal = theme.portal;
+
+        fromPortal.GetComponentInChildren<PortalTeleport>().receiver = from.transform;
+
+        mazeCell.CreatePortal(fromPortal);
+
+        //to portal
+        mazeCell = deadEnds.ToArray()[UnityEngine.Random.Range(0, deadEnds.Count)];
+
+        GameObject toPortal = theme.portal;
+
+        toPortal.GetComponentInChildren<PortalTeleport>().receiver = to.transform;
+
+        mazeCell.CreatePortal(toPortal);
+
+    }
+    
+
 }

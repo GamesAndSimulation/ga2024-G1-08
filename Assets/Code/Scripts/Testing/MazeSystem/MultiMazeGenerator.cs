@@ -26,10 +26,9 @@ public class MultiMazeGenerator : MonoBehaviour
 
     public void AddAllMazes()
     {
-
+        DestroyAllMazes();
         mazes = new MazeGenerator[nMazes];
         themes = new MazeTheme[nMazes];
-
 
         for(int i = 0; i < nMazes; i++)
         {
@@ -48,11 +47,17 @@ public class MultiMazeGenerator : MonoBehaviour
                 mazes[i].SetTheme(themes[i]);
                   
             mazes[i].GenerateMaze();
+            mazes[i].GenDecorations();
         }
     }
 
     public void DestroyAllMazes()
     {
+        if(mazes == null)
+        {
+            return;
+        }
+
         for(int i = 0; i < nMazes; i++)
         {
             if (mazes[i] != null)

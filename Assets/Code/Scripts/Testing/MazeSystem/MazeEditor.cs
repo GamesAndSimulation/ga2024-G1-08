@@ -25,6 +25,9 @@ public class MazeGeneratorEditor : Editor
             mazeGenerator.GenerateMaze();
         }
 
-
+        if(GUILayout.Button("Generate Decor"))
+        {
+            mazeGenerator.GenDecorations();
+        }
     }
 }

@@ -16,5 +16,7 @@ public class MazeTheme : ScriptableObject
     public List<GameObject> wallDecor;
     public List<GameObject> enemies;
 
+    public GameObject portal;
+
 
 }

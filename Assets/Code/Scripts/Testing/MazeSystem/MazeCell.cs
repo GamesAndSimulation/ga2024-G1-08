@@ -30,6 +30,8 @@ public class MazeCell : MonoBehaviour
 
     [SerializeField] private MazeTheme theme;
 
+    private GameObject setDecor;
+
     public bool visited = false;
     public bool hasGeneratedDecor = false;
 
@@ -134,6 +136,7 @@ public class MazeCell : MonoBehaviour
 
                 decor.GetComponent<Decoration>().GenObject(dir);
 
+                setDecor = decor;
             }
             else if(wallDecors.Count > 0){
 
@@ -142,11 +145,69 @@ public class MazeCell : MonoBehaviour
                 GameObject decor = Instantiate(wallDecors.ToArray()[index], wallDecorPlace.transform.position, Quaternion.identity, wallDecorPlace.transform);
 
                 decor.GetComponent<Decoration>().GenObject(dir);
+
+                setDecor = decor;
+
             }
 
             hasGeneratedDecor = true;
 
         }
+
+    }
+
+    public void DeleteDecor()
+    {
+        
+        if (hasGeneratedDecor)
+        {
+            Destroy(setDecor);
+            hasGeneratedDecor = false;
+        }
+
+    }
+
+    public void CreatePortal(GameObject portal)
+    {
+        DeleteDecor();
+        Transform trans = null;
+
+        do
+        {
+            Direction dir = (Direction)Random.Range(0, 4);
+            switch (dir)
+            {
+                case Direction.North:
+                    if (n_wall.activeInHierarchy)
+                    {
+                        trans = n_decor.transform;
+                    }
+                    break;
+                case Direction.South:
+                    if (s_wall.activeInHierarchy)
+                    {
+                        trans = s_decor.transform;
+                    }
+                    break;
+                case Direction.East:
+                    if (e_wall.activeInHierarchy)
+                    {
+                        trans = e_decor.transform;
+                    }
+                    break;
+                case Direction.West:
+                    if (w_wall.activeInHierarchy)
+                    {
+                        trans = w_decor.transform;
+                    }
+                    break;
+            }
+
+        } while (trans == null);
+            
+        GameObject portalObj = Instantiate(portal, n_decor.transform.position, Quaternion.identity, n_decor.transform);
+        setDecor = portalObj;
+        hasGeneratedDecor = true;
 
     }
 
