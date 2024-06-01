@@ -78,7 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9fa683b63205241af015e04c16aa65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4609187487301589668}
   clips:
-  - {fileID: 8300000, guid: 32cfffdac4bdaf244b6d26795ae70cef, type: 3}
-  - {fileID: 8300000, guid: 521072de8deb3a743826154789ff71aa, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!82 &4609187487301589668 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6123650300802073172, guid: 82b2e8632c1afc744888f3929782d0d5, type: 3}
+  m_PrefabInstance: {fileID: 7713694298361616624}
+  m_PrefabAsset: {fileID: 0}
