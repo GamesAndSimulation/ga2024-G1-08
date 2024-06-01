@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeReference] protected GameEvent pauseEvent;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
 
+    [Header("Sounds")]
+
     // Start is called before the first frame update
     protected void Awake()
     {
