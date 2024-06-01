@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sounds")]
 
+    [SerializeReference] protected SFXSoundComponent placeholderSoundComponent;
+
     // Start is called before the first frame update
     protected void Awake()
     {
