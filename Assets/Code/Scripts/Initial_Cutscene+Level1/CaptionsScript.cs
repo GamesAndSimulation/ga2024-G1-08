@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,5 +25,19 @@ public class CaptionsScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayCaptions()
+    {
+        StartCoroutine(a());
+    }
+
+    IEnumerator a()
+    {
+        foreach (var caption in captions)
+        {
+            gameObject.GetComponent<TextMeshProUGUI>().text = caption.text;
+            yield return new WaitForSeconds(caption.time);
+        }
     }
 }

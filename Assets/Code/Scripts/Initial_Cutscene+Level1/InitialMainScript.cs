@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +9,7 @@ public class InitialMainScript : MonoBehaviour
 {
     public CaptionsScript captionsScript;
     public GameObject captions;
-    public GameObject image;
+    public FadeCanvas ui;
     public FadeCanvas fadeCanvas;
     public Animator lampSwitchAnimator;
     public Animator cameraAnimator;
@@ -16,11 +17,19 @@ public class InitialMainScript : MonoBehaviour
     public Light lampLight;
     public GameObject particleSystem;
     public AudioSource lightSwitchAudio;
-    public float WAITTIME_LIGHTSWITCH = 0.5f;
-    public float WAITTIME_DIALOGUESTART = 4.0f;
-    public float WAITTIME_SWITCHSCENES = 2.0f;
+    public AudioSource music;
+
+    public const float WAITTIME_LIGHTSWITCH = 0.5f;
+    public const float WAITTIME_DIALOGUESTART = 4.0f;
+    public const float WAITTIME_TURNOFFCAPTIONS = 6.0f;
+    public const float WAITTIME_FADE = 1.0f;
+    public const float WAITTIME_SWITCHSCENES = 2.0f;
+    public const float AUDIOFADETIME = 8.5f;
+
     public string LEVEL1 = "Level1";
     public Vector4 emissionColor = new Vector4(0.9471698f, 0.7891425f, 0.112588f, 1f);
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +46,8 @@ public class InitialMainScript : MonoBehaviour
     {
         particleSystem.SetActive(false);
         lampSwitchAnimator.SetTrigger("hasBeenClicked");
-
+        music.Play();
+        ui.StartFadeOut();
         StartCoroutine(TurnOffLight());
 
     }
@@ -56,27 +66,42 @@ public class InitialMainScript : MonoBehaviour
     IEnumerator DialogueStart()
     {
         yield return new WaitForSeconds(WAITTIME_DIALOGUESTART);
+
         captions.SetActive(true);
-        image.SetActive(true);
 
-        foreach (var caption in captionsScript.captions)
-        {
-            captions.GetComponent<TextMeshProUGUI>().text = caption.text;
-            yield return new WaitForSeconds(caption.time);
-        }
+        captionsScript.PlayCaptions();
 
+        StartCoroutine(ReduceAudioVolume());
+
+        yield return new WaitForSeconds(WAITTIME_TURNOFFCAPTIONS);
         captions.SetActive(false);
-        image.SetActive(false);
-        fadeCanvas.QuickFadeIn();
 
+        
         StartCoroutine(SwitchScenes());
+        
     }
 
     IEnumerator SwitchScenes()
     {
-        yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
 
+        yield return new WaitForSeconds(WAITTIME_FADE);
+        fadeCanvas.QuickFadeIn();
+
+        yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
         SceneManager.LoadScene(LEVEL1);
+
+    }
+
+    IEnumerator ReduceAudioVolume()
+    {
+        float startVolume = music.volume;
+
+        while (music.volume > 0)
+        {
+            music.volume -= startVolume * Time.deltaTime / AUDIOFADETIME;
+
+            yield return null;
+        }
 
     }
 }

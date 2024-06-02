@@ -12,7 +12,7 @@ public class DogStateHandler : MonoBehaviour
     [Header("State Changers")]
     private bool hasReachedTarget;
     private Transform target;
-    public float targetRadius = 0.5f;
+    public float targetRadius = 2.0f;
     public Transform ballTarget; //this is for debugging purposes
 
     [Header("Scripts")]

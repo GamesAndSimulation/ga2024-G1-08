@@ -8,11 +8,13 @@ public class DogSniffingScript : MonoBehaviour
     public List<Transform> targets;
     public Level1DogStateHandler dogStateHandler;
     public Level1MainScript level1;
+    public float heightLimit = 0.45f;
 
     private Transform currentTarget;
     private int index;
     private float time = 0;
     private float timeLimit;
+    
 
 
     // Start is called before the first frame update
@@ -58,7 +60,7 @@ public class DogSniffingScript : MonoBehaviour
                 index++;
                 currentTarget = targets[index];
 
-               if(currentTarget.position.y > 0.6)
+               if(currentTarget.localPosition.y > heightLimit)
                     dogStateHandler.SniffUpTarget(currentTarget);
                 else
                  dogStateHandler.SniffDownTarget(currentTarget);
@@ -74,7 +76,11 @@ public class DogSniffingScript : MonoBehaviour
     IEnumerator StartSniffing(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        dogStateHandler.SniffDownTarget(currentTarget);
+
+        if (currentTarget.localPosition.y > heightLimit)
+            dogStateHandler.SniffUpTarget(currentTarget);
+        else
+            dogStateHandler.SniffDownTarget(currentTarget);
     }
 
 }

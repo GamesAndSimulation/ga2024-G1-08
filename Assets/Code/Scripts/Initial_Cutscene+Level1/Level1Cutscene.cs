@@ -13,7 +13,7 @@ public class Level1Cutscene : MonoBehaviour
     
 
     public const float WAITTIME_DOOROPEN = 1.0f;
-    public const float WAITTIME_CAMERAMOVE = 1.5f;
+    public const float WAITTIME_CAMERAMOVE = 3.0f;
     public const float WAITTIME_CHANGETOPLAYER = 3.0f;
 
     // Start is called before the first frame update

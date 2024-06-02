@@ -96,9 +96,7 @@ public class Level1DogStateHandler : MonoBehaviour
 
                         if (sniffingDown)
                         {
-
                             animScript.SniffDown();
-
                             currentState = DogState.sniffingDown;
 
                         }
