@@ -7,20 +7,21 @@ public class SFXCyclingSoundComponent : SFXSoundComponent
 
     [SerializeField] private List<AudioClip> clips;
 
-    private int nextClip;
+    private int prevClip;
 
     public new void PlaySound() {
 
+        prevClip = (prevClip + 1) % clips.Count;
+        audioSource.clip = clips[prevClip];
         audioSource.Play();
-        nextClip = (nextClip + 1) % clips.Count;
-        audioSource.clip = clips[nextClip];
+
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        nextClip = 0;
+        prevClip = -1;
         audioSource.clip = clips[0];
 
     }
