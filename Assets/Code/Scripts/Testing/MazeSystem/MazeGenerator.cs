@@ -1,32 +1,27 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Accessibility;
 
 public class MazeGenerator : MonoBehaviour
 {
+    [Header("Maze Vars")]
     [SerializeField] private MazeCell cellPrefab;
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private MazeTheme theme;
-    [SerializeField] private MazeGenerator from;
-    [SerializeField] private MazeGenerator to;
 
+    [Header ("Portals")]
+    public PortalDecor portalA;
+    public PortalDecor portalB;
+
+    [Header("Grid")]
     private MazeCell[,] grid;
     private int cellWidth;
     private int cellHeight;
     private Transform cellsParent;
 
     private List<MazeCell> deadEnds;
-
-    public void SetFrom(MazeGenerator from)
-    {
-        this.from = from;
-    }
-
-    public void SetTo(MazeGenerator to)
-    {
-        this.to = to;
-    }
 
     public void SetTheme(MazeTheme theme)
     {
@@ -116,14 +111,6 @@ public class MazeGenerator : MonoBehaviour
             }
             else
             {
-                
-                if(deadEnds == null)
-                {
-                    deadEnds = new List<MazeCell>();
-                }
-
-                deadEnds.Add(currentCell);  
-
                 break;
             }
         } while (nextCell != null);
@@ -200,26 +187,56 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    public void GenPortals()
+
+    public void GenPortalA(PortalDecor prevPortal)
     {
-        //from portal
         MazeCell mazeCell = grid[0, 0];
+        if (prevPortal != null)
+        {
+            GameObject portal = theme.portal;
 
-        GameObject fromPortal = theme.portal;
+            //TODO: fix this
+            portal.GetComponent<PortalDecor>().SetOtherPortal(prevPortal.GetComponentInChildren<Camera>().transform);
+            portal.GetComponent<PortalDecor>().SetReceiver(prevPortal.GetComponentInChildren<PortalTeleport>().transform);
 
-        fromPortal.GetComponentInChildren<PortalTeleport>().receiver = from.transform;
+            portalA = mazeCell.CreatePortal(portal);
 
-        mazeCell.CreatePortal(fromPortal);
+            prevPortal.SetOtherPortal(portalA.GetComponentInChildren<Camera>().transform);
+            prevPortal.SetReceiver(portalA.GetComponentInChildren<PortalTeleport>().transform);
+        }
+    }
 
-        //to portal
-        mazeCell = deadEnds.ToArray()[UnityEngine.Random.Range(0, deadEnds.Count)];
+    public void GenPortalB()
+    {
+        FindDeadEnds();
+
+        MazeCell mazeCell = deadEnds.ToArray()[UnityEngine.Random.Range(0, deadEnds.Count)];
 
         GameObject toPortal = theme.portal;
+        
+        portalB = mazeCell.CreatePortal(toPortal);
+    }
 
-        toPortal.GetComponentInChildren<PortalTeleport>().receiver = to.transform;
+    private void FindDeadEnds()
+    {
+        if(deadEnds == null)
+            deadEnds = new List<MazeCell>();
+        else
+            deadEnds.Clear();
 
-        mazeCell.CreatePortal(toPortal);
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                MazeCell cell = grid[x, z];
+                if (cell.nWalls == 3)
+                {
+                    deadEnds.Add(cell);
+                }
+            }
+        }
 
+        Debug.Log("Dead ends: " + deadEnds.Count);
     }
     
 

@@ -47,7 +47,16 @@ public class MultiMazeGenerator : MonoBehaviour
                 mazes[i].SetTheme(themes[i]);
                   
             mazes[i].GenerateMaze();
+
             mazes[i].GenDecorations();
+
+            if (i == 0)
+                mazes[i].GenPortalB();
+            else
+            {
+                mazes[i].GenPortalA(mazes[i-1].portalB);
+                mazes[i].GenPortalB();
+            }
         }
     }
 

@@ -129,6 +129,8 @@ MonoBehaviour:
   height: 6
   theme: {fileID: 11400000, guid: 409348c37497ee64db03c90d7ac5a2b2, type: 2}
   visited: 0
+  hasGeneratedDecor: 0
+  nWalls: 4
 --- !u!1 &2871091205931381942
 GameObject:
   m_ObjectHideFlags: 0

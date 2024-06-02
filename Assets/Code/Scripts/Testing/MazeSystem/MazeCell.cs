@@ -7,39 +7,38 @@ using UnityEngine;
 
 public class MazeCell : MonoBehaviour
 {
-
+    [Header("Walls and Floor")]
     [SerializeField] private GameObject n_wall;
     [SerializeField] private GameObject s_wall;
     [SerializeField] private GameObject e_wall;
     [SerializeField] private GameObject w_wall;
     [SerializeField] private GameObject floor;
 
+    [Header("Wall Decors")]
     [SerializeField] private GameObject n_wall_decor;
     [SerializeField] private GameObject s_wall_decor;
     [SerializeField] private GameObject e_wall_decor;
     [SerializeField] private GameObject w_wall_decor;
 
+    [Header("Floor Decors")]
     [SerializeField] private GameObject m_decor;
     [SerializeField] private GameObject n_decor;
     [SerializeField] private GameObject s_decor;
     [SerializeField] private GameObject e_decor;
     [SerializeField] private GameObject w_decor;
 
+    [Header("Size Vars")]
     [SerializeField] public int width;
     [SerializeField] public int height;
 
+    [Header("Theme")]
     [SerializeField] private MazeTheme theme;
 
     private GameObject setDecor;
 
     public bool visited = false;
     public bool hasGeneratedDecor = false;
-
-    private void Start()
-    {
-        width = 1;
-        height = 1;
-    }
+    public int nWalls;
 
     public void SetVisited()
     {
@@ -63,6 +62,8 @@ public class MazeCell : MonoBehaviour
                 w_wall.SetActive(false);
                 break;
         }
+
+        nWalls--;
     }   
 
     public void SetTheme(MazeTheme theme)
@@ -128,17 +129,17 @@ public class MazeCell : MonoBehaviour
                         break;
                 }
             }
-            if (decors.Count > 0 && Random.Range(0,3) > 0) // 2/3 chance to spawn a standing decoration
+            if (decorPlace != null && decors.Count > 0 && Random.Range(0,3) > 0) // 2/3 chance to spawn a standing decoration
             {
                 int index = Random.Range(0, decors.Count);
-
+                   
                 GameObject decor = Instantiate(decors.ToArray()[index] , decorPlace.transform.position, Quaternion.identity, decorPlace.transform);
 
                 decor.GetComponent<Decoration>().GenObject(dir);
 
                 setDecor = decor;
             }
-            else if(wallDecors.Count > 0){
+            else if(wallDecorPlace != null && wallDecors.Count > 0){
 
                 int index = Random.Range(0, wallDecors.Count);
 
@@ -161,55 +162,53 @@ public class MazeCell : MonoBehaviour
         
         if (hasGeneratedDecor)
         {
-            Destroy(setDecor);
+            DestroyImmediate(setDecor);
             hasGeneratedDecor = false;
         }
 
     }
 
-    public void CreatePortal(GameObject portal)
+    public PortalDecor CreatePortal(GameObject portal)
     {
         DeleteDecor();
         Transform trans = null;
 
-        do
+        if(this.transform.position != new Vector3(0,0,0)) // If not the first cell
+            trans = DeadEndWall().transform;
+        else
+            trans = s_wall.transform;
+
+        if (trans != null)
         {
-            Direction dir = (Direction)Random.Range(0, 4);
-            switch (dir)
-            {
-                case Direction.North:
-                    if (n_wall.activeInHierarchy)
-                    {
-                        trans = n_decor.transform;
-                    }
-                    break;
-                case Direction.South:
-                    if (s_wall.activeInHierarchy)
-                    {
-                        trans = s_decor.transform;
-                    }
-                    break;
-                case Direction.East:
-                    if (e_wall.activeInHierarchy)
-                    {
-                        trans = e_decor.transform;
-                    }
-                    break;
-                case Direction.West:
-                    if (w_wall.activeInHierarchy)
-                    {
-                        trans = w_decor.transform;
-                    }
-                    break;
-            }
+            GameObject portalObj = Instantiate(portal, n_decor.transform.position, Quaternion.identity, trans.transform);
+            setDecor = portalObj;
+            hasGeneratedDecor = true;
+            portalObj.GetComponent<PortalDecor>().GenObject(Direction.South);//direction doesn't actually matter for portals
+            return portalObj.GetComponent<PortalDecor>();
+        }
 
-        } while (trans == null);
-            
-        GameObject portalObj = Instantiate(portal, n_decor.transform.position, Quaternion.identity, n_decor.transform);
-        setDecor = portalObj;
-        hasGeneratedDecor = true;
-
+        return null;
     }
 
+    private GameObject DeadEndWall()
+    {
+        if(!n_wall.activeInHierarchy)
+        {
+            return s_decor;
+        }
+        else if (!s_wall.activeInHierarchy)
+        {
+            return n_decor;
+        }
+        else if (!e_wall.activeInHierarchy)
+        {
+            return w_decor;
+        }
+        else if (!w_wall.activeInHierarchy)
+        {
+            return e_decor;
+        }
 
+        return null;
+    }
 }

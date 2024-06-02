@@ -24,3 +24,4 @@ MonoBehaviour:
   wallDecor:
   - {fileID: 417278078711858258, guid: 94464eff0458e524f8ac844e633e08d1, type: 3}
   enemies: []
+  portal: {fileID: 2369018456614855337, guid: f6fbabb6221bc514bb5bb73fb907b511, type: 3}

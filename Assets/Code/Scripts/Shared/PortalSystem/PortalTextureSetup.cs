@@ -10,16 +10,22 @@ public class PortalTextureSetup : MonoBehaviour
 
     void Start()
     {
-        
-        if(cam.targetTexture != null)
-        {
-            cam.targetTexture.Release();
-        } 
 
-        cam.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        camMat.mainTexture = cam.targetTexture;
+        Setup();
 
     }
 
     
+    public void Setup()
+    {
+        if (cam.targetTexture != null)
+        {
+            cam.targetTexture.Release();
+        }
+
+        cam.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        camMat = new Material(Shader.Find("Unlit/ScreenCutoutShader"));
+        camMat.mainTexture = cam.targetTexture;
+    }
+
 }
