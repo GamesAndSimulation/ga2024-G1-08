@@ -7,7 +7,7 @@ using UnityEngine;
 public class SFXSoundComponent : MonoBehaviour
 {
 
-    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] public AudioSource audioSource;
 
     public void PlaySound() {
 
