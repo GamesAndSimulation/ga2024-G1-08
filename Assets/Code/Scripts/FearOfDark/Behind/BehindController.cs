@@ -7,8 +7,7 @@ public class BehindController : MonoBehaviour
 
     private GameObject player;
     private PlayerControllerFOD controllerFOD;
-
-    private Renderer behindRenderer;
+    private IsVisibleChecker isVisibleChecker;
 
     private bool isMoving;
 
@@ -29,7 +28,7 @@ public class BehindController : MonoBehaviour
     [SerializeField] private float minPlayStepsDelay = 0.3f;
 
     protected void Awake() {
-        behindRenderer = GetComponent<Renderer>();
+        isVisibleChecker = GetComponent<IsVisibleChecker>();
     }
 
     protected void onEnabled() {
@@ -44,10 +43,9 @@ public class BehindController : MonoBehaviour
         Vector3 distanceVector = new Vector3(player.transform.position.x, this.transform.position.y, player.transform.position.z) - this.transform.position;
 
 
-        Debug.Log(behindRenderer.isVisible);
-        if (!behindRenderer.isVisible) {
+        if (!isVisibleChecker.isVisible()) {
 
-            if (distanceVector.magnitude >= proximityToStartMoving)
+        if (distanceVector.magnitude >= proximityToStartMoving)
                 isMoving = true;
 
             if (distanceVector.magnitude <= maxProximity) {
@@ -78,6 +76,8 @@ public class BehindController : MonoBehaviour
         float deltaDistance = 1 - (perceivedDistance - maxProximity) / (minProximity - maxProximity);
 
         if (shouldPlaySteps) {
+
+            Debug.Log("Played steps");
 
             woodFoodstepsSound.PlaySound();
             shouldPlaySteps = false;
