@@ -120,6 +120,15 @@ public class Level1DogStateHandler : MonoBehaviour
         }
     }
 
+    public void StartSniffingUp()
+    {
+        if (currentState == DogState.idle)
+        {
+            animScript.SniffUp();
+            currentState = DogState.sniffingUp;
+        }
+    }
+
     public void MoveDogToTarget(Transform target)
     {
         this.target = target;

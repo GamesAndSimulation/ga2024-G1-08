@@ -18,13 +18,15 @@ public class InitialMainScript : MonoBehaviour
     public GameObject particleSystem;
     public AudioSource lightSwitchAudio;
     public AudioSource music;
+    public AudioVolume audioVolume;
 
     public const float WAITTIME_LIGHTSWITCH = 0.5f;
     public const float WAITTIME_DIALOGUESTART = 4.0f;
     public const float WAITTIME_TURNOFFCAPTIONS = 6.0f;
     public const float WAITTIME_FADE = 1.0f;
     public const float WAITTIME_SWITCHSCENES = 2.0f;
-    public const float AUDIOFADETIME = 8.5f;
+    public const float AUDIOINFADETIME = 2.0f;
+    public const float AUDIOOUTFADETIME = 8.5f;
 
     public string LEVEL1 = "Level1";
     public Vector4 emissionColor = new Vector4(0.9471698f, 0.7891425f, 0.112588f, 1f);
@@ -46,6 +48,7 @@ public class InitialMainScript : MonoBehaviour
     {
         particleSystem.SetActive(false);
         lampSwitchAnimator.SetTrigger("hasBeenClicked");
+        StartCoroutine(audioVolume.IncreaseVolume(music, AUDIOINFADETIME));
         music.Play();
         ui.StartFadeOut();
         StartCoroutine(TurnOffLight());
@@ -68,16 +71,16 @@ public class InitialMainScript : MonoBehaviour
         yield return new WaitForSeconds(WAITTIME_DIALOGUESTART);
 
         captions.SetActive(true);
+        StartCoroutine(captionsScript.PlayCaptions());
 
-        captionsScript.PlayCaptions();
-
-        StartCoroutine(ReduceAudioVolume());
+        StartCoroutine(audioVolume.ReduceVolume(music, AUDIOOUTFADETIME));
 
         yield return new WaitForSeconds(WAITTIME_TURNOFFCAPTIONS);
         captions.SetActive(false);
 
         
         StartCoroutine(SwitchScenes());
+
         
     }
 
@@ -92,16 +95,4 @@ public class InitialMainScript : MonoBehaviour
 
     }
 
-    IEnumerator ReduceAudioVolume()
-    {
-        float startVolume = music.volume;
-
-        while (music.volume > 0)
-        {
-            music.volume -= startVolume * Time.deltaTime / AUDIOFADETIME;
-
-            yield return null;
-        }
-
-    }
 }

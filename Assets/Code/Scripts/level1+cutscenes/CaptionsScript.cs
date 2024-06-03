@@ -27,12 +27,7 @@ public class CaptionsScript : MonoBehaviour
         
     }
 
-    public void PlayCaptions()
-    {
-        StartCoroutine(a());
-    }
-
-    IEnumerator a()
+    public IEnumerator PlayCaptions()
     {
         foreach (var caption in captions)
         {
