@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "GameEvent")] //will allow to create this in the scene
 public class GameEvent : ScriptableObject //to store data shared among objects
 {
-
+    [TextArea(1, 10)]
+    public string description;
 
     public List<GameEventListener> listeners = new List<GameEventListener>();
    
