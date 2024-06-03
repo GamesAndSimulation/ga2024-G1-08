@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class PortalCam : MonoBehaviour
 {
-
     public Transform playerCam;
     public Transform thisPortal;
     public Transform otherPortal;
 
     void LateUpdate()
     {
-        Vector3 playerOffset = playerCam.position - otherPortal.position;
-        transform.position = thisPortal.position + playerOffset;
+        Vector3 playerOffsetFromOtherPortal = playerCam.position - otherPortal.position;
 
-        float angularDifferenceBetweenPortalRotations = Quaternion.Angle(thisPortal.rotation, otherPortal.rotation);
+        Quaternion portalRotationDifference = thisPortal.rotation * Quaternion.Inverse(otherPortal.rotation);
+        Vector3 transformedOffset = portalRotationDifference * playerOffsetFromOtherPortal;
 
-        Quaternion portalRotationalDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortalRotations, Vector3.up);
-        Vector3 newCameraDirection = portalRotationalDifference * playerCam.forward;
+        Vector3 mirroredPosition = thisPortal.position - transformedOffset;
+
+        transform.position = mirroredPosition;
+
+        Vector3 localForward = otherPortal.InverseTransformDirection(playerCam.forward);
+        localForward = new Vector3(-localForward.x, localForward.y, -localForward.z); // Mirror horizontally only
+        Vector3 newCameraDirection = thisPortal.TransformDirection(localForward);
         transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
-    
     }
 }

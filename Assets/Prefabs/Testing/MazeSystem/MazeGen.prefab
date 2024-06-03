@@ -48,5 +48,5 @@ MonoBehaviour:
   width: 10
   height: 10
   theme: {fileID: 0}
-  from: {fileID: 0}
-  to: {fileID: 0}
+  portalA: {fileID: 0}
+  portalB: {fileID: 0}

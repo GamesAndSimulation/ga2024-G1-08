@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiMazeGenerator : MonoBehaviour
@@ -8,6 +9,8 @@ public class MultiMazeGenerator : MonoBehaviour
     [SerializeField] private MazeTheme[] themes;
     [SerializeField] private int nMazes;
     [SerializeField] private int distanceBetweenMazes;
+
+    [SerializeField] private List<PortalDecor> portals;
 
     private void AddMaze(int i)
     {
@@ -39,6 +42,8 @@ public class MultiMazeGenerator : MonoBehaviour
 
     public void GenerateAllMazes()
     {
+        portals = new List<PortalDecor>();
+
         for(int i = 0; i < nMazes; i++)
         {
             mazes[i].CreateGrid();
@@ -51,12 +56,67 @@ public class MultiMazeGenerator : MonoBehaviour
             mazes[i].GenDecorations();
 
             if (i == 0)
-                mazes[i].GenPortalB();
+               portals.Add(mazes[i].GenPortalB());
+
+            else if (i == nMazes-1)
+            {
+                portals.Add(mazes[i].GenPortalA(mazes[i-1].portalB));
+            }
+
             else
             {
-                mazes[i].GenPortalA(mazes[i-1].portalB);
-                mazes[i].GenPortalB();
+                portals.Add(mazes[i].GenPortalA(mazes[i - 1].portalB));
+                portals.Add(mazes[i].GenPortalB());
             }
+        }
+
+        HandlePortals();
+    }
+
+    private void HandlePortals()
+    {
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerCam = GameObject.Find("Main Camera");
+
+        for(int i = 0; i < portals.Count-1; i += 2)
+        {
+            int j = i + 1;
+
+            PortalDecor portalA = portals[i];
+            PortalDecor portalB = portals[j];
+
+            portalA.SetPlayer(player.transform);
+            portalB.SetPlayer(player.transform);
+
+            portalA.SetReceiver(portalB.GetComponentInChildren<PortalTeleport>().transform);
+            portalB.SetReceiver(portalA.GetComponentInChildren<PortalTeleport>().transform);
+
+            portalA.SetPlayerCam(playerCam.transform);
+            portalB.SetPlayerCam(playerCam.transform);
+            portalA.SetThisPortal();
+            portalB.SetThisPortal();
+            portalA.SetOtherPortal(portalB.transform);
+            portalB.SetOtherPortal(portalA.transform);
+
+            Camera camA = portalA.GetComponentInChildren<Camera>();
+            Camera camB = portalB.GetComponentInChildren<Camera>();
+
+            portalA.SetPortalCam(camA);
+            portalB.SetPortalCam(camB);
+
+            Material matA = new Material(Shader.Find("Unlit/ScreenCutoutShader"));
+            Material matB = new Material(Shader.Find("Unlit/ScreenCutoutShader"));
+
+            matA.name = "PortalMatA" + i;
+            matB.name = "PortalMatB" + j;
+
+            portalA.SetPortalMat(matA);
+            portalB.SetPortalMat(matB);
+
+            portalA.ApplyMatToPlane(matB);
+            portalB.ApplyMatToPlane(matA);
+
         }
     }
 

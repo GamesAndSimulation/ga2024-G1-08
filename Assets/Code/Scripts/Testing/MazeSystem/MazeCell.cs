@@ -1,8 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class MazeCell : MonoBehaviour
@@ -181,6 +177,10 @@ public class MazeCell : MonoBehaviour
         if (trans != null)
         {
             GameObject portalObj = Instantiate(portal, n_decor.transform.position, Quaternion.identity, trans.transform);
+            portalObj.name = "Portal " + transform.position;
+            portalObj.transform.GetChild(0).name = "PortalCam " + transform.position;
+            portalObj.transform.GetChild(1).name = "PortalPlane " + transform.position;
+            portalObj.transform.GetChild(2).name = "PortalCollider " + transform.position;
             setDecor = portalObj;
             hasGeneratedDecor = true;
             portalObj.GetComponent<PortalDecor>().GenObject(Direction.South);//direction doesn't actually matter for portals

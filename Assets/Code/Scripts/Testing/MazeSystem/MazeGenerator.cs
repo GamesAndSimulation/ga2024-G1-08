@@ -188,25 +188,18 @@ public class MazeGenerator : MonoBehaviour
     }
 
 
-    public void GenPortalA(PortalDecor prevPortal)
+    public PortalDecor GenPortalA(PortalDecor prevPortal)
     {
         MazeCell mazeCell = grid[0, 0];
-        if (prevPortal != null)
-        {
-            GameObject portal = theme.portal;
+        
+        GameObject portal = theme.portal;
 
-            //TODO: fix this
-            portal.GetComponent<PortalDecor>().SetOtherPortal(prevPortal.GetComponentInChildren<Camera>().transform);
-            portal.GetComponent<PortalDecor>().SetReceiver(prevPortal.GetComponentInChildren<PortalTeleport>().transform);
+        portalA = mazeCell.CreatePortal(portal);
 
-            portalA = mazeCell.CreatePortal(portal);
-
-            prevPortal.SetOtherPortal(portalA.GetComponentInChildren<Camera>().transform);
-            prevPortal.SetReceiver(portalA.GetComponentInChildren<PortalTeleport>().transform);
-        }
+        return portalA;
     }
 
-    public void GenPortalB()
+    public PortalDecor GenPortalB()
     {
         FindDeadEnds();
 
@@ -215,6 +208,8 @@ public class MazeGenerator : MonoBehaviour
         GameObject toPortal = theme.portal;
         
         portalB = mazeCell.CreatePortal(toPortal);
+
+        return portalB;
     }
 
     private void FindDeadEnds()
@@ -228,11 +223,16 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                MazeCell cell = grid[x, z];
-                if (cell.nWalls == 3)
+                if(!(x == 0 && z == 0))
                 {
-                    deadEnds.Add(cell);
+                    MazeCell cell = grid[x, z];
+                    if (cell.nWalls == 3)
+                    {
+                        deadEnds.Add(cell);
+                    }
+
                 }
+                    
             }
         }
 

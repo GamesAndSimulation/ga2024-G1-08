@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 328086042184416726}
   - component: {fileID: 4363434405428683515}
   m_Layer: 0
-  m_Name: Collider1
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 969254705022018144}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 0.17983, y: 1, z: 0.32000673}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4215853074589662503}
   - component: {fileID: 1972365845424408689}
   m_Layer: 0
-  m_Name: Cam_A
+  m_Name: Cam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,6 +240,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePosition: {x: 0, y: 2, z: 0}
   baseRotation: {x: 0, y: 180, z: 0}
+  receiver: {fileID: 0}
+  otherPortal: {fileID: 0}
+  portalCam: {fileID: 4215853074589662503}
+  portalTeleport: {fileID: 4363434405428683515}
+  portalTextureSetup: {fileID: 1972365845424408689}
+  otherCamMat: {fileID: 0}
 --- !u!1 &8670617258517556445
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +259,7 @@ GameObject:
   - component: {fileID: 5602461310966665880}
   - component: {fileID: 7273586827623771122}
   m_Layer: 0
-  m_Name: 'Plane_A '
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
