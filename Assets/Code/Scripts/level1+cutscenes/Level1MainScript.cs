@@ -8,6 +8,7 @@ public class Level1MainScript : MonoBehaviour
 {
     public AudioSource poopSfx;
     public AudioSource music;
+    public AudioSource ambience;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
     public GameObject poop;
@@ -17,6 +18,7 @@ public class Level1MainScript : MonoBehaviour
     public ShovelScript shovel;
     public int totalPoops = 10;
     public float totalTime = 3.0f;
+    public AudioVolume audioVolume;
 
     private int score;
     private bool timerStart;
@@ -24,7 +26,7 @@ public class Level1MainScript : MonoBehaviour
 
     public const string GAMEOVER = "GameOver";
     public const string WINNINGSCENE = "WinningScene";
-    
+    public const float WAITTIME_STARTMUSIC = 3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -77,20 +79,23 @@ public class Level1MainScript : MonoBehaviour
         scoreText.text = score.ToString() + " / " + totalPoops.ToString();
     }
 
-    public void OnGardenEntered(Component sender, object data) {
+    public void OnGardenEntered(Component sender, object data) { 
+        StartCoroutine(audioVolume.IncreaseVolume(music, WAITTIME_STARTMUSIC));
+        StartCoroutine(audioVolume.ReduceVolume(ambience, WAITTIME_STARTMUSIC));
+        music.Play();
         shovel.Appear();
         trigger.SetActive(false);
         camera.SetActive(false);
         poop.SetActive(true);
         UI.SetActive(true);
-        StartCoroutine(Wait(2.0f));
+        StartCoroutine(WaitForMusic());
     }
 
-    IEnumerator Wait(float seconds)
+    IEnumerator WaitForMusic()
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(WAITTIME_STARTMUSIC);
         timerStart = true;
-        music.Play();
+        ambience.Stop();
     }
 
 }

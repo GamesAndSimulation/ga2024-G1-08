@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinalCutscenesMainScript : MonoBehaviour
 {
@@ -8,12 +9,17 @@ public class FinalCutscenesMainScript : MonoBehaviour
     public FadeCanvas fadeCanvas;
     public GameObject credits;
     public Level1DogStateHandler level1DogStateHandler;
+    public AudioSource ambience;
+    public AudioVolume audioVolume;
 
     public const string CAMERAMOVEMENT = "CameraMoving";
 
     public const float WAITTIME_CAMERAMOVEMENT = 3.0f;
     public float WAITTIME_FADEOUTSCENE = 8.0f;
-    public const float WAITTIME_FADEINCREDITS = 2.0f;
+    public const float WAITTIME_SWITCHSCENES = 2.0f;
+    public const float AUDIOFADEIN = 5.0f;
+    public const float AUDIOFADEOUT = 2.0f;
+    public string INITIAL_SCENE = "InitialCutscene";
 
 
 
@@ -21,10 +27,14 @@ public class FinalCutscenesMainScript : MonoBehaviour
     void Start()
     {
         fadeCanvas.StartFadeOut();
-        level1DogStateHandler.StartSniffingUp();
-        StartCoroutine(CameraMove());
-        
+       
+        if(level1DogStateHandler != null )
+            level1DogStateHandler.StartSniffingUp();
 
+        StartCoroutine(audioVolume.IncreaseVolume(ambience, AUDIOFADEIN));
+        ambience.Play();
+
+        StartCoroutine(CameraMove());
     }
 
     // Update is called once per frame
@@ -39,17 +49,19 @@ public class FinalCutscenesMainScript : MonoBehaviour
 
         cameraAnimator.SetTrigger(CAMERAMOVEMENT);
 
-        StartCoroutine(RollCredits());
+        StartCoroutine(EndScene());
     }
 
-    IEnumerator RollCredits()
+    IEnumerator EndScene()
     {
         yield return new WaitForSeconds(WAITTIME_FADEOUTSCENE);
-        fadeCanvas.StartFadeIn();
+        StartCoroutine(audioVolume.ReduceVolume(ambience, AUDIOFADEOUT));
 
-        yield return new WaitForSeconds(WAITTIME_FADEINCREDITS);
-        credits.SetActive(true);
-        fadeCanvas.StartFadeOut();
+        fadeCanvas.StartFadeIn();
+       
+
+        yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
+        SceneManager.LoadScene(INITIAL_SCENE);
 
     }
 }

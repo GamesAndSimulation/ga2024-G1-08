@@ -167,6 +167,19 @@ public class Level1DogStateHandler : MonoBehaviour
         }
     }
 
+    public void StopMoving()
+    {
+        Debug.Log("currentState" + currentState);
+        if (currentState == DogState.moving)
+        {
+            moveScript.StopWalking();
+            currentState = DogState.idle;
+            animScript.StartIdle();
+            sniffingDown = false;
+            sniffingUp = false;
+        }
+    }
+
     void CheckForOrders()
     {
         if (Input.GetKeyDown("f"))

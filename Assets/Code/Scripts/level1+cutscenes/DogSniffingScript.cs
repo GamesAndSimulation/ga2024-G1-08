@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DogSniffingScript : MonoBehaviour
@@ -14,7 +15,7 @@ public class DogSniffingScript : MonoBehaviour
     private int index;
     private float time = 0;
     private float timeLimit;
-    
+    private bool isDogMoving = true;
 
 
     // Start is called before the first frame update
@@ -34,40 +35,72 @@ public class DogSniffingScript : MonoBehaviour
         {
             timeLimit = level1.totalTime * 60;
         }
+   
     }
 
     // Update is called once per frame
     void Update()
     {
-        int activeChildren = 0;
-        
-        foreach (Transform child in currentTarget)
+        if (isDogMoving)
         {
-            if (child.gameObject.activeInHierarchy)
-            {
-                activeChildren++;
-                time += Time.deltaTime;
-                break;
-            }
-        }
+            int activeChildren = 0;
+            int aux = 0;
 
-        if (activeChildren == 0 || time > timeLimit) 
-        {
-            time = 0;
-            if (index < targets.Count - 1)
+            foreach (Transform child in currentTarget)
             {
-                
-                index++;
+
+                if (child.gameObject.activeInHierarchy)
+                {
+                    activeChildren++;
+                    time += Time.deltaTime;
+                    break;
+                }
+            }
+
+            if (activeChildren == 0 || time > timeLimit)
+            {
+                time = 0;
+
+                index = (index + 1) % targets.Count;
                 currentTarget = targets[index];
 
-               if(currentTarget.localPosition.y > heightLimit)
-                    dogStateHandler.SniffUpTarget(currentTarget);
+
+                while (activeChildren == 0 && aux < targets.Count)
+                {
+                    foreach (Transform child in currentTarget)
+                    {
+
+                        if (child.gameObject.activeInHierarchy)
+                        {
+                            activeChildren++;
+                            time += Time.deltaTime;
+                            break;
+                        }
+                    }
+
+                    if (activeChildren <= 0)
+                    {
+                        index = (index + 1) % targets.Count;
+                        aux++;
+                        currentTarget = targets[index];
+                    }
+
+                }
+
+                if (aux < targets.Count)
+                {
+                    if (currentTarget.localPosition.y > heightLimit)
+                        dogStateHandler.SniffUpTarget(currentTarget);
+                    else
+                        dogStateHandler.SniffDownTarget(currentTarget);
+                }
                 else
-                 dogStateHandler.SniffDownTarget(currentTarget);
-            }
-            else
-            {
-                dogStateHandler.StopSniffing();
+                {
+                    dogStateHandler.StopMoving();
+                    dogStateHandler.StopSniffing();
+                    isDogMoving = false;
+                }
+
             }
         }
 

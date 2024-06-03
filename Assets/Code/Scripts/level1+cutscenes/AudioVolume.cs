@@ -27,6 +27,7 @@ public class AudioVolume : MonoBehaviour
 
             yield return null;
         }
+      
     }
 
     public IEnumerator IncreaseVolume(AudioSource audio, float audioFadeTime)
@@ -37,8 +38,9 @@ public class AudioVolume : MonoBehaviour
         while (audio.volume < startVolume)
         {
             audio.volume += startVolume * Time.deltaTime / audioFadeTime;
-
             yield return null;
+
         }
+       
     }
 }
