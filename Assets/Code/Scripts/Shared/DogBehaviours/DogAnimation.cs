@@ -26,8 +26,8 @@ public class DogAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(animator.GetFloat(VEL));
-        Debug.Log(animator.GetBool(SBARK));
+        //Debug.Log(animator.GetFloat(VEL));
+        //Debug.Log(animator.GetBool(SBARK));
     }
 
     public void MovingAnim(float velocity)
