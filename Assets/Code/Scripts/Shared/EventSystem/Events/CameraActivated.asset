@@ -10,7 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb5917eefafc70f4eaea9a0da80c32ed, type: 3}
-  m_Name: PauseGame
+  m_Name: CameraActivated
   m_EditorClassIdentifier: 
-  description: It is called when the game is paused
+  description: 'It is called when a new camera appears
+
+    sender is irrelevant
+
+    data
+    is the reference to the camera, of the Camera class'
   listeners: []
