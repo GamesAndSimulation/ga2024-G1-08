@@ -269,8 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf258b5913e0b44d88763f281a608ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 3725083934702231382}
   damage: 0
-  movementMultiplier: 0
+  damageRegen: 0.01
   heartSoundController:
     soundComponent: {fileID: 6169906848451840241}
     pitchInterval: {x: 0.85, y: 1.5}
@@ -282,6 +283,11 @@ MonoBehaviour:
 --- !u!4 &3045313925670278505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6039201164253117947, guid: 07ede9ad13949b8418c3af18ec256939, type: 3}
+  m_PrefabInstance: {fileID: 8758566240643852434}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &3725083934702231382 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5349860249698236356, guid: 07ede9ad13949b8418c3af18ec256939, type: 3}
   m_PrefabInstance: {fileID: 8758566240643852434}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &9019054165542947868 stripped

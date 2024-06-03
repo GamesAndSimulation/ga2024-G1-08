@@ -17,5 +17,5 @@ MonoBehaviour:
     sender is irrelevant
 
     data
-    is the reference to the camera, of the Camera class'
+    is the reference to the camera gameobject'
   listeners: []
