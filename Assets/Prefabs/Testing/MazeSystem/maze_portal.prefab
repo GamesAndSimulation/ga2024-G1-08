@@ -77,6 +77,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   receiver: {fileID: 0}
+  mazeMode: 1
+  changeMazeEvent: {fileID: 11400000, guid: 54da63cd9501e214fba5f99ca144da93, type: 2}
 --- !u!1 &1843194386824930358
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +179,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   thisPortal: {fileID: 0}
   otherPortal: {fileID: 0}
+  mazeMode: 1
 --- !u!114 &1972365845424408689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,12 +243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePosition: {x: 0, y: 2, z: 0}
   baseRotation: {x: 0, y: 180, z: 0}
-  receiver: {fileID: 0}
-  otherPortal: {fileID: 0}
   portalCam: {fileID: 4215853074589662503}
   portalTeleport: {fileID: 4363434405428683515}
   portalTextureSetup: {fileID: 1972365845424408689}
-  otherCamMat: {fileID: 0}
 --- !u!1 &8670617258517556445
 GameObject:
   m_ObjectHideFlags: 0

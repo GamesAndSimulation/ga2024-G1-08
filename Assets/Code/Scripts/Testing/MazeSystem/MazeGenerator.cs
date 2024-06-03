@@ -236,7 +236,11 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        Debug.Log("Dead ends: " + deadEnds.Count);
+    }
+
+    public void DeactivatePortalWalls()
+    {
+
     }
     
 

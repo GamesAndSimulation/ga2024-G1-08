@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[Serializable]
 public class PortalDecor : MonoBehaviour, Decoration
 {
     [Header("Position and Rotation")]

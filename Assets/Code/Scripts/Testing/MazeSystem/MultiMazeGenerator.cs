@@ -10,7 +10,15 @@ public class MultiMazeGenerator : MonoBehaviour
     [SerializeField] private int nMazes;
     [SerializeField] private int distanceBetweenMazes;
 
-    [SerializeField] private List<PortalDecor> portals;
+    public List<PortalDecor> portals;
+
+    private int playerCurrentMaze = 0;
+
+
+    private void Start()
+    {
+        playerCurrentMaze = 0;
+    }
 
     private void AddMaze(int i)
     {
@@ -141,4 +149,20 @@ public class MultiMazeGenerator : MonoBehaviour
         mazes = null;
         themes = null;
     }
+    public void OnMazeChange(Component sender, object data)
+    {
+        int index = portals.FindIndex(p => p == sender.gameObject.GetComponentInParent<PortalDecor>());
+
+        if (index % 2 == 0)
+        {
+            playerCurrentMaze++;
+        }
+        else
+        {
+            playerCurrentMaze--;
+        }
+
+        mazes[playerCurrentMaze].DeactivatePortalWalls();
+    }
+
 }

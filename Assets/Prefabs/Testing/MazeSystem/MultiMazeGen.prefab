@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8693450929688787734}
   - component: {fileID: 7668551147210021326}
+  - component: {fileID: 2326835938081644469}
   m_Layer: 0
   m_Name: MultiMazeGen
   m_TagString: Untagged
@@ -46,5 +47,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazeGenPrefab: {fileID: 0}
   mazes: []
+  themes: []
   nMazes: 0
   distanceBetweenMazes: 0
+  portals: []
+--- !u!114 &2326835938081644469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972241194741322041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 54da63cd9501e214fba5f99ca144da93, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7668551147210021326}
+        m_TargetAssemblyTypeName: MultiMazeGenerator, Assembly-CSharp
+        m_MethodName: OnMazeChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
