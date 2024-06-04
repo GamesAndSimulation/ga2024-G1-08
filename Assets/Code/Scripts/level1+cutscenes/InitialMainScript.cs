@@ -49,7 +49,6 @@ public class InitialMainScript : MonoBehaviour
         particleSystem.SetActive(false);
         lampSwitchAnimator.SetTrigger("hasBeenClicked");
         StartCoroutine(audioVolume.IncreaseVolume(music, AUDIOINFADETIME));
-        music.Play();
         ui.StartFadeOut();
         StartCoroutine(TurnOffLight());
 

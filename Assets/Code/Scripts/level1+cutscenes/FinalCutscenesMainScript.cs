@@ -32,7 +32,6 @@ public class FinalCutscenesMainScript : MonoBehaviour
             level1DogStateHandler.StartSniffingUp();
 
         StartCoroutine(audioVolume.IncreaseVolume(ambience, AUDIOFADEIN));
-        ambience.Play();
 
         StartCoroutine(CameraMove());
     }

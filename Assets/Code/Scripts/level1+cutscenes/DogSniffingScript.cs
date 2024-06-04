@@ -17,6 +17,8 @@ public class DogSniffingScript : MonoBehaviour
     private float timeLimit;
     private bool isDogMoving = true;
 
+    private const float WAITTIME_STARTSNIFFING = 0.5f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,7 @@ public class DogSniffingScript : MonoBehaviour
         {
             timeLimit = level1.totalTime * 60 / targets.Count;
             currentTarget = targets[index];
-            StartCoroutine(StartSniffing(0.5f));
+            StartCoroutine(StartSniffing());
            
         }
         else
@@ -60,7 +62,7 @@ public class DogSniffingScript : MonoBehaviour
             if (activeChildren == 0 || time > timeLimit)
             {
                 time = 0;
-
+                activeChildren = 0;
                 index = (index + 1) % targets.Count;
                 currentTarget = targets[index];
 
@@ -96,9 +98,7 @@ public class DogSniffingScript : MonoBehaviour
                 }
                 else
                 {
-                    dogStateHandler.StopMoving();
-                    dogStateHandler.StopSniffing();
-                    isDogMoving = false;
+                    StopMoving();
                 }
 
             }
@@ -106,14 +106,21 @@ public class DogSniffingScript : MonoBehaviour
 
     }
 
-    IEnumerator StartSniffing(float seconds)
+    IEnumerator StartSniffing()
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(WAITTIME_STARTSNIFFING);
 
         if (currentTarget.localPosition.y > heightLimit)
             dogStateHandler.SniffUpTarget(currentTarget);
         else
             dogStateHandler.SniffDownTarget(currentTarget);
+    }
+
+    public void StopMoving()
+    {
+        dogStateHandler.StopMoving();
+        dogStateHandler.StopSniffing();
+        isDogMoving = false;
     }
 
 }

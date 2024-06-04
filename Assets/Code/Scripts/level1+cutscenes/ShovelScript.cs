@@ -22,7 +22,7 @@ public class ShovelScript : MonoBehaviour
     void Update()
     {
         //right click to shovel
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) && this.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled == true )
         {
             Shovel();
         }
@@ -58,5 +58,11 @@ public class ShovelScript : MonoBehaviour
         this.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         audio.Play();
     }
-  
+
+    public void Disappear()
+    {
+        this.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        audio.Play();
+    }
+
 }

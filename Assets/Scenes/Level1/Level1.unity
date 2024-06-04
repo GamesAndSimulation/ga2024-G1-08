@@ -185,6 +185,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1870275309168687694, guid: af09a19931e24ea4f86bcbfb06b8f5d6, type: 3}
   m_PrefabInstance: {fileID: 1043846}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4358973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4358974}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4358974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4358973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.7, y: 0.6136427, z: 37.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &11001360
 GameObject:
   m_ObjectHideFlags: 0
@@ -24756,7 +24787,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 03f5afa7489456943b65be9d1a6c4503, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -27665,6 +27696,8 @@ GameObject:
   - component: {fileID: 1874827885}
   - component: {fileID: 1874827886}
   - component: {fileID: 1874827887}
+  - component: {fileID: 1874827888}
+  - component: {fileID: 1874827889}
   m_Layer: 0
   m_Name: Main System
   m_TagString: Untagged
@@ -27709,9 +27742,10 @@ MonoBehaviour:
   trigger: {fileID: 555603296}
   camera: {fileID: 1138099257}
   shovel: {fileID: 1446787138}
-  totalPoops: 10
-  totalTime: 4
+  totalPoops: 1
+  totalTime: 1
   audioVolume: {fileID: 467607492}
+  levelWon: {fileID: 11400000, guid: 0c2fda6a386bf214f8b2a8e8f01b4812, type: 2}
 --- !u!114 &1874827884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27808,6 +27842,61 @@ MonoBehaviour:
   dogStateHandler: {fileID: 1474783875}
   level1: {fileID: 1874827882}
   heightLimit: 0.45
+--- !u!114 &1874827888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874827880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc6e25f388ee3940a8c2818f55058e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1755074213}
+  finalPosition: {fileID: 4358974}
+  dogStateHandler: {fileID: 1474783875}
+--- !u!114 &1874827889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874827880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 0c2fda6a386bf214f8b2a8e8f01b4812, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1874827887}
+        m_TargetAssemblyTypeName: DogSniffingScript, Assembly-CSharp
+        m_MethodName: StopMoving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1874827888}
+        m_TargetAssemblyTypeName: DogFinalSequence, Assembly-CSharp
+        m_MethodName: MoveToPositions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1875699793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33886,3 +33975,4 @@ SceneRoots:
   - {fileID: 1474783870}
   - {fileID: 1931120631}
   - {fileID: 209914681}
+  - {fileID: 4358974}

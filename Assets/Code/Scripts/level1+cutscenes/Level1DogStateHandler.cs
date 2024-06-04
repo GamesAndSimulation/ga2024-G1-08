@@ -154,7 +154,6 @@ public class Level1DogStateHandler : MonoBehaviour
         }
     }
 
-
     public void StopSniffing()
     {
         if (sniffingUp)
@@ -169,7 +168,6 @@ public class Level1DogStateHandler : MonoBehaviour
 
     public void StopMoving()
     {
-        Debug.Log("currentState" + currentState);
         if (currentState == DogState.moving)
         {
             moveScript.StopWalking();

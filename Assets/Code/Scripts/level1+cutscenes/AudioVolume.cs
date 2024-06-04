@@ -27,11 +27,15 @@ public class AudioVolume : MonoBehaviour
 
             yield return null;
         }
-      
+
+        audio.Stop();
+        audio.volume = startVolume; 
+
     }
 
     public IEnumerator IncreaseVolume(AudioSource audio, float audioFadeTime)
     {
+        audio.Play();
         float startVolume = audio.volume;
         audio.volume = 0;
 
@@ -41,6 +45,6 @@ public class AudioVolume : MonoBehaviour
             yield return null;
 
         }
-       
+        
     }
 }

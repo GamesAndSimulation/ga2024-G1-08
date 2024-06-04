@@ -24,9 +24,14 @@ public class Level1MainScript : MonoBehaviour
     private bool timerStart;
     private float timer;
 
-    public const string GAMEOVER = "GameOver";
-    public const string WINNINGSCENE = "WinningScene";
-    public const float WAITTIME_STARTMUSIC = 3.0f;
+    private const string GAMEOVER = "BadEnding";
+    private const float WAITTIME_STARTMUSIC = 3.0f;
+    private const float WAITTIME_STARTAMBIENCE = 2.0f;
+
+
+    [SerializeField]
+    private GameEvent levelWon;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,10 +55,16 @@ public class Level1MainScript : MonoBehaviour
             {
                 minutes = 0;
                 seconds = 0;
-                if(score < totalPoops)
-                    SceneManager.LoadScene(GAMEOVER);
-                else
-                    SceneManager.LoadScene(WINNINGSCENE);
+
+                timerStart = false;
+
+                if (score < totalPoops)
+                    SceneManager.LoadScene(GAMEOVER); //loses
+                else //wins
+                {
+                    HandleWinning();
+                }
+
             }
             else
             {
@@ -68,6 +79,16 @@ public class Level1MainScript : MonoBehaviour
             
 
         }
+    }
+
+    public void HandleWinning() {
+        levelWon.Raise(this, "");
+        StartCoroutine(audioVolume.IncreaseVolume(ambience, WAITTIME_STARTAMBIENCE));
+        StartCoroutine(audioVolume.ReduceVolume(music, WAITTIME_STARTAMBIENCE));
+        shovel.Disappear();
+        poop.SetActive(false);
+        UI.SetActive(false);
+
     }
 
     public void OnPoopShovelled(Component sender, object data)
@@ -95,7 +116,6 @@ public class Level1MainScript : MonoBehaviour
     {
         yield return new WaitForSeconds(WAITTIME_STARTMUSIC);
         timerStart = true;
-        ambience.Stop();
     }
 
 }
