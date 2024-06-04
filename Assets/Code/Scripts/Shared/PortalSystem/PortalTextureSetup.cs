@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class PortalTextureSetup : MonoBehaviour
 {
 
     public Camera cam;
     public Material camMat;
+
 
     void Start()
     {
@@ -20,6 +23,5 @@ public class PortalTextureSetup : MonoBehaviour
         camMat.mainTexture = cam.targetTexture;
 
     }
-
     
 }

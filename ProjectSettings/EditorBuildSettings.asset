@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Initial_Cutscene/InitialCutscene.unity
+    guid: a340fadda597aa943b3ac486e35b5736
+  - enabled: 1
+    path: Assets/Scenes/Level1/Level1.unity
+    guid: 7508bbe04b694f94d8bcbf2398366698
+  - enabled: 1
+    path: Assets/Scenes/GameOver/GameOver.unity
+    guid: d08034a3814a0544882e694e506ccaea
+  - enabled: 1
+    path: Assets/Scenes/GameOver/WinningScene.unity
+    guid: e410d587e0b7cb841899a77747e8ce91
   m_configObjects: {}
