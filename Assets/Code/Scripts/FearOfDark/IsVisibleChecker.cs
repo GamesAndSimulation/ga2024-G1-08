@@ -11,11 +11,7 @@ public class IsVisibleChecker : MonoBehaviour
 
     protected void Awake() {
        rendererToCheck = GetComponent<Renderer>();
-    }
-
-    public void OnCameraChanged(Component sender, object data) {
-
-        cameraToCheck = ((GameObject)data).GetComponent<Camera>();
+        cameraToCheck = PlayerWatcherComponent.getPlayer().GetComponent<PlayerController>().firstPersonCamera.GetComponent<Camera>();
 
     }
 

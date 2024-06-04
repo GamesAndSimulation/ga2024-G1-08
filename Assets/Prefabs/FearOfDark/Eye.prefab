@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4981137155797156243}
   - component: {fileID: 8495795584359344608}
   - component: {fileID: 260419491426958684}
-  - component: {fileID: 266902175496167074}
+  - component: {fileID: 4816777872622104676}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 1, z: 0.02}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4866165422359049748}
@@ -84,28 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &266902175496167074
-MeshCollider:
+--- !u!114 &4816777872622104676
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567146563214939274}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9000403123640650340
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +107,7 @@ GameObject:
   - component: {fileID: 4866165422359049748}
   - component: {fileID: 3102331043081484106}
   - component: {fileID: -2960613449127580319}
-  - component: {fileID: -5336653407521913177}
+  - component: {fileID: 7139622077018549305}
   m_Layer: 0
   m_Name: Eye
   m_TagString: Untagged
@@ -166,31 +156,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74648c7ee3ff9540b2dc7910d628657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5336653407521913177
-MonoBehaviour:
+--- !u!95 &7139622077018549305
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000403123640650340}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 46e5c100cde8c9543a634124ae00fccd, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -2960613449127580319}
-        m_TargetAssemblyTypeName: EyeController, Assembly-CSharp
-        m_MethodName: onPlayerAnnounced
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8bfbc3e4f3c74c646918a9e6ff039da0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

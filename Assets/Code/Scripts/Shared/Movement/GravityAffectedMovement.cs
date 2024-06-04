@@ -16,6 +16,7 @@ public class GravityAffectedMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.25f;
     [SerializeField] private float airMultiplier = 0.4f; //when moving in air, like gliding
 
+    [SerializeField] private bool canJump = true;
 
     //For input in outside scripts
     [HideInInspector] public bool  isSprinting;
@@ -103,7 +104,7 @@ public class GravityAffectedMovement : MonoBehaviour
 
     public void tryJump() {
 
-        if (readyToJump && grounded) {
+        if (canJump && readyToJump && grounded) {
 
             readyToJump = false;
             Jump();

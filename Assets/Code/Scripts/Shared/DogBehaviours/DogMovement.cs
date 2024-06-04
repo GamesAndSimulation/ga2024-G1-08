@@ -8,24 +8,24 @@ public class DogMovement : MonoBehaviour
 
     private NavMeshAgent navAgent;
 
-    private void Start()
+    protected virtual void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
     }
 
 
-    public void WalkToTarget(Transform target)
+    public virtual void WalkToTarget(Transform target)
     {
         navAgent.speed = 8.0f;
         navAgent.SetDestination(target.position);
     }
 
-    public void StopWalking()
+    public virtual void StopWalking()
     {
         navAgent.SetDestination(transform.position);
     }
 
-    public float GetSpeed()
+    public virtual float GetSpeed()
     {
         return navAgent.velocity.magnitude;
     }

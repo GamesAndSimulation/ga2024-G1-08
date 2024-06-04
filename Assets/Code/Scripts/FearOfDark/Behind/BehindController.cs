@@ -6,19 +6,25 @@ public class BehindController : MonoBehaviour
 {
 
     private GameObject player;
-    private PlayerControllerFOD controllerFOD;
     private IsVisibleChecker isVisibleChecker;
 
     private bool isMoving;
 
+
+    [Header("Distance Related")]
     [SerializeField] private float maxProximity = 2; //the proximity at which the enemy will stop getting closer to the player
     [SerializeField] private float minProximity = 10; //if the enemy is farther than the player than min proximity, it will count as if it was at this distance
+    [SerializeField] private float deathProximity = 3; //the proximity at which the enemy will die if the player looks at it
 
     [SerializeField] private float proximityToStartMoving = 5; //the proximity at which the enemy, while still, will start moving
 
+    [Header("Movement Related")]
     [SerializeField] private float minSpeed = 0.05f; //the minimum speed the enemy has, when it is farthest from the player
     [SerializeField] private float maxSpeed = 1.0f; //the max speed the enemy has, when it is closer to the player
 
+    [SerializeField] private float delayToStartMoving = 1;
+
+    [Header("Sound Related")]
 
     [SerializeField] private SFXCyclingSoundComponent woodFoodstepsSound;
     
@@ -27,8 +33,16 @@ public class BehindController : MonoBehaviour
     [SerializeField] private float maxPlayStepsDelay = 1.5f;
     [SerializeField] private float minPlayStepsDelay = 0.3f;
 
+
+    [Header("Damage Related")]
+    [SerializeField] private GameEvent damagePlayerEvent;
+    [SerializeField] private float damageOnCatchingPlayer = 0.2f;
+
+
     protected void Awake() {
         isVisibleChecker = GetComponent<IsVisibleChecker>();
+        shouldPlaySteps = true;
+        player = PlayerWatcherComponent.getPlayer();
     }
 
     protected void onEnabled() {
@@ -45,25 +59,32 @@ public class BehindController : MonoBehaviour
 
         if (!isVisibleChecker.isVisible()) {
 
-        if (distanceVector.magnitude >= proximityToStartMoving)
-                isMoving = true;
+            if (distanceVector.magnitude >= proximityToStartMoving && !isMoving)
+                Invoke(nameof(startMovingDelayed), delayToStartMoving);
 
             if (distanceVector.magnitude <= maxProximity) {
                 isMoving = false;
-                controllerFOD.damagePlayer(0.2f);
+                damagePlayerEvent.Raise(this, damageOnCatchingPlayer);
+                destroyBehind();
+
 
             } else if (isMoving)
                 walk(distanceVector);
 
-        }
+        } else {
 
+            if (distanceVector.magnitude <= deathProximity) {
+                destroyBehind();
+            }
+
+            isMoving = false;
+        }
     }
 
-    public void onPlayerAnnounced(Component sender, object data) {
+    private void destroyBehind() {
 
-        player = sender.gameObject;
-        controllerFOD = player.GetComponent<PlayerControllerFOD>();
-
+        FODEnemyManager.instance.behindWasKilled();
+        Destroy(gameObject);
     }
 
 
@@ -76,8 +97,6 @@ public class BehindController : MonoBehaviour
         float deltaDistance = 1 - (perceivedDistance - maxProximity) / (minProximity - maxProximity);
 
         if (shouldPlaySteps) {
-
-            Debug.Log("Played steps");
 
             woodFoodstepsSound.PlaySound();
             shouldPlaySteps = false;
@@ -92,6 +111,12 @@ public class BehindController : MonoBehaviour
     private void resetShouldPlaySteps() {
 
         shouldPlaySteps = true;
+
+    }
+
+    private void startMovingDelayed() {
+
+        isMoving = true;
 
     }
 
