@@ -15,7 +15,7 @@ MonoBehaviour:
   themeName: GroceryStore
   floorMaterial: {fileID: 2100000, guid: b399da1a348056544acd8b74b0b8e2fc, type: 2}
   wallMaterial: {fileID: 2100000, guid: 735d5005c8cbc1d428e198b7c4d9842a, type: 2}
-  ceilingMaterial: {fileID: -3963241562183589234, guid: 3824182ab9ffc274aaa8526f1e4e95e8, type: 3}
+  ceilingMaterial: {fileID: 2100000, guid: aa48601c569b5ff4e9fcd84f8a621ee9, type: 2}
   decorations:
   - {fileID: 6944208201895821489, guid: fe57d3b163c1fdb47b2464b3980326ff, type: 3}
   - {fileID: 4475942803340415322, guid: 3b60d05b53d66c64b8979ce57a276f25, type: 3}

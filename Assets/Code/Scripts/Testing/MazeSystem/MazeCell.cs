@@ -11,6 +11,7 @@ public class MazeCell : MonoBehaviour
     [SerializeReference] private GameObject e_wall;
     [SerializeReference] private GameObject w_wall;
     [SerializeReference] private GameObject floor;
+    [SerializeReference] private GameObject ceiling;
 
     [Header("Wall Decors")]
     [SerializeReference] private GameObject n_wall_decor;
@@ -68,6 +69,8 @@ public class MazeCell : MonoBehaviour
             w_wall.GetComponentInChildren<Renderer>().material = theme.wallMaterial;
 
             floor.GetComponentInChildren<Renderer>().material = theme.floorMaterial;
+
+            ceiling.GetComponentInChildren<Renderer>().material = theme.ceilingMaterial;
 
             //Gen Decoration
             List<GameObject> decors = theme.decorations;
