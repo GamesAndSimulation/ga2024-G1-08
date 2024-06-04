@@ -6,7 +6,6 @@ public class BehindController : MonoBehaviour
 {
 
     private GameObject player;
-    private PlayerControllerFOD controllerFOD;
     private IsVisibleChecker isVisibleChecker;
 
     private bool isMoving;
@@ -27,8 +26,16 @@ public class BehindController : MonoBehaviour
     [SerializeField] private float maxPlayStepsDelay = 1.5f;
     [SerializeField] private float minPlayStepsDelay = 0.3f;
 
+    [SerializeField] private float delayToStartMoving = 1;
+
+    [SerializeField] private GameEvent damagePlayerEvent;
+    [SerializeField] private float damageOnCatchingPlayer = 0.2f;
+
+
     protected void Awake() {
         isVisibleChecker = GetComponent<IsVisibleChecker>();
+        shouldPlaySteps = true;
+        PlayerWatcherComponent.addSubToPlayerChanged(PlayerChanged);
     }
 
     protected void onEnabled() {
@@ -45,26 +52,27 @@ public class BehindController : MonoBehaviour
 
         if (!isVisibleChecker.isVisible()) {
 
-        if (distanceVector.magnitude >= proximityToStartMoving)
-                isMoving = true;
+            if (distanceVector.magnitude >= proximityToStartMoving && !isMoving)
+                Invoke(nameof(startMovingDelayed), delayToStartMoving);
 
             if (distanceVector.magnitude <= maxProximity) {
                 isMoving = false;
-                controllerFOD.damagePlayer(0.2f);
+                damagePlayerEvent.Raise(this, damageOnCatchingPlayer);
 
             } else if (isMoving)
                 walk(distanceVector);
 
-        }
+        }else
+            isMoving = false;
 
     }
 
-    public void onPlayerAnnounced(Component sender, object data) {
+    public void PlayerChanged(GameObject newPlayer) {
 
-        player = sender.gameObject;
-        controllerFOD = player.GetComponent<PlayerControllerFOD>();
+        player = newPlayer;
 
     }
+
 
 
     private void walk(Vector3 distanceVector) {
@@ -76,8 +84,6 @@ public class BehindController : MonoBehaviour
         float deltaDistance = 1 - (perceivedDistance - maxProximity) / (minProximity - maxProximity);
 
         if (shouldPlaySteps) {
-
-            Debug.Log("Played steps");
 
             woodFoodstepsSound.PlaySound();
             shouldPlaySteps = false;
@@ -92,6 +98,12 @@ public class BehindController : MonoBehaviour
     private void resetShouldPlaySteps() {
 
         shouldPlaySteps = true;
+
+    }
+
+    private void startMovingDelayed() {
+
+        isMoving = true;
 
     }
 

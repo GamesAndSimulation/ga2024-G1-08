@@ -11,15 +11,22 @@ public class EyeController : MonoBehaviour
     private void Awake() {
         
         lookingAtTargetComponent = GetComponent<LookingAtTarget>();
+        ChangePlayer(PlayerWatcherComponent.getPlayer());
+        PlayerWatcherComponent.addSubToPlayerChanged(ChangePlayer);
 
     }
 
-    public void onPlayerAnnounced(Component sender, object data) {
+    public void setPlayer(Transform playerTransform) {
 
-        lookingAtTargetComponent.target = sender.transform;
+        lookingAtTargetComponent.target = playerTransform;
 
     }
 
+    public void ChangePlayer(GameObject newPlayer) {
+
+        setPlayer(newPlayer.transform);
+
+    }
 
 
 }

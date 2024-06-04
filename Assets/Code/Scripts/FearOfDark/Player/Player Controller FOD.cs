@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -49,6 +49,12 @@ public class PlayerControllerFOD : MonoBehaviour {
 
         this.damage = damage + this.damage; 
 
+
+    }
+
+    public void OnPlayerDamaged(Component sender, object data) {
+
+        damagePlayer((float)data);
 
     }
 
