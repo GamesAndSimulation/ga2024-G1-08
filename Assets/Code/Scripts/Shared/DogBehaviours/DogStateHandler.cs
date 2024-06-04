@@ -12,7 +12,7 @@ public class DogStateHandler : MonoBehaviour
     [Header("State Changers")]
     private bool hasReachedTarget;
     private Transform target;
-    public float targetRadius = 0.5f;
+    public float targetRadius = 2.0f;
     public Transform ballTarget; //this is for debugging purposes
 
     [Header("Scripts")]
@@ -47,10 +47,10 @@ public class DogStateHandler : MonoBehaviour
                 break;
 
             case DogState.moving:
-                
+
                 hasReachedTarget = Vector3.Distance(transform.position, target.position) < targetRadius;
 
-                if(hasReachedTarget)
+                if (hasReachedTarget)
                 {
                     currentState = DogState.idle;
                     animScript.StartIdle();
@@ -61,19 +61,19 @@ public class DogStateHandler : MonoBehaviour
                     animScript.MovingAnim(moveScript.GetSpeed());
                     moveScript.WalkToTarget(target);
                 }
-                
+
                 break;
         }
     }
 
     void CheckForOrders()
     {
-        if(Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("f"))
         {
             target = ballTarget.transform;
             currentState = DogState.moving;
             hasReachedTarget = false;
-            
+
         }
 
         if (Input.GetKeyDown("g"))
