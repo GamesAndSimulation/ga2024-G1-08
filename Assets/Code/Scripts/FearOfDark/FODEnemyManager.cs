@@ -73,6 +73,8 @@ public class FODEnemyManager : MonoBehaviour
 
         Vector3 forwardVector = player.transform.forward;
 
+        forwardVector.y = 0;
+
         eye.transform.position = player.transform.position + forwardVector * eyeSpawnDistance;
 
         eye.transform.position = new Vector3(eye.transform.position.x, eyeHeight, eye.transform.position.z);

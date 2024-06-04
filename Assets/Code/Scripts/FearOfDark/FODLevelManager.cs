@@ -60,15 +60,18 @@ public class FODLevelManager : MonoBehaviour
 
     public void SpawnDog() {
 
-        Debug.Log(player);
 
-        Vector3 playerPosition = player.transform.position - transform.position;
+        Vector3 playerPosition = player.transform.position;
+
+        Debug.Log("player: " + playerPosition);
 
         Vector3 playerForward = player.transform.forward;
 
         int randomRotation = Random.Range(0, 360);
 
         Vector3 vectorToDog = Quaternion.Euler(0, randomRotation, 0) * playerForward;
+
+        Debug.Log("vector to dog: " + vectorToDog);
 
         GameObject dog = Instantiate(dogPrefab, this.transform);
 
@@ -79,8 +82,6 @@ public class FODLevelManager : MonoBehaviour
         dog.transform.Rotate(new Vector3(0, randomRotation, 0));
 
         Debug.Log("Spawned dog at " + dog.transform.position);
-
-        dog.GetComponent<DogSounds>().PlaySingleBark();
 
 
     }
