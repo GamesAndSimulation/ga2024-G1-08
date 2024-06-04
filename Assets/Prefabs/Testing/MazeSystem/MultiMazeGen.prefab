@@ -45,9 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f10e48fb7c50374bbb94915debacf54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeGenPrefab: {fileID: 0}
-  mazes: []
-  themes: []
+  mazeGenPrefab: {fileID: 6890375647345245663, guid: f96220464e616c04db28d5f09c969e91, type: 3}
+  mazes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  themes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   nMazes: 0
   distanceBetweenMazes: 0
   portals: []

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class MultiMazeGenerator : MonoBehaviour
 {
     [SerializeField] private MazeGenerator mazeGenPrefab;
@@ -18,6 +20,7 @@ public class MultiMazeGenerator : MonoBehaviour
     private void Start()
     {
         playerCurrentMaze = 0;
+        
     }
 
     private void AddMaze(int i)
@@ -149,20 +152,33 @@ public class MultiMazeGenerator : MonoBehaviour
         mazes = null;
         themes = null;
     }
+
     public void OnMazeChange(Component sender, object data)
     {
         int index = portals.FindIndex(p => p == sender.gameObject.GetComponentInParent<PortalDecor>());
 
-        if (index % 2 == 0)
+        if (index % 2 == 0) //B Portals
         {
             playerCurrentMaze++;
+            mazes[playerCurrentMaze].ActivatePortalAWalls();
+            mazes[playerCurrentMaze - 1].DeactivatePortalBWalls();
+            
+            if(playerCurrentMaze != nMazes-1) // Last B Portal
+                mazes[playerCurrentMaze + 1].DeactivatePortalAWalls();
+        
         }
-        else
+        else //A Portals
         {
             playerCurrentMaze--;
-        }
 
-        mazes[playerCurrentMaze].DeactivatePortalWalls();
+            mazes[playerCurrentMaze].ActivatePortalBWalls();
+            mazes[playerCurrentMaze + 1].DeactivatePortalAWalls();
+
+            if(playerCurrentMaze != 0) // First A Portal
+                mazes[playerCurrentMaze - 1].DeactivatePortalBWalls();
+
+        }
+       
     }
 
 }

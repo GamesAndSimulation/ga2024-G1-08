@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -19,7 +20,7 @@ public class PortalCam : MonoBehaviour
             Quaternion portalRotationDifference = thisPortal.rotation * Quaternion.Inverse(otherPortal.rotation);
             Vector3 transformedOffset = portalRotationDifference * playerOffsetFromOtherPortal;
 
-            Vector3 mirroredPosition = thisPortal.position - transformedOffset;
+            Vector3 mirroredPosition = new Vector3 (thisPortal.position.x - transformedOffset.x, thisPortal.position.y + transformedOffset.y, thisPortal.position.z - transformedOffset.z);
 
             transform.position = mirroredPosition;
 

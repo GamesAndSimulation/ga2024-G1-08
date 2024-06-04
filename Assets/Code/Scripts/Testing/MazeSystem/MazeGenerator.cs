@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Accessibility;
 
+[Serializable]
 public class MazeGenerator : MonoBehaviour
 {
     [Header("Maze Vars")]
@@ -16,12 +17,13 @@ public class MazeGenerator : MonoBehaviour
     public PortalDecor portalB;
 
     [Header("Grid")]
-    private MazeCell[,] grid;
+    [SerializeField]private MazeMatrix grid;
     private int cellWidth;
     private int cellHeight;
     private Transform cellsParent;
 
     private List<MazeCell> deadEnds;
+    [SerializeField]private List<MazeCell> portalBsurrounders;
 
     public void SetTheme(MazeTheme theme)
     {
@@ -39,35 +41,36 @@ public class MazeGenerator : MonoBehaviour
         cellWidth = cellPrefab.width;
         cellHeight = cellPrefab.height;
 
-        grid = new MazeCell[width, height];
+        grid = new MazeMatrix();
+        grid.InitGrid(width, height);
 
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
                 MazeCell newCell = Instantiate(cellPrefab, new Vector3(x * cellWidth, 0, z * cellHeight) + cellsParent.transform.position, Quaternion.identity, cellsParent);
-                grid[x, z] = newCell;
+                grid.Set(x,z,newCell);
             }
         }
     }
 
     public void DestroyGrid()
     {
-        if (grid == null)
+        if (grid == null || grid.height == 0 || grid.width == 0)
         {
             return;
         }
 
-        int gridWidth = grid.GetLength(0);
-        int gridHeight = grid.GetLength(1);
+        int gridWidth = grid.width;
+        int gridHeight = grid.height;
 
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                if (grid[x, z] != null)
+                if (grid.Get(x,z) != null)
                 {
-                    DestroyImmediate(grid[x, z].gameObject);
+                    DestroyImmediate(grid.Get(x,z).gameObject);
                 }
             }
         }
@@ -84,7 +87,7 @@ public class MazeGenerator : MonoBehaviour
     {
         CreateGrid();
 
-        MazeCell startCell = grid[0, 0];
+        MazeCell startCell = grid.Get(0,0);
         GenerateMazeRecursive(null, startCell);
     }
 
@@ -124,21 +127,21 @@ public class MazeGenerator : MonoBehaviour
         int z = (int)Math.Round(cell.transform.localPosition.z) / cellHeight;
 
 
-        if (x > 0 && !grid[x - 1, z].visited)
+        if (x > 0 && !grid.Get(x - 1, z).visited)
         {
-            neighbours.Add(grid[x - 1, z]);
+            neighbours.Add(grid.Get(x - 1, z));
         }
-        if (x < width - 1 && !grid[x + 1, z].visited)
+        if (x < width - 1 && !grid.Get(x + 1, z).visited)
         {
-            neighbours.Add(grid[x + 1, z]);
+            neighbours.Add(grid.Get(x + 1, z));
         }
-        if (z > 0 && !grid[x, z - 1].visited)
+        if (z > 0 && !grid.Get(x, z - 1).visited)
         {
-            neighbours.Add(grid[x, z - 1]);
+            neighbours.Add(grid.Get(x, z - 1));
         }
-        if (z < height - 1 && !grid[x, z + 1].visited)
+        if (z < height - 1 && !grid.Get(x, z + 1).visited)
         {
-            neighbours.Add(grid[x, z + 1]);
+            neighbours.Add(grid.Get(x, z + 1));
         }
 
         return neighbours;
@@ -180,7 +183,7 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                MazeCell cell = grid[x,y];
+                MazeCell cell = grid.Get(x, y);
                 cell.SetTheme(theme);
                 cell.GenerateDecor();
             }
@@ -190,29 +193,46 @@ public class MazeGenerator : MonoBehaviour
 
     public PortalDecor GenPortalA(PortalDecor prevPortal)
     {
-        MazeCell mazeCell = grid[0, 0];
+        MazeCell mazeCell = grid.Get(0, 0);
         
         GameObject portal = theme.portal;
 
-        portalA = mazeCell.CreatePortal(portal);
+        portalA = mazeCell.CreatePortal(portal, Direction.South);
+
+        portalA.x = 0;
+        portalA.z = 0;
 
         return portalA;
     }
 
     public PortalDecor GenPortalB()
     {
-        FindDeadEnds();
+        FindDeadEnds(Direction.North); 
+
+        if(deadEnds.Count == 0)
+        {
+            GenerateMaze();
+            return null;
+        }
 
         MazeCell mazeCell = deadEnds.ToArray()[UnityEngine.Random.Range(0, deadEnds.Count)];
 
         GameObject toPortal = theme.portal;
         
-        portalB = mazeCell.CreatePortal(toPortal);
+        portalB = mazeCell.CreatePortal(toPortal, Direction.North);
 
+        int x = (int)Math.Round(mazeCell.transform.localPosition.x) / cellWidth;
+        int z = (int)Math.Round(mazeCell.transform.localPosition.z) / cellHeight;
+
+        portalB.x = x;
+        portalB.z = z;
+
+        AddSurrounders(x, z, portalB.dir);
+        
         return portalB;
     }
 
-    private void FindDeadEnds()
+    private void FindDeadEnds() // for a random Dead End
     {
         if(deadEnds == null)
             deadEnds = new List<MazeCell>();
@@ -225,7 +245,7 @@ public class MazeGenerator : MonoBehaviour
             {
                 if(!(x == 0 && z == 0))
                 {
-                    MazeCell cell = grid[x, z];
+                    MazeCell cell = grid.Get(x, z);
                     if (cell.nWalls == 3)
                     {
                         deadEnds.Add(cell);
@@ -238,9 +258,326 @@ public class MazeGenerator : MonoBehaviour
 
     }
 
-    public void DeactivatePortalWalls()
+    private void FindDeadEnds(Direction dir) // for a pretended direction for portal
     {
+        if (deadEnds == null)
+            deadEnds = new List<MazeCell>();
+        else
+            deadEnds.Clear();
 
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                if (!(x == 0 && z == 0))
+                {
+                    MazeCell cell = grid.Get(x, z);
+                    if (cell.nWalls == 3 && cell.DeadEndCentered(dir))
+                    {
+                        deadEnds.Add(cell);
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+    private void AddSurrounders(int x, int z, Direction dir)
+    {
+        if(portalBsurrounders == null)
+            portalBsurrounders = new List<MazeCell>();
+
+        bool xPlusSafe = x + 1 < width;
+        bool xMinusSafe = x - 1 >= 0;
+        bool zPlusSafe = z + 1 < height;
+        bool zMinusSafe = z - 1 >= 0;
+
+        bool xPlus2Safe = x + 2 < width;
+        bool xMinus2Safe = x - 2 >= 0;
+        bool zPlus2Safe = z + 2 < height;
+        bool zMinus2Safe = z - 2 >= 0;
+
+        switch (dir)
+        {
+            case Direction.North:
+                {
+                    if (xPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x + 1, z));
+                        if (zPlusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 1, z + 1));
+                            if(zPlus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 1, z + 2));
+                            }
+                        }
+                        if(xPlus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 2, z));
+                            if(zPlusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 2, z + 1));
+                                if(zPlus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x + 2, z + 2));
+                                }
+                            }
+                        }
+                    }
+                    if (xMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x - 1, z));
+                        if (zPlusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 1, z + 1));
+                            if(zPlus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 1, z + 2));
+                            }
+                        }
+                        if (xMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 2, z));
+                            if (zPlusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 2, z + 1));
+                                if(zPlus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x - 2, z + 2));
+                                }
+                            }
+                        }
+                    }
+                    if (zPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z + 1));
+                        if(zPlus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z + 2));
+                        }
+                    }
+
+                    break;
+                }
+            case Direction.South:
+                {
+                    if(xPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x + 1, z));
+                        if (zMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 1, z - 1));
+                        }
+                        if (zMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 1, z - 2));
+                        }
+                    }
+                    if(xPlus2Safe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x + 2, z));
+                        if(zMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 2, z - 1));
+                        }
+                        if(zMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 2, z - 2));
+                        }
+                    }
+                    if (xMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x - 1, z));
+                        if(zMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 1, z - 1));
+                            if(zMinus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 1, z - 2));
+                            }
+                        }
+                    }
+                    if (xMinus2Safe)
+                    {
+                       portalBsurrounders.Add(grid.Get(x - 2, z));
+                        if (zMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 2, z - 1));
+                            if (zMinus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 2, z - 2));
+                            }
+                        }
+                    }
+                    if (zMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z - 1));
+                        if(zMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z - 2));
+                        }   
+                    }
+
+                    break;
+                }
+            case Direction.East:
+                {
+                    if (zPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z + 1));
+                        if (xPlusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 1, z + 1));
+                            if(xPlus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 2, z + 1));
+                            }
+                        }
+                        if (zPlus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z + 2));
+                            if (xPlusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 1, z + 2));
+                                if (xPlus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x + 2, z + 2));
+                                }
+                            }
+                        }
+                    }
+                    if(zMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z - 1));
+                        if (xPlusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 1, z - 1));
+                            if(xPlus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 2, z - 1));
+                            }
+                        }
+                        if (zMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z - 2));
+                            if (xPlusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x + 1, z - 2));
+                                if (xPlus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x + 2, z - 2));
+                                }
+                            }
+                        }
+                    }
+                    if(xPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x + 1, z));
+                        if(xPlus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x + 2, z));
+                        }
+                    }
+                    break;
+                }
+            case Direction.West:
+                {
+                    if (zPlusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z + 1));
+                        if (xMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 1, z + 1));
+                            if(xMinus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 2, z + 1));
+                            }
+                        }
+                        if (zPlus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z + 2));
+                            if (xMinusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 1, z + 2));
+                                if(xMinus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x - 2, z + 2));
+                                }
+                            }
+                        }
+                    }
+                    if(zMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x, z - 1));
+                        if(xMinusSafe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 1, z - 1));
+                            if(xMinus2Safe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 2, z - 1));
+                            }
+                        }
+                        if (zMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x, z - 2));
+                            if (xMinusSafe)
+                            {
+                                portalBsurrounders.Add(grid.Get(x - 1, z - 2));
+                                if(xMinus2Safe)
+                                {
+                                    portalBsurrounders.Add(grid.Get(x - 2, z - 2));
+                                }
+                            }
+                        }
+                    }
+                    if (xMinusSafe)
+                    {
+                        portalBsurrounders.Add(grid.Get(x - 1, z));
+                        if (xMinus2Safe)
+                        {
+                            portalBsurrounders.Add(grid.Get(x - 2, z));
+                        }
+                    }
+                    break;
+                }
+        }
+    }
+
+    public void DeactivatePortalAWalls()
+    {
+        MazeCell mazeCell = grid.Get(0, 0);
+        mazeCell.DeactivateWall(portalA.dir);
+    }
+
+    public void DeactivatePortalBWalls()
+    {
+        MazeCell mazeCell = grid.Get(portalB.x, portalB.z);
+        mazeCell.DeactivateWall(portalB.dir);
+        foreach (MazeCell cell in portalBsurrounders)
+        {
+            cell.DeactivateCell();
+        }
+
+    }
+
+    public void ActivatePortalAWalls()
+    {
+        MazeCell mazeCell = grid.Get(0, 0);
+        mazeCell.ActivateWall(portalA.dir);
+    }
+
+    public void ActivatePortalBWalls()
+    {
+        MazeCell mazeCell = grid.Get(portalB.x,portalB.z);
+        mazeCell.ActivateWall(portalB.dir);
+
+        foreach (MazeCell cell in portalBsurrounders)
+        {
+            cell.ReActivateCell();
+        }
     }
     
 

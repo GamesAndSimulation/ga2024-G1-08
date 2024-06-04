@@ -1,36 +1,40 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class MazeCell : MonoBehaviour
 {
     [Header("Walls and Floor")]
-    [SerializeField] private GameObject n_wall;
-    [SerializeField] private GameObject s_wall;
-    [SerializeField] private GameObject e_wall;
-    [SerializeField] private GameObject w_wall;
-    [SerializeField] private GameObject floor;
+    [SerializeReference] private GameObject n_wall;
+    [SerializeReference] private GameObject s_wall;
+    [SerializeReference] private GameObject e_wall;
+    [SerializeReference] private GameObject w_wall;
+    [SerializeReference] private GameObject floor;
 
     [Header("Wall Decors")]
-    [SerializeField] private GameObject n_wall_decor;
-    [SerializeField] private GameObject s_wall_decor;
-    [SerializeField] private GameObject e_wall_decor;
-    [SerializeField] private GameObject w_wall_decor;
+    [SerializeReference] private GameObject n_wall_decor;
+    [SerializeReference] private GameObject s_wall_decor;
+    [SerializeReference] private GameObject e_wall_decor;
+    [SerializeReference] private GameObject w_wall_decor;
 
     [Header("Floor Decors")]
-    [SerializeField] private GameObject m_decor;
-    [SerializeField] private GameObject n_decor;
-    [SerializeField] private GameObject s_decor;
-    [SerializeField] private GameObject e_decor;
-    [SerializeField] private GameObject w_decor;
+    [SerializeReference] private GameObject m_decor;
+    [SerializeReference] private GameObject n_decor;
+    [SerializeReference] private GameObject s_decor;
+    [SerializeReference] private GameObject e_decor;
+    [SerializeReference] private GameObject w_decor;
 
     [Header("Size Vars")]
-    [SerializeField] public int width;
-    [SerializeField] public int height;
+    [SerializeReference] public int width;
+    [SerializeReference] public int height;
 
     [Header("Theme")]
-    [SerializeField] private MazeTheme theme;
+    [SerializeReference] private MazeTheme theme;
 
     private GameObject setDecor;
+
+    [SerializeField]private List<GameObject> reactivatable;
 
     public bool visited = false;
     public bool hasGeneratedDecor = false;
@@ -43,21 +47,7 @@ public class MazeCell : MonoBehaviour
 
     public void RemoveWall(Direction direction)
     {
-        switch (direction)
-        {
-            case Direction.North:
-                n_wall.SetActive(false);
-                break;
-            case Direction.South:
-                s_wall.SetActive(false);
-                break;
-            case Direction.East:
-                e_wall.SetActive(false);
-                break;
-            case Direction.West:
-                w_wall.SetActive(false);
-                break;
-        }
+        DeactivateWall(direction);
 
         nWalls--;
     }   
@@ -91,7 +81,7 @@ public class MazeCell : MonoBehaviour
             while (decorPlace == null && attempts < 100)
             {
                 attempts++;
-                dir = (Direction)Random.Range(0, 4);
+                dir = (Direction)UnityEngine.Random.Range(0, 4);
 
                 switch (dir)
                 {
@@ -125,9 +115,9 @@ public class MazeCell : MonoBehaviour
                         break;
                 }
             }
-            if (decorPlace != null && decors.Count > 0 && Random.Range(0,3) > 0) // 2/3 chance to spawn a standing decoration
+            if (decorPlace != null && decors.Count > 0 && UnityEngine.Random.Range(0,3) > 0) // 2/3 chance to spawn a standing decoration
             {
-                int index = Random.Range(0, decors.Count);
+                int index = UnityEngine.Random.Range(0, decors.Count);
                    
                 GameObject decor = Instantiate(decors.ToArray()[index] , decorPlace.transform.position, Quaternion.identity, decorPlace.transform);
 
@@ -137,7 +127,7 @@ public class MazeCell : MonoBehaviour
             }
             else if(wallDecorPlace != null && wallDecors.Count > 0){
 
-                int index = Random.Range(0, wallDecors.Count);
+                int index = UnityEngine.Random.Range(0, wallDecors.Count);
 
                 GameObject decor = Instantiate(wallDecors.ToArray()[index], wallDecorPlace.transform.position, Quaternion.identity, wallDecorPlace.transform);
 
@@ -164,51 +154,166 @@ public class MazeCell : MonoBehaviour
 
     }
 
-    public PortalDecor CreatePortal(GameObject portal)
+    public PortalDecor CreatePortal(GameObject portal, Direction dir)
     {
         DeleteDecor();
         Transform trans = null;
+        //Direction dir = DeadEndWall(); -> Due to the difficulty of making the portals work with different directions, this will be the last implemented thing #TODO
 
-        if(this.transform.position != new Vector3(0,0,0)) // If not the first cell
-            trans = DeadEndWall().transform;
-        else
-            trans = s_wall.transform;
+        switch (dir)
+        {
+            case Direction.North:
+                {
+                     trans = n_decor.transform;
+                     break;
+                }
+            case Direction.South:
+                { 
+                     trans = s_decor.transform;
+                     break;
+                }
+            case Direction.East:
+                {
+                    trans = e_decor.transform;
+                    break;
+                }
+            case Direction.West:
+                {
+                    trans = w_decor.transform;
+                    break;
+                }
+        }
 
         if (trans != null)
         {
-            GameObject portalObj = Instantiate(portal, n_decor.transform.position, Quaternion.identity, trans.transform);
+            GameObject portalObj = Instantiate(portal, trans.transform.position, Quaternion.identity, trans.transform);
             portalObj.name = "Portal " + transform.position;
             portalObj.transform.GetChild(0).name = "PortalCam " + transform.position;
             portalObj.transform.GetChild(1).name = "PortalPlane " + transform.position;
             portalObj.transform.GetChild(2).name = "PortalCollider " + transform.position;
             setDecor = portalObj;
             hasGeneratedDecor = true;
-            portalObj.GetComponent<PortalDecor>().GenObject(Direction.South);//direction doesn't actually matter for portals
+
+            portalObj.GetComponent<PortalDecor>().GenObject(dir);
             return portalObj.GetComponent<PortalDecor>();
         }
 
         return null;
     }
 
-    private GameObject DeadEndWall()
+    private Direction DeadEndWall()
     {
         if(!n_wall.activeInHierarchy)
         {
-            return s_decor;
+            return Direction.South;
         }
         else if (!s_wall.activeInHierarchy)
         {
-            return n_decor;
+            return Direction.North;
         }
         else if (!e_wall.activeInHierarchy)
         {
-            return w_decor;
+            return Direction.West;
         }
-        else if (!w_wall.activeInHierarchy)
+        else 
         {
-            return e_decor;
+            return Direction.East;
         }
 
-        return null;
+    }
+
+    public void DeactivateCell()
+    {
+        if(reactivatable == null)
+        {
+            reactivatable = new List<GameObject>();
+        }
+        
+        floor.SetActive(false);
+        reactivatable.Add(floor);
+
+        if(n_wall.activeSelf)
+        {
+            n_wall.SetActive(false);
+            reactivatable.Add(n_wall);
+        }
+        if(s_wall.activeSelf)
+        {
+            s_wall.SetActive(false);
+            reactivatable.Add(s_wall);
+        }
+        if(e_wall.activeSelf)
+        {
+            e_wall.SetActive(false);
+            reactivatable.Add(e_wall);
+        }
+        if(w_wall.activeSelf)
+        {
+            w_wall.SetActive(false);
+            reactivatable.Add(w_wall);
+        }
+
+    }
+
+    public void ReActivateCell()
+    {
+        foreach(GameObject obj in reactivatable)
+        {
+            obj.SetActive(true);
+        }
+    }
+
+    public void DeactivateWall(Direction dir)
+    {
+        switch(dir)
+        {
+            case Direction.North:
+                n_wall.SetActive(false);
+                break;
+            case Direction.South:
+                s_wall.SetActive(false);
+                break;
+            case Direction.East:
+                e_wall.SetActive(false);
+                break;
+            case Direction.West:
+                w_wall.SetActive(false);
+                break;
+        }
+    }
+    public void ActivateWall(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.North:
+                n_wall.SetActive(true);
+                break;
+            case Direction.South:
+                s_wall.SetActive(true);
+                break;
+            case Direction.East:
+                e_wall.SetActive(true);
+                break;
+            case Direction.West:
+                w_wall.SetActive(true);
+                break;
+        }
+    }
+
+    public bool DeadEndCentered(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.North:
+                return n_wall.activeInHierarchy && !s_wall.activeInHierarchy;
+            case Direction.South:
+                return s_wall.activeInHierarchy && !n_wall.activeInHierarchy;
+            case Direction.East:
+                return e_wall.activeInHierarchy && !w_wall.activeInHierarchy;
+            case Direction.West:
+                return w_wall.activeInHierarchy && !e_wall.activeInHierarchy;
+        }
+
+        return false;
     }
 }

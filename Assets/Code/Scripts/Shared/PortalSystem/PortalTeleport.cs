@@ -42,11 +42,9 @@ public class PortalTeleport : MonoBehaviour
                     player.position = receiver.position + posOffset;
                     player.GetComponent<Rigidbody>().position = receiver.position + posOffset;
 
-                    Debug.Log("New position: " + player.position);
-
                     enter = false;
 
-                    if(mazeMode)
+                    if (mazeMode)
                     {
                         changeMazeEvent.Raise(this, null);
                     }
@@ -58,12 +56,12 @@ public class PortalTeleport : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             enter = true;
         }
 
-        
+
     }
 
     private void OnTriggerExit(Collider other)

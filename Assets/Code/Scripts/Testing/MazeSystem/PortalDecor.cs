@@ -10,17 +10,20 @@ public class PortalDecor : MonoBehaviour, Decoration
     [Header("Position and Rotation")]
     [SerializeField] private Vector3 basePosition;
     [SerializeField] private Vector3 baseRotation; // baseRotation is always set by the North decor spot
-
+    
     [Header("Scripts")]
     [SerializeField] public PortalCam portalCam;
     [SerializeField] public PortalTeleport portalTeleport;
     [SerializeField] public PortalTextureSetup portalTextureSetup;
 
+    public Direction dir;
+    public int x, z;
 
     public void GenObject(Direction dir)
     {
         transform.localPosition = basePosition;
         transform.localRotation = Quaternion.Euler(baseRotation);
+        this.dir = dir;
     }
 
     public void SetPlayer(Transform player)
