@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class PortalTeleport : MonoBehaviour
 {
     public Transform player;
     public Transform receiver;
+
+    public bool mazeMode;
+    public GameEvent changeMazeEvent;
+
 
     private bool enter;
 
@@ -39,9 +42,12 @@ public class PortalTeleport : MonoBehaviour
                     player.position = receiver.position + posOffset;
                     player.GetComponent<Rigidbody>().position = receiver.position + posOffset;
 
-                    Debug.Log("New position: " + player.position);
-
                     enter = false;
+
+                    if (mazeMode)
+                    {
+                        changeMazeEvent.Raise(this, null);
+                    }
 
                 }
             }
@@ -50,12 +56,12 @@ public class PortalTeleport : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             enter = true;
         }
 
-        
+
     }
 
     private void OnTriggerExit(Collider other)
