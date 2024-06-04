@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterGarden : MonoBehaviour
+public class ColliderTriggerRaiseEvent : MonoBehaviour
 {
   
     [SerializeField]
-    private GameEvent enteredGarden;
+    private GameEvent gameEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,6 @@ public class EnterGarden : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        enteredGarden.Raise(this, "");
+        gameEvent.Raise(this, other.gameObject.tag);
     }
 }

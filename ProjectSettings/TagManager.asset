@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MovingPlatform
+  - Dog
   layers:
   - Default
   - TransparentFX

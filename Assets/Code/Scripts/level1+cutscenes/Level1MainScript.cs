@@ -9,16 +9,24 @@ public class Level1MainScript : MonoBehaviour
     public AudioSource poopSfx;
     public AudioSource music;
     public AudioSource ambience;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
+
     public GameObject poop;
     public GameObject UI;
     public GameObject trigger;
     public GameObject camera;
+
+    public GameObject cabin;
+    public GameObject removableFences;
+
     public ShovelScript shovel;
+    public AudioVolume audioVolume;
+
     public int totalPoops = 10;
     public float totalTime = 3.0f;
-    public AudioVolume audioVolume;
+
 
     private int score;
     private bool timerStart;
@@ -88,7 +96,8 @@ public class Level1MainScript : MonoBehaviour
         shovel.Disappear();
         poop.SetActive(false);
         UI.SetActive(false);
-
+        cabin.SetActive(true);
+        removableFences.SetActive(false);
     }
 
     public void OnPoopShovelled(Component sender, object data)
