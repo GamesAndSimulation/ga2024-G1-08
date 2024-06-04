@@ -196,6 +196,10 @@ PrefabInstance:
       value: Player&Cam Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3506545228691208307, guid: 07ede9ad13949b8418c3af18ec256939, type: 3}
+      propertyPath: canJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506545228691208307, guid: 07ede9ad13949b8418c3af18ec256939, type: 3}
       propertyPath: moveSpeed
       value: 2.5
       objectReference: {fileID: 0}
