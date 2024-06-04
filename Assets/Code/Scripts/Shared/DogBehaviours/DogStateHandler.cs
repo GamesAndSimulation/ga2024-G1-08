@@ -11,19 +11,25 @@ public class DogStateHandler : MonoBehaviour
 
     [Header("State Changers")]
     private bool hasReachedTarget;
-    private Transform target;
+    public Transform target;
     public float targetRadius = 0.5f;
-    public Transform ballTarget; //this is for debugging purposes
 
-    [Header("Scripts")]
-    public DogMovement moveScript;
-    public DogAnimation animScript;
-    public DogSounds soundScript;
+    private DogMovement moveScript;
+    private DogAnimation animScript;
+    private DogSounds soundScript;
 
     public enum DogState
     {
         idle,
         moving
+    }
+
+    private void Awake() {
+
+        moveScript = GetComponent<DogMovement>();
+        animScript = GetComponent<DogAnimation>();
+        soundScript = GetComponent<DogSounds>();
+
     }
 
     void Start()
@@ -35,7 +41,6 @@ public class DogStateHandler : MonoBehaviour
     void Update()
     {
         StateHandler();
-        CheckForOrders();
     }
 
     void StateHandler()
@@ -52,8 +57,7 @@ public class DogStateHandler : MonoBehaviour
 
                 if(hasReachedTarget)
                 {
-                    currentState = DogState.idle;
-                    animScript.StartIdle();
+                    stopMoving();
                     hasReachedTarget = false;
                 }
                 else
@@ -66,20 +70,31 @@ public class DogStateHandler : MonoBehaviour
         }
     }
 
-    void CheckForOrders()
-    {
-        if(Input.GetKeyDown("f"))
-        {
-            target = ballTarget.transform;
-            currentState = DogState.moving;
-            hasReachedTarget = false;
-            
-        }
+    public void setTarget(Transform newTarget) {
 
-        if (Input.GetKeyDown("g"))
-        {
-            animScript.PlaySingleBark();
-            soundScript.PlaySingleBark();
-        }
+        target = newTarget;
+
     }
+
+    public void playSingleBark() {
+
+        animScript.PlaySingleBark();
+        soundScript.PlaySingleBark();
+
+    }
+
+    public void goToTarget() {
+
+        currentState = DogState.moving;
+        hasReachedTarget = false;
+
+    }
+
+    public void stopMoving() {
+
+        currentState = DogState.idle;
+        animScript.StartIdle();
+
+    }
+
 }

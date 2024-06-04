@@ -7,14 +7,10 @@ public class FODDogController : MonoBehaviour
 
     private GameObject player;
 
-    private DogSounds dogSounds;
-
-    private DogAnimation dogAnimation;
+    private DogStateHandler dogStateHandler;
 
     private IsVisibleChecker isVisibleChecker;
-    
-    private Vector3 target;
-    
+        
     [SerializeField] private GameObject pointLight;
 
     [SerializeField] private float targetDistance = 15;
@@ -25,15 +21,14 @@ public class FODDogController : MonoBehaviour
 
 
     void Awake() {
+
         player = PlayerWatcherComponent.getPlayer();
         isVisibleChecker = GetComponentInChildren<IsVisibleChecker>();
-        dogSounds = GetComponent<DogSounds>();
-        dogAnimation = GetComponent<DogAnimation>();
+        dogStateHandler = GetComponent<DogStateHandler>();
+    
     }
 
     private void Start() {
-        
-
     }
 
 
@@ -43,7 +38,8 @@ public class FODDogController : MonoBehaviour
         if(!isVisibleChecker.isVisible() && pointLight.activeSelf == false) {
 
             pointLight.SetActive(true);
-            dogSounds.PlaySingleBark();
+            dogStateHandler.playSingleBark();
+            generateTarget();
 
 
         } else {
@@ -51,19 +47,27 @@ public class FODDogController : MonoBehaviour
             Vector3 vectorToPlayer = new Vector3(transform.position.x - player.transform.position.x, 0, transform.position.z - player.transform.position.z);
 
             if (vectorToPlayer.magnitude <= playerMinimumProximity) {
+                dogStateHandler.goToTarget();
 
-
+            } else {
+                dogStateHandler.stopMoving();
             }
+            //dogAnimation.MovingAnim(0);
 
         }
 
-
-
     }
 
-    public void generateTarget(Vector3 vectorToPlayer) {
+    public void generateTarget() {
 
-        target = transform.position - vectorToPlayer.normalized * targetDistance;
+        Vector3 vectorToPlayer = new Vector3(transform.position.x - player.transform.position.x, 0, transform.position.z - player.transform.position.z);
+
+        Vector3 targetPos = transform.position - vectorToPlayer.normalized * targetDistance;
+        GameObject gameObjectTarget = new GameObject("target");
+        gameObjectTarget.transform.position = targetPos;
+        dogStateHandler.setTarget(gameObjectTarget.transform);
+
+        Debug.Log("Generated target to dog at pos: " + targetPos);
 
 
     }

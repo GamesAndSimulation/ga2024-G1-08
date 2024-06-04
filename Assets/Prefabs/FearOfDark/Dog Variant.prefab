@@ -108,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 971843528976407487, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.568731
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 971843528976407487, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       propertyPath: m_LocalPosition.y
@@ -116,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 971843528976407487, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4338703
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 971843528976407487, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       propertyPath: m_LocalRotation.w
@@ -174,7 +174,9 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3565768079878683302, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
+    - {fileID: 8448462039446912321, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7752015664782727795, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
     m_AddedGameObjects:
@@ -185,6 +187,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 447965393837277445, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7730498529638521144}
+    - targetCorrespondingSourceObject: {fileID: 447965393837277445, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3382243046389120896}
     - targetCorrespondingSourceObject: {fileID: 2468680346679317116, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       insertIndex: -1
       addedObject: {fileID: 25880819011013015}
@@ -231,3 +236,16 @@ MonoBehaviour:
   pointLight: {fileID: 918572604237722927}
   targetDistance: 15
   playerMinimumProximity: 3.5
+--- !u!114 &3382243046389120896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756578476232088373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bb6ce83267f144e987d76f84cf3b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
