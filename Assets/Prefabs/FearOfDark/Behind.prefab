@@ -45,8 +45,6 @@ GameObject:
   - component: {fileID: 4440174163674506226}
   - component: {fileID: 6538642439649469399}
   - component: {fileID: 8075142983672982896}
-  - component: {fileID: 7987744013671875671}
-  - component: {fileID: 5533533265795140170}
   m_Layer: 0
   m_Name: Behind
   m_TagString: Untagged
@@ -82,17 +80,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d9cc5d12f3cd74ea18d5f4dd518fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxProximity: 2
+  maxProximity: 0.5
   minProximity: 20
+  deathProximity: 3
   proximityToStartMoving: 5
   minSpeed: 0.5
-  maxSpeed: 3
+  maxSpeed: 4
+  delayToStartMoving: 1
   woodFoodstepsSound: {fileID: 541477757367847558}
   maxPlayStepsDelay: 2
   minPlayStepsDelay: 0.2
-  delayToStartMoving: 1
   damagePlayerEvent: {fileID: 11400000, guid: 7545be2e41197714783e467321ecdd81, type: 2}
-  damageOnCatchingPlayer: 0.2
+  damageOnCatchingPlayer: 0.35
 --- !u!23 &4440174163674506226
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -144,46 +143,6 @@ MeshFilter:
   m_GameObject: {fileID: 7307888466437481171}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &8075142983672982896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7307888466437481171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7987744013671875671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7307888466437481171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 7e7b5dd7ef2c6d64b933819c2205bc8b, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8075142983672982896}
-        m_TargetAssemblyTypeName: IsVisibleChecker, Assembly-CSharp
-        m_MethodName: OnCameraChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5533533265795140170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

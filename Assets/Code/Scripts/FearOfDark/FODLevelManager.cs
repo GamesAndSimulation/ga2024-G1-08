@@ -6,6 +6,18 @@ using UnityEngine.XR;
 public class FODLevelManager : MonoBehaviour
 {
 
+    public static FODLevelManager instance { get; private set; }
+
+    private void Awake() {
+
+        if (instance == null)
+            instance = this;
+
+        PlayerWatcherComponent.addSubToPlayerChanged(changePlayer);
+
+
+    }
+
     [SerializeField] private GameObject fodPlayerAndCam;
     private GameObject player;
 
@@ -15,13 +27,6 @@ public class FODLevelManager : MonoBehaviour
     [SerializeField] private float spawnYValue = 0.5f;
 
     [SerializeField] private GameObject dogPrefab;
-
-
-    private void Awake() {
-
-        PlayerWatcherComponent.addSubToPlayerChanged(changePlayer);
-
-    }
 
     public void changePlayer(GameObject newPlayer) {
 
@@ -71,7 +76,11 @@ public class FODLevelManager : MonoBehaviour
 
         dog.transform.position = new Vector3(dog.transform.position.x, spawnYValue, dog.transform.position.z);
 
+        dog.transform.Rotate(new Vector3(0, randomRotation, 0));
+
         Debug.Log("Spawned dog at " + dog.transform.position);
+
+        dog.GetComponent<DogSounds>().PlaySingleBark();
 
 
     }

@@ -12,7 +12,6 @@ public class EyeController : MonoBehaviour
         
         lookingAtTargetComponent = GetComponent<LookingAtTarget>();
         ChangePlayer(PlayerWatcherComponent.getPlayer());
-        PlayerWatcherComponent.addSubToPlayerChanged(ChangePlayer);
 
     }
 

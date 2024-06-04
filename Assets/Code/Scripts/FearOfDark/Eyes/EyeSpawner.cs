@@ -14,6 +14,7 @@ public class EyeSpawner : MonoBehaviour
 
     public GameObject eyePrefab;
 
+    [SerializeField] private float minimumDistance = 0.1f;
     [SerializeField] private float distancePerEye = 0.05f;
 
     [SerializeField] private float initialDelayToSpawnEye = 2;
@@ -28,11 +29,10 @@ public class EyeSpawner : MonoBehaviour
     private float currentDelayToKillThis;
 
     [SerializeField] private GameEvent damagePlayerEvent;
-    [SerializeField] private float damageOnEyeAppearance;
+    [SerializeField] private float damagePerEye = 0.001f;
 
     private void Awake() {
         isVisibleChecker = GetComponent<IsVisibleChecker>();
-        PlayerWatcherComponent.addSubToPlayerChanged(PlayerChanged);
         player = PlayerWatcherComponent.getPlayer();
     }
 
@@ -47,12 +47,6 @@ public class EyeSpawner : MonoBehaviour
 
     }
 
-    public void PlayerChanged(GameObject newPlayer) {
-
-        player = newPlayer;
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -60,14 +54,14 @@ public class EyeSpawner : MonoBehaviour
         currentDelayToKillThis -= Time.deltaTime;
         currentDelayToSpawnEye -= Time.deltaTime;
 
-        if(isVisibleChecker.isVisible()) {
+        if(isVisible()) {
 
             if (currentDelayToSpawnEye <= 0) {
 
                 if(eyes.Count < maxEyes)
                     spawnEye();
                 
-                damagePlayerEvent.Raise(this, damageOnEyeAppearance);
+                damagePlayerEvent.Raise(this, damagePerEye * eyes.Count);
                 resetDelayToSpawnEye();
             }
 
@@ -83,6 +77,22 @@ public class EyeSpawner : MonoBehaviour
 
         }
         
+    }
+
+    private bool isVisible() {
+
+        bool isVisible = false;
+
+        int eyeIndex = 0;
+
+        while(!isVisible && eyeIndex < eyes.Count) {
+            isVisible = eyes[eyeIndex].GetComponentInChildren<IsVisibleChecker>().isVisible();
+            eyeIndex++;
+
+        }
+
+        return isVisible;
+
     }
 
     private void resetDelayToSpawnEye() {
@@ -112,7 +122,7 @@ public class EyeSpawner : MonoBehaviour
 
         GameObject newEye = Instantiate(eyePrefab, this.transform);
 
-        newEye.transform.position = this.transform.position + vectorToEye * distancePerEye * eyes.Count;
+        newEye.transform.position = this.transform.position + vectorToEye * (distancePerEye * eyes.Count + minimumDistance);
 
         eyes.Add(newEye);
 
