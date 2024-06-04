@@ -361,6 +361,8 @@ MonoBehaviour:
   freeMovingCamera: {fileID: 8773202912926230616}
   pauseEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
   playerAnnouncedEvent: {fileID: 11400000, guid: 46e5c100cde8c9543a634124ae00fccd, type: 2}
+  cameraChangedEvent: {fileID: 11400000, guid: 7e7b5dd7ef2c6d64b933819c2205bc8b, type: 2}
+  placeholderSoundComponent: {fileID: 0}
 --- !u!114 &3506545228691208307
 MonoBehaviour:
   m_ObjectHideFlags: 0
