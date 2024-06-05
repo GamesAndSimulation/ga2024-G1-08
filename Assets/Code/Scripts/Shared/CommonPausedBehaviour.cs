@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CommonPausedBehavior : MonoBehaviour {
 
@@ -10,11 +11,13 @@ public class CommonPausedBehavior : MonoBehaviour {
 
     private Rigidbody rb;
     private Animator an;
+    private NavMeshAgent nagent;
 
     public void Awake() {
 
         rb = GetComponent<Rigidbody>();
         an = GetComponent<Animator>();
+        nagent = GetComponent<NavMeshAgent>();
 
     }
 
@@ -31,6 +34,9 @@ public class CommonPausedBehavior : MonoBehaviour {
 
         if(an != null) 
             an.enabled = !paused;
+
+        if(nagent != null) 
+            nagent.enabled = !paused;
 
     }
 

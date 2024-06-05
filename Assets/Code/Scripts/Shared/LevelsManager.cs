@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -19,7 +20,14 @@ public class LevelsManager : MonoBehaviour
 
     }
 
-    public static void transitionToFOD() {
+
+    public void transitionToFirstLevel() {
+
+        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+
+    }
+
+    public void transitionToFOD() {
 
         instance.fodLevelStart.Raise(instance, null);
 
@@ -29,14 +37,9 @@ public class LevelsManager : MonoBehaviour
     void Start()
     {
 
-        transitionToFOD();
+        transitionToFirstLevel();
 
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
