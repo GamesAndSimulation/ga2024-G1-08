@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -19,7 +20,61 @@ public class LevelsManager : MonoBehaviour
 
     }
 
-    public static void transitionToFOD() {
+    private int currentLevel = 1;
+
+    public void OnStartLevel1(Component sender, object data) {
+
+        unloadCurrentLevel();
+        transitionToFirstLevel();
+    
+    }
+
+    public void OnStartLevel2(Component sender, object data) {
+
+        unloadCurrentLevel();
+        transitionToSecondLevel();
+
+    }
+
+    public void transitionToFirstLevel() {
+
+        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+        currentLevel = 1;
+    }
+
+    public void transitionToSecondLevel() {
+
+        SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Additive);
+        currentLevel = 2;
+    }
+
+    public void unloadFirstLevel() {
+
+        SceneManager.UnloadSceneAsync("Level1");
+    }
+    public void unloadFODLevel() {
+
+        SceneManager.UnloadSceneAsync("FearOfDarkScene");
+    }
+
+
+    public void unloadCurrentLevel() {
+
+        switch(currentLevel) {
+
+            case 1:
+                unloadFirstLevel(); break;
+
+            case 2:
+                unloadFODLevel(); break;
+
+
+        }
+
+    }
+
+
+    public void transitionToFOD() {
 
         instance.fodLevelStart.Raise(instance, null);
 
@@ -29,14 +84,9 @@ public class LevelsManager : MonoBehaviour
     void Start()
     {
 
-        transitionToFOD();
+        transitionToFirstLevel();
 
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

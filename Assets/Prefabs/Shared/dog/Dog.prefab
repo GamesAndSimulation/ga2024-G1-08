@@ -247,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       propertyPath: m_Name
-      value: Dog_001 1
+      value: Dog
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -286,6 +286,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3216383683544281491}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 940840098558941336}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4252723354342588582}
   m_SourcePrefab: {fileID: 100100000, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}
 --- !u!4 &368172211054541380 stripped
 Transform:
@@ -518,11 +524,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  hasReachedTarget: 0
+  target: {fileID: 0}
   targetRadius: 0.5
-  ballTarget: {fileID: 0}
-  moveScript: {fileID: 3565768079878683302}
-  animScript: {fileID: 982429743334286863}
-  soundScript: {fileID: 3216383683544281491}
 --- !u!114 &3565768079878683302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +574,48 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 521072de8deb3a743826154789ff71aa, type: 3}
   - {fileID: 8300000, guid: 05b1e92ca79852440801b50e1272e1ef, type: 3}
   lastBark: 0
+--- !u!114 &940840098558941336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447965393837277445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deed7eadf735a2f4493fc196a59c1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectedBehaviors:
+  - {fileID: 8523760186826613191}
+--- !u!114 &4252723354342588582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447965393837277445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 940840098558941336}
+        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &528670174367967017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8241550691046253699, guid: 1299dfd772c05bf4eb2437d163771001, type: 3}

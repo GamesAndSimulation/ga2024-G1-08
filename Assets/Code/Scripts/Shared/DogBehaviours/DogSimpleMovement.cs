@@ -15,7 +15,11 @@ public class DogSimpleMovement : DogMovement {
 
     public override void WalkToTarget(Transform target) {
 
-        this.transform.position += speed * Time.deltaTime * (target.position - this.transform.position).normalized;
+        Vector3 toMove = new Vector3(target.position.x - this.transform.position.x, 0, target.position.z - this.transform.position.z);
+
+        this.transform.position += speed * Time.deltaTime * toMove.normalized;
+
+        this.transform.forward = toMove.normalized;
     }
 
     public override void StopWalking() {

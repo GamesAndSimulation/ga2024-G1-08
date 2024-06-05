@@ -10,7 +10,7 @@ public class DogStateHandler : MonoBehaviour
     public DogState currentState;
 
     [Header("State Changers")]
-    private bool hasReachedTarget;
+    public bool hasReachedTarget;
 
     public Transform target;
     public float targetRadius = 0.5f;

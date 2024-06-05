@@ -6,7 +6,9 @@ public class CabinScript : MonoBehaviour
 {
     public GameObject triggerPoint;
     public GameObject darkRoom;
+    public AudioSource wallsClosing;
     public string PLAYERTAG = "Player";
+
   
 
     // Start is called before the first frame update
@@ -26,6 +28,7 @@ public class CabinScript : MonoBehaviour
         {
             darkRoom.SetActive(true);
             triggerPoint.SetActive(false);
+            wallsClosing.Play();
         }
     }
 }

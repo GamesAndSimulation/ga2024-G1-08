@@ -8,7 +8,7 @@ public class ShovelScript : MonoBehaviour
     public float distance = 3f;
     public const string IS_SHOVELING = "isShoveling";
     public const string POOP_LAYER = "Poop";
-    public AudioSource audio;
+    public AudioSource audioSource;
   
 
     [SerializeField]
@@ -56,13 +56,13 @@ public class ShovelScript : MonoBehaviour
     public void Appear()
     {
         this.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-        audio.Play();
+        audioSource.Play();
     }
 
     public void Disappear()
     {
         this.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
-        audio.Play();
+        audioSource.Play();
     }
 
 }

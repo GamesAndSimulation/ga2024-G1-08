@@ -13,7 +13,6 @@ public class Level1DogStateHandler : MonoBehaviour
     private bool hasReachedTarget;
     private Transform target;
     public float targetRadius = 1.4f;
-    public Transform ballTarget; //this is for debugging purposes
 
     [Header("Scripts")]
     public DogMovement moveScript;
@@ -45,7 +44,6 @@ public class Level1DogStateHandler : MonoBehaviour
     void Update()
     {
         StateHandler();
-        CheckForOrders();
     }
 
     void StateHandler()
@@ -178,22 +176,6 @@ public class Level1DogStateHandler : MonoBehaviour
         }
     }
 
-    void CheckForOrders()
-    {
-        if (Input.GetKeyDown("f"))
-        {
-            target = ballTarget.transform;
-            currentState = DogState.moving;
-            hasReachedTarget = false;
-
-        }
-
-        if (Input.GetKeyDown("g"))
-        {
-            animScript.PlaySingleBark();
-            soundScript.PlaySingleBark();
-        }
-    }
 
     IEnumerator Wait(Transform target)
     {

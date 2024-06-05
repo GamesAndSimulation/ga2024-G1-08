@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 4440174163674506226}
   - component: {fileID: 6538642439649469399}
   - component: {fileID: 8075142983672982896}
+  - component: {fileID: 5063672392786145322}
+  - component: {fileID: 8535227319633675929}
   m_Layer: 0
   m_Name: Behind
   m_TagString: Untagged
@@ -80,12 +82,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d9cc5d12f3cd74ea18d5f4dd518fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxProximity: 0.5
+  maxProximity: 1
   minProximity: 20
-  deathProximity: 3
+  deathProximity: 5
   proximityToStartMoving: 5
   minSpeed: 0.5
-  maxSpeed: 4
+  maxSpeed: 5
   delayToStartMoving: 1
   woodFoodstepsSound: {fileID: 541477757367847558}
   maxPlayStepsDelay: 2
@@ -154,6 +156,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5063672392786145322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deed7eadf735a2f4493fc196a59c1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectedBehaviors:
+  - {fileID: 3268659012307061711}
+--- !u!114 &8535227319633675929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5063672392786145322}
+        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &7228359926845741880
 PrefabInstance:
   m_ObjectHideFlags: 0
