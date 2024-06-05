@@ -9,9 +9,7 @@ public class CabinScript : MonoBehaviour
     public AudioSource wallsClosing;
     public string PLAYERTAG = "Player";
 
-    public Light pointLightInScene;
-    public Light newPointLight;
-    public Material newSky;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +29,6 @@ public class CabinScript : MonoBehaviour
             darkRoom.SetActive(true);
             triggerPoint.SetActive(false);
             wallsClosing.Play();
-            pointLightInScene.enabled = false;
-            newPointLight.enabled = true;
-            RenderSettings.ambientIntensity = 0;
-            RenderSettings.reflectionIntensity = 0;
-            RenderSettings.skybox = newSky;
         }
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class ColliderTriggerRaiseEvent : MonoBehaviour
 {
   
+    [SerializeField]
+    private GameEvent gameEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +22,6 @@ public class ColliderTriggerRaiseEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        LevelsManager.instance.transitionToFOD();
+        gameEvent.Raise(this, other.gameObject.tag);
     }
 }
