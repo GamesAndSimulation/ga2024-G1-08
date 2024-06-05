@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2955657710484524182}
   - component: {fileID: 3899840261216443325}
   - component: {fileID: 2865381500579954329}
+  - component: {fileID: -3896634050267159734}
+  - component: {fileID: -2925847677961700710}
   m_Layer: 0
   m_Name: EyeSpawner
   m_TagString: Untagged
@@ -121,3 +123,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3896634050267159734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091275555968331969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deed7eadf735a2f4493fc196a59c1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectedBehaviors:
+  - {fileID: 563734915247954152}
+--- !u!114 &-2925847677961700710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091275555968331969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5b8fca40c70044540b18d454787bd09d, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3896634050267159734}
+        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

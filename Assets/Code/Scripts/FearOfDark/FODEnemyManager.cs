@@ -13,6 +13,9 @@ public class FODEnemyManager : MonoBehaviour
             instance = this;
 
         player = PlayerWatcherComponent.getPlayer();
+        currentTimeToSpawnBehind = new List<float>();
+        currentTimeToSpawnEye = new List<float>();
+
 
     }
 
@@ -22,20 +25,25 @@ public class FODEnemyManager : MonoBehaviour
     [SerializeField] private float eyeSpawnDistance = 200f;
     [SerializeField] private float eyeHeight = 1;
     [SerializeField] private Vector2 eyepawnDelayRange = new Vector2(10, 30);
+    [SerializeField] private float eyeScoreMultiplier;
+    private List<float> currentTimeToSpawnEye;
 
     [Header("Behind")]
     [SerializeField] private GameObject behindPrefab;
     [SerializeField] private float behindSpawnInitialDelay = 5;
     [SerializeField] private Vector2 behindSpawnDistanceRange = new Vector2(15, 25);
     [SerializeField] private Vector2 behindSpawnDelayRange = new Vector2(10, 30);
+    [SerializeField] private float behindScoreMultiplier;
+    private List<float> currentTimeToSpawnBehind;
 
     private GameObject player;
 
-
     private void Start() {
 
-        Invoke(nameof(spawnBehind), behindSpawnInitialDelay);
-        Invoke(nameof(spawnEye), eyeSpawnInitialDelay);
+        spawnEyeDelayed(eyeSpawnInitialDelay);
+        spawnBehindDelayed(behindSpawnInitialDelay);
+
+
 
     }
 
@@ -43,17 +51,68 @@ public class FODEnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkTimers(); ;
+
+    }
+
+    private void checkTimers() {
+
+        if(currentTimeToSpawnEye.Count > 0 && currentTimeToSpawnEye[0] <= 0)
+            spawnEye();
+
+        if(currentTimeToSpawnBehind.Count > 0 && currentTimeToSpawnBehind[0] <= 0)
+            spawnBehind();
+
+        if(currentTimeToSpawnBehind.Count > 0)
+            currentTimeToSpawnBehind[0] -= Time.deltaTime;
         
+        if(currentTimeToSpawnEye.Count > 0)
+            currentTimeToSpawnEye[0] -= Time.deltaTime;
+
+    }
+
+    public void eyeWasKilled() {
+
+        spawnEyeDelayed();
+
+
     }
 
     public void behindWasKilled() {
 
-        Invoke(nameof(spawnBehind), Random.Range(behindSpawnDelayRange[0], behindSpawnDelayRange[1]));
+        spawnBehindDelayed();
 
 
     }
 
+    public void OnFODDogReachedGoal(Component sender, object data) {
+
+        spawnBehindDelayed();
+        spawnEyeDelayed();
+
+    }
+
+    public void spawnBehindDelayed() {
+
+        float newDelay = (Random.Range(behindSpawnDelayRange[0], behindSpawnDelayRange[1]));
+
+        if (FODLevelManager.instance.score > 0)
+            newDelay = newDelay / (FODLevelManager.instance.score * behindScoreMultiplier);
+
+        spawnBehindDelayed(newDelay);
+
+    }
+
+    public void spawnBehindDelayed(float delay) {
+
+        currentTimeToSpawnBehind.Add(delay);
+
+    }
+
     public void spawnBehind() {
+
+
+        currentTimeToSpawnBehind.RemoveAt(0);
 
         float distanceBehind = Random.Range(behindSpawnDistanceRange[0], behindSpawnDistanceRange[1]);
 
@@ -67,7 +126,26 @@ public class FODEnemyManager : MonoBehaviour
 
     }
 
+    public void spawnEyeDelayed() {
+
+        float newDelay = Random.Range(eyepawnDelayRange[0], eyepawnDelayRange[1]);
+
+        if (FODLevelManager.instance.score > 0)
+            newDelay = newDelay / (FODLevelManager.instance.score * eyeScoreMultiplier);
+
+        spawnEyeDelayed(newDelay);
+
+    }
+
+    public void spawnEyeDelayed(float delay) {
+
+        currentTimeToSpawnEye.Add(delay);
+
+    }
+
     public void spawnEye() {
+
+        currentTimeToSpawnEye.RemoveAt(0);
 
         GameObject eye = Instantiate(eyePrefab, transform);
 

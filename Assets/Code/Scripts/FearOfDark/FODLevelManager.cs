@@ -23,10 +23,18 @@ public class FODLevelManager : MonoBehaviour
 
 
     [SerializeField] private float spawnDogInitialDelay = 10;
+    [SerializeField] private Vector2 spawnDogDelayRange = new Vector2(20, 30);
+    private float currentDelayToSpawnDog;
+    private bool toSpawnDog;
     [SerializeField] private float spawnDogInitialDistance = 5;
     [SerializeField] private float spawnYValue = 0.5f;
 
     [SerializeField] private GameObject dogPrefab;
+
+    [SerializeField] public int scoreToWin = 3;
+    public int score;
+
+    [SerializeField] private GameEvent fodLevelWon;
 
     public void changePlayer(GameObject newPlayer) {
 
@@ -39,7 +47,7 @@ public class FODLevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        score = 0;
         player = PlayerWatcherComponent.getPlayer();
         
     }
@@ -47,31 +55,53 @@ public class FODLevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (currentDelayToSpawnDog <= 0 && toSpawnDog)
+            SpawnDog();
+
+        if(toSpawnDog)
+            currentDelayToSpawnDog -= Time.deltaTime;
+
     }
 
 
     public void OnFODLevelStart(Component sender, object data) {
 
         fodPlayerAndCam.SetActive(true);
-        Invoke(nameof(SpawnDog), spawnDogInitialDelay);
+        spawnDogDelayed(spawnDogInitialDelay);
+
+
+    }
+
+    public  void OnFODDogReachedTarget(Component sender, object data) {
+
+        score += 1;
+
+        if (score >= scoreToWin)
+            fodLevelWon.Raise(this, data);
+
+        else
+            spawnDogDelayed(Random.Range(spawnDogDelayRange[0], spawnDogDelayRange[1]));
+
+    }
+
+    public void spawnDogDelayed(float delay) {
+        currentDelayToSpawnDog = delay;
+        toSpawnDog = true;
 
     }
 
     public void SpawnDog() {
 
+        toSpawnDog = false;
 
         Vector3 playerPosition = player.transform.position;
-
-        Debug.Log("player: " + playerPosition);
 
         Vector3 playerForward = player.transform.forward;
 
         int randomRotation = Random.Range(0, 360);
 
         Vector3 vectorToDog = Quaternion.Euler(0, randomRotation, 0) * playerForward;
-
-        Debug.Log("vector to dog: " + vectorToDog);
 
         GameObject dog = Instantiate(dogPrefab, this.transform);
 

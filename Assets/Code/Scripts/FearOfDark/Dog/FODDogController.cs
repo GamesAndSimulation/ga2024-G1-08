@@ -7,7 +7,7 @@ public class FODDogController : MonoBehaviour
 
     private GameObject player;
 
-    private DogStateHandler dogStateHandler;
+    private FODDogStateHandler dogStateHandler;
 
     private IsVisibleChecker isVisibleChecker;
         
@@ -17,14 +17,15 @@ public class FODDogController : MonoBehaviour
 
     [SerializeField] private float playerMinimumProximity = 3.5f;
 
-
+    [Header("Events")]
+    [SerializeField] private GameEvent fodDogReachedTarget;
 
 
     void Awake() {
 
         player = PlayerWatcherComponent.getPlayer();
         isVisibleChecker = GetComponentInChildren<IsVisibleChecker>();
-        dogStateHandler = GetComponent<DogStateHandler>();
+        dogStateHandler = GetComponent<FODDogStateHandler>();
     
     }
 
@@ -35,11 +36,24 @@ public class FODDogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isVisibleChecker.isVisible() && pointLight.activeSelf == false) {
+        if(!isVisibleChecker.isVisible()) {
 
-            pointLight.SetActive(true);
-            dogStateHandler.playSingleBark();
-            generateTarget();
+            if (dogStateHandler.hasReachedTarget) {
+
+                fodDogReachedTarget.Raise(this, null);
+                Destroy(gameObject);
+
+
+            }   
+            else if(pointLight.activeSelf == false) {
+
+                pointLight.SetActive(true);
+                dogStateHandler.playSingleBark();
+                generateTarget();
+
+
+            }
+
 
 
         } else {
@@ -47,12 +61,12 @@ public class FODDogController : MonoBehaviour
             Vector3 vectorToPlayer = new Vector3(transform.position.x - player.transform.position.x, 0, transform.position.z - player.transform.position.z);
 
             if (vectorToPlayer.magnitude <= playerMinimumProximity) {
+
                 dogStateHandler.goToTarget();
 
             } else {
                 dogStateHandler.stopMoving();
             }
-            //dogAnimation.MovingAnim(0);
 
         }
 
@@ -60,12 +74,22 @@ public class FODDogController : MonoBehaviour
 
     public void generateTarget() {
 
+
         Vector3 vectorToPlayer = new Vector3(transform.position.x - player.transform.position.x, 0, transform.position.z - player.transform.position.z);
 
-        Vector3 targetPos = transform.position - vectorToPlayer.normalized * targetDistance;
+        //generate targetPos in opposite direction
+        Vector3 vectorToTarget = -vectorToPlayer.normalized;
+
+        //calculate position of target
+        Vector3 targetPos = transform.position + vectorToTarget * targetDistance;
+        
+        //set target
         GameObject gameObjectTarget = new GameObject("target");
         gameObjectTarget.transform.position = targetPos;
         dogStateHandler.setTarget(gameObjectTarget.transform);
+
+        //rotate dog to target
+        transform.forward = vectorToTarget;
 
         Debug.Log("Generated target to dog at pos: " + targetPos);
 
