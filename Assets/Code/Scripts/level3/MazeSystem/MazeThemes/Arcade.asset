@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4690680781300a549a8736e5cb613f58, type: 3}
+  m_Name: Arcade
+  m_EditorClassIdentifier: 
+  themeName: Arcade
+  floorMaterial: {fileID: 2100000, guid: b36123508f0238d42a452c0d77a81704, type: 2}
+  wallMaterial: {fileID: 2100000, guid: 64a322152b0a6e54d96fbc4be121ef19, type: 2}
+  ceilingMaterial: {fileID: 2100000, guid: 64a322152b0a6e54d96fbc4be121ef19, type: 2}
+  decorations:
+  - {fileID: 1518731832268582, guid: a796a082b54ce5649b96793b4a3e96c4, type: 3}
+  - {fileID: 1404527580113252, guid: 162afb80391ab99488833ef7d4b18b99, type: 3}
+  - {fileID: 1439825266138164, guid: cc662f8dcd858ef46bba34d1e4978627, type: 3}
+  - {fileID: 1992990586297362, guid: f5dd4fd195b5d7e4199ebf387a239db6, type: 3}
+  - {fileID: 1359019546358280, guid: 88cc9a01ef104764595a70aa18dc6761, type: 3}
+  - {fileID: 1824108203970014, guid: 7ba3b11bb1f496949b2652ba87fab94f, type: 3}
+  - {fileID: 1920441963948258, guid: a9ab69732a47b7240a56f2b4ba545634, type: 3}
+  - {fileID: 1053137036175472, guid: 01ef96d836105ae45a250c3d2d0ddc14, type: 3}
+  - {fileID: 2693246973047092528, guid: ba3aa7ddd37821245aaccd1d7df45bb6, type: 3}
+  - {fileID: 5744538086840704154, guid: c777c1c57ef08e64aa7af397280038bf, type: 3}
+  - {fileID: 1006519062080796, guid: 6defb14dc5ddea44591aae3a5f946ed2, type: 3}
+  - {fileID: 1486915432716168, guid: 40996329c0265e6419f5b09a6602aa39, type: 3}
+  wallDecor: []
+  enemies: []
+  portal: {fileID: 2369018456614855337, guid: f6fbabb6221bc514bb5bb73fb907b511, type: 3}
