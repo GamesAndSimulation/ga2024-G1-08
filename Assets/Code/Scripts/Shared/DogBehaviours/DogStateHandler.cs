@@ -11,8 +11,10 @@ public class DogStateHandler : MonoBehaviour
 
     [Header("State Changers")]
     private bool hasReachedTarget;
+
     public Transform target;
     public float targetRadius = 0.5f;
+
 
     private DogMovement moveScript;
     private DogAnimation animScript;
@@ -52,10 +54,10 @@ public class DogStateHandler : MonoBehaviour
                 break;
 
             case DogState.moving:
-                
+
                 hasReachedTarget = Vector3.Distance(transform.position, target.position) < targetRadius;
 
-                if(hasReachedTarget)
+                if (hasReachedTarget)
                 {
                     stopMoving();
                     hasReachedTarget = false;
@@ -65,7 +67,7 @@ public class DogStateHandler : MonoBehaviour
                     animScript.MovingAnim(moveScript.GetSpeed());
                     moveScript.WalkToTarget(target);
                 }
-                
+
                 break;
         }
     }

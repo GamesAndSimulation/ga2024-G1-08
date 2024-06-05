@@ -173,7 +173,7 @@ public class GravityAffectedMovement : MonoBehaviour
 
         state = MovementState.airborne;
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(/*transform.up*/ new Vector3(0,1,0) * jumpForce, ForceMode.Impulse);
         transform.position += new Vector3(0, 0.01f, 0);
 
         transform.parent = trueParent;

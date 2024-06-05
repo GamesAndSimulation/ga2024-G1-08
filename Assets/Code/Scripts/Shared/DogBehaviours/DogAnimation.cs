@@ -9,6 +9,8 @@ public class DogAnimation : MonoBehaviour
 
     private const string VEL = "Velocity";
     private const string SBARK = "SingleBark";
+    private const string SNIFFDOWN = "IsSniffingDown";
+    private const string SNIFFUP = "IsSniffingUp";
 
     private const float TAIL_WAG = 0.0f;
     private const float SINGLE_BARK = 0.5f;
@@ -26,8 +28,6 @@ public class DogAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(animator.GetFloat(VEL));
-        //Debug.Log(animator.GetBool(SBARK));
     }
 
     public void MovingAnim(float velocity)
@@ -44,6 +44,26 @@ public class DogAnimation : MonoBehaviour
     {
         animator.SetBool(SBARK, true);
         StartCoroutine(BarkTimer());
+    }
+
+    public void SniffDown()
+    {
+        animator.SetBool(SNIFFDOWN, true);
+    }
+
+    public void StopSniffDown()
+    {
+        animator.SetBool(SNIFFDOWN, false);
+    }
+
+    public void SniffUp()
+    {
+        animator.SetBool(SNIFFUP, true);
+    }
+
+    public void StopSniffUp()
+    {
+        animator.SetBool(SNIFFUP, false);
     }
 
     private IEnumerator BarkTimer()
