@@ -7,13 +7,11 @@ using UnityEngine;
 public class PlayerControllerFOD : MonoBehaviour {
 
 
-
-
     [Header("State")]
 
     [Range(0, 1)] public float damage;
 
-    [Range(0, 1)] public float movementMultiplier;
+    [Range(0, 1)] public float damageRegen = 0.01f;
 
 
     [Header("Sounds")]
@@ -41,6 +39,16 @@ public class PlayerControllerFOD : MonoBehaviour {
 
         heartSoundController.updateSound(damage, damage);
         heartSoundController.updateSound(damage, damage);
+
+        damage = Mathf.Min(damage - damageRegen * Time.deltaTime, 0);
+
+
+    }
+
+    public void damagePlayer(float damage) {
+
+        this.damage = damage + this.damage; 
+
 
     }
 

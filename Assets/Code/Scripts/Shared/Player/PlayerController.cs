@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeReference] protected GameEvent pauseEvent;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
+    [SerializeReference] protected GameEvent cameraChangedEvent;
 
     [Header("Sounds")]
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
     protected void Start() {
 
         playerAnnouncedEvent.Raise(this, null);
+        cameraChangedEvent.Raise(this, firstPersonCamera);
 
     }
 

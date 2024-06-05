@@ -28,7 +28,6 @@ public class DogAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void MovingAnim(float velocity)

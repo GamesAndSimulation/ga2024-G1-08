@@ -43,6 +43,11 @@ GameObject:
   - component: {fileID: 2818893799028893282}
   - component: {fileID: 3268659012307061711}
   - component: {fileID: 7708673033806087747}
+  - component: {fileID: 4440174163674506226}
+  - component: {fileID: 6538642439649469399}
+  - component: {fileID: 8075142983672982896}
+  - component: {fileID: 7987744013671875671}
+  - component: {fileID: 5533533265795140170}
   m_Layer: 0
   m_Name: Behind
   m_TagString: Untagged
@@ -78,10 +83,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d9cc5d12f3cd74ea18d5f4dd518fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxProximity: 3
-  speed: 0.5
+  maxProximity: 2
+  minProximity: 20
+  proximityToStartMoving: 5
+  minSpeed: 0.5
+  maxSpeed: 3
   woodFoodstepsSound: {fileID: 541477757367847558}
-  playStepsDelay: 1
+  maxPlayStepsDelay: 2
+  minPlayStepsDelay: 0.2
 --- !u!114 &7708673033806087747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +119,108 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!23 &4440174163674506226
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7b42dcfebd506cc4a9aa8c156a13a68d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &6538642439649469399
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8075142983672982896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7987744013671875671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7e7b5dd7ef2c6d64b933819c2205bc8b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8075142983672982896}
+        m_TargetAssemblyTypeName: IsVisibleChecker, Assembly-CSharp
+        m_MethodName: OnCameraChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5533533265795140170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7307888466437481171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a07911a189f0441b97a0eb1995856e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7228359926845741880
 PrefabInstance:
   m_ObjectHideFlags: 0
