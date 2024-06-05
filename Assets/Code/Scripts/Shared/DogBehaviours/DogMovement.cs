@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DogMovement : MonoBehaviour
 {
 
-    private NavMeshAgent navAgent;
+    public NavMeshAgent navAgent;
 
     protected virtual void Start()
     {

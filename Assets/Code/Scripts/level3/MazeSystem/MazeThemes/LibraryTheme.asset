@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4690680781300a549a8736e5cb613f58, type: 3}
+  m_Name: LibraryTheme
+  m_EditorClassIdentifier: 
+  themeName: Library
+  floorMaterial: {fileID: 2100000, guid: 7fcfac62b5d07884ca0987363723305b, type: 2}
+  wallMaterial: {fileID: 2100000, guid: e4b0f002d499997469e2a81f59d0a9a6, type: 2}
+  ceilingMaterial: {fileID: 2100000, guid: 7fcfac62b5d07884ca0987363723305b, type: 2}
+  decorations:
+  - {fileID: 6479503723316505377, guid: 25924767cf18b4044bc956478a145b52, type: 3}
+  - {fileID: 100000, guid: fccf973dd800ea34d8a85b6e2d22a0da, type: 3}
+  - {fileID: 3093817882742066232, guid: 91a86f21e709f7e4ab14bac8650f8123, type: 3}
+  - {fileID: 5925373890534095276, guid: ebfedbd5958bee14092128f8fe8aeaa7, type: 3}
+  wallDecor:
+  - {fileID: 2224334266160307254, guid: b6dcdab3a64e0434488ebbb81175a54f, type: 3}
+  enemies: []
+  portal: {fileID: 2369018456614855337, guid: f6fbabb6221bc514bb5bb73fb907b511, type: 3}
