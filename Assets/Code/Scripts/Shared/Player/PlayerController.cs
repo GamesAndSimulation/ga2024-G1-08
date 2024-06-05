@@ -8,30 +8,35 @@ public class PlayerController : MonoBehaviour
 {
 
     //player movement stuff
-    private GravityAffectedMovement movementController;
+    protected GravityAffectedMovement movementController;
 
     [Header("Cameras")]
 
     [SerializeReference] public GameObject firstPersonCamera;
 
     [SerializeReference] public GameObject freeMovingCamera;
-    private FreeMovement freeMovingCameraController;
+    protected FreeMovement freeMovingCameraController;
 
-    private CameraScript currentCameraScript;
+    protected CameraScript currentCameraScript;
 
-    private bool freeMovingCameraMode = false;
+    protected bool freeMovingCameraMode = false;
 
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
-    private bool paused = false;
+    protected bool paused = false;
 
     [Header("Events")]
 
-    [SerializeReference] private GameEvent pauseEvent;
-    [SerializeReference] private GameEvent playerAnnouncedEvent;
+    [SerializeReference] protected GameEvent pauseEvent;
+    [SerializeReference] protected GameEvent playerAnnouncedEvent;
+    [SerializeReference] protected GameEvent cameraChangedEvent;
+
+    [Header("Sounds")]
+
+    [SerializeReference] protected SFXSoundComponent placeholderSoundComponent;
 
     // Start is called before the first frame update
-    void Awake()
+    protected void Awake()
     {
         movementController = GetComponent<GravityAffectedMovement>();
 
@@ -47,14 +52,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void Start() {
+    protected void Start() {
 
         playerAnnouncedEvent.Raise(this, null);
+        cameraChangedEvent.Raise(this, firstPersonCamera);
 
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
 
         handleInput();
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void handleInput() {
+    protected void handleInput() {
 
         if (!freeMovingCameraMode) {
 
@@ -116,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void switchToFreeMovingCamera() {
+    protected void switchToFreeMovingCamera() {
 
         freeMovingCameraMode = true;
 
@@ -130,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void switchFromFreeMovingCamera() {
+    protected void switchFromFreeMovingCamera() {
 
         freeMovingCameraMode = false;
 
@@ -155,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void pausePlayer() {
+    protected void pausePlayer() {
 
         paused = true;
         rb.isKinematic = true;
@@ -164,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void unpausePlayer() {
+    protected void unpausePlayer() {
 
         paused = false;
         rb.isKinematic = false;

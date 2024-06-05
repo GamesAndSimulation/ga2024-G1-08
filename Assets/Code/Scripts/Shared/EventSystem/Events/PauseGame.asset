@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5917eefafc70f4eaea9a0da80c32ed, type: 3}
   m_Name: PauseGame
   m_EditorClassIdentifier: 
+  description: It is called when the game is paused
   listeners: []
