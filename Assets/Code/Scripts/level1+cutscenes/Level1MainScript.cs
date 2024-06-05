@@ -40,10 +40,6 @@ public class Level1MainScript : MonoBehaviour
     [SerializeField]
     private GameEvent levelWon;
 
-    [SerializeField] private LightingSettings lightSettings;
-    [SerializeField] private Material skyBoxMaterial;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -114,6 +110,7 @@ public class Level1MainScript : MonoBehaviour
 
     public void OnPoopShovelled(Component sender, object data)
     {
+        Debug.Log("bbbbb");
         GameObject poop = (GameObject)data;
         poopSfx.Play();
         poop.SetActive(false);

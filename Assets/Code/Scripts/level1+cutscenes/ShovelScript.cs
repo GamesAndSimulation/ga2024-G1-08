@@ -42,12 +42,11 @@ public class ShovelScript : MonoBehaviour
         if (Physics.Raycast(start, direction, out hit, distance))
         {
             GameObject objectFound = hit.collider.gameObject;
-
             //checks if the object detected by the raycast is a poop. if so, raises an event to handle shovelling the poop
             if (objectFound.layer == LayerMask.NameToLayer(POOP_LAYER))
             {
                 poopShoveled.Raise(this, objectFound);
-
+                
             }
 
         }

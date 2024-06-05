@@ -37,7 +37,6 @@ public class FODLevelManager : MonoBehaviour
 
     [SerializeField] private GameEvent fodLevelWon;
 
-    [SerializeField] Material skyMaterial;
 
     public void changePlayer(GameObject newPlayer) {
 
@@ -57,7 +56,6 @@ public class FODLevelManager : MonoBehaviour
 
     public void OnEnable() {
 
-        RenderSettings.skybox = skyMaterial;
         //Lightmapping.lightingSettings = null;
         //Lightmapping.Clear();
 

@@ -29876,7 +29876,7 @@ MonoBehaviour:
   shovel: {fileID: 1446787138}
   audioVolume: {fileID: 467607492}
   totalPoops: 1
-  totalTime: 0.1
+  totalTime: 0.5
   levelWon: {fileID: 11400000, guid: 0c2fda6a386bf214f8b2a8e8f01b4812, type: 2}
   lightSettings: {fileID: 4890085278179872738, guid: 2ca7e0b6ec5f974498c4b9c9bd494c5d, type: 2}
   skyBoxMaterial: {fileID: 2100000, guid: d6e71156c75e22c4396995b494475834, type: 2}
