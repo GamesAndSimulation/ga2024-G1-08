@@ -47,7 +47,7 @@ public class Level3 : MonoBehaviour
             dog.GetComponent<DogLevel3>().DoLastAnim();
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("end game!");
+                LevelsManager.instance.transitionToGoodEndingCutscene();
             }
         }
     }

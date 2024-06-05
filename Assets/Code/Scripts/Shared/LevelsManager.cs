@@ -83,7 +83,7 @@ public class LevelsManager : MonoBehaviour
 
     public void transitionToGoodEndingCutscene()
     {
-        SceneManager.LoadScene("GoodEnding", LoadSceneMode.Additive);
+        SceneManager.LoadScene("GoodEnding", LoadSceneMode.Single);
     }
 
 }
