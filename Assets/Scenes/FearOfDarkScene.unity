@@ -1002,16 +1002,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c6b70b2e900fc44b511f6c13347039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDogInitialDelay: 2
+  spawnDogInitialDelay: 10
   spawnDogDelayRange: {x: 20, y: 30}
   spawnDogInitialDistance: 20
   spawnYValue: 0.5
   dogPrefab: {fileID: 8756578476232088373, guid: 898ff91b5b158f04e8482e325e7168b7, type: 3}
-  scoreToWin: 5
+  scoreToWin: 3
   score: 0
   player: {fileID: 1291064578}
   turnOffPlayerAnimation: {fileID: 7400000, guid: d97a29f60f93ce3438decce40e4d0fc5, type: 2}
-  turnOffPlayer: {fileID: 0}
+  turnOffPlayer: {fileID: 11400000, guid: 8a1d37a5214022749a9277315f4109cb, type: 2}
 --- !u!114 &1989029856
 MonoBehaviour:
   m_ObjectHideFlags: 0
