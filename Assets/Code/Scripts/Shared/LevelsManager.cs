@@ -9,11 +9,10 @@ public class LevelsManager : MonoBehaviour
     public static LevelsManager instance { get; private set; }
 
     [Header("Events")]
-    [SerializeField] private GameEvent firstLevelStart;
-    [SerializeField] private GameEvent firstLevelEnd;
 
     [SerializeField] private GameEvent fodLevelStart;
-    [SerializeField] private GameEvent fodLevelEnd;
+
+    private bool canTransitionScene = true;
     
 
 
@@ -32,30 +31,53 @@ public class LevelsManager : MonoBehaviour
 
     private int currentLevel = 1;
 
-    public void OnStartLevel1(Component sender, object data) {
+    public void transitionToLevel1() {
 
-        unloadCurrentLevel();
-        transitionToFirstLevel();
+        if (canTransitionScene) {
+            canTransitionScene = false;
+            unloadCurrentLevel();
+            transitionToFirstLevel();
+        }
+
     
     }
 
-    public void OnStartLevel2(Component sender, object data) {
+    public void transitionToLevel2() {
 
-        unloadCurrentLevel();
-        transitionToSecondLevel();
+        if (canTransitionScene) {
+            canTransitionScene = false;
+            unloadCurrentLevel();
+            transitionToSecondLevel();
+        
+        }
 
     }
 
-    public void transitionToFirstLevel() {
+    private IEnumerator setActiveScene(string sceneName) {
+
+        yield return null; // Wait one frame for the scene to load
+
+        Scene newScene = SceneManager.GetSceneByName(sceneName);
+
+        if (newScene.isLoaded) {
+            // Set active scene to apply its lighting settings
+            SceneManager.SetActiveScene(newScene);
+            canTransitionScene = true;
+        }
+    }
+
+    private void transitionToFirstLevel() {
 
         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
         currentLevel = 1;
+        StartCoroutine(setActiveScene("Level1"));
     }
 
-    public void transitionToSecondLevel() {
+    private void transitionToSecondLevel() {
 
         SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Additive);
         currentLevel = 2;
+        StartCoroutine(setActiveScene("FearOfDarkScene"));
     }
 
     public void unloadFirstLevel() {
@@ -72,14 +94,12 @@ public class LevelsManager : MonoBehaviour
         switch(currentLevel) {
 
             case 1:
-                firstLevelEnd.Raise(this, null);
-                SceneManager.UnloadSceneAsync("Level1");
+                SceneManager.UnloadScene("Level1");
 
                 break;
 
             case 2:
-                fodLevelEnd.Raise(this, null);
-                SceneManager.UnloadSceneAsync("FearOfDarkScene"); 
+                SceneManager.UnloadScene("FearOfDarkScene"); 
                 break;
 
 
