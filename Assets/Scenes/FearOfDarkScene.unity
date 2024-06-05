@@ -308,89 +308,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8441236061914278625, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
   m_PrefabInstance: {fileID: 234189408}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &994845250 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100464554901557497, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-  m_PrefabInstance: {fileID: 1280565012491255030}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &994845251 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-  m_PrefabInstance: {fileID: 1280565012491255030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994845250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc9e64be55ee311449d31f39576effd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &994845252 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4061162950323139061, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-  m_PrefabInstance: {fileID: 1280565012491255030}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994845250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deed7eadf735a2f4493fc196a59c1c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &994845253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994845250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 0aacdee1e88518f4cb8e59e5d3a53b6f, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 994845251}
-        m_TargetAssemblyTypeName: FODEnemyManager, Assembly-CSharp
-        m_MethodName: OnFODDogReachedGoal
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &994845254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994845250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 994845252}
-        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
-        m_MethodName: onPauseEvent
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1181533958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 715690415168046720, guid: 5f547c14566b10c4e9f5d76fb1ff7bfb, type: 3}
@@ -6067,36 +5984,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      propertyPath: eyeHeight
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      propertyPath: eyepawnDelayRange.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      propertyPath: eyepawnDelayRange.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      propertyPath: behindSpawnInitialDelay
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      propertyPath: behindSpawnDistanceRange.x
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100464554901557497, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 994845253}
-    - targetCorrespondingSourceObject: {fileID: 100464554901557497, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 994845254}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
 --- !u!1001 &3983155176615631049
 PrefabInstance:
