@@ -18,6 +18,11 @@ public class Level3 : MonoBehaviour
 
     IEnumerator barkWarning;
 
+    public GameObject lastWall;
+    public Transform safeTp;
+
+    private bool end = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,36 +32,48 @@ public class Level3 : MonoBehaviour
         multiMazeGenerator.DeleteFirstWall();
         multiMazeGenerator.DeleteFirstAWall();
         multiMazeGenerator.AddCeilings();
+        end = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        dog.GetComponent<DogLevel3>().FollowPlayer();
+        if (!end)
+        {
+            dog.GetComponent<DogLevel3>().FollowPlayer();
+        }
+        else
+        {
+            dog.GetComponent<DogLevel3>().DoLastAnim();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("end game!");
+            }
+        }
     }
 
     public void OnCurrentMazeCellChange(Component sender, object data)
     {
 
         pastCell = currentCell;
-        currentCell = (MazeCell) sender;
+        currentCell = (MazeCell)sender;
 
         if (currentCell != null)
         {
             if (currentCell.isPath)
             {
                 Debug.Log("Player is on path");
-                if(barkWarning != null)
+                if (barkWarning != null)
                     StopCoroutine(barkWarning);
             }
             else if (pastCell != null && pastCell.isPath)
             {
-                if(barkWarning == null)
+                if (barkWarning == null)
                     barkWarning = BarkWarning();
-                    StartCoroutine(barkWarning);
+                StartCoroutine(barkWarning);
             }
         }
-        
+
 
     }
 
@@ -72,8 +89,24 @@ public class Level3 : MonoBehaviour
     public void OnMazeChange(Component sender, object data)
     {
         dog.GetComponent<NavMeshAgent>().enabled = false;
-        dog.transform.position = player.transform.position + new Vector3(1,0,1);
+        dog.transform.position = player.transform.position + new Vector3(1, 0, 1);
         dog.GetComponent<NavMeshAgent>().enabled = true;
+    }
+
+    public void OnLastRoom(Component sender, object data)
+    {
+        if (dog.transform.position.z < safeTp.transform.position.z)
+        {
+            dog.GetComponent<NavMeshAgent>().enabled = false;
+            dog.transform.position = safeTp.transform.position;
+            dog.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
+        lastWall.SetActive(true);
+        end = true;
+
+
+
     }
 
 }

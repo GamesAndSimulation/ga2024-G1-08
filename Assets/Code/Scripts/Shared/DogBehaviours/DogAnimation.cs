@@ -11,6 +11,7 @@ public class DogAnimation : MonoBehaviour
     private const string SBARK = "SingleBark";
     private const string SNIFFDOWN = "IsSniffingDown";
     private const string SNIFFUP = "IsSniffingUp";
+    private const string REST = "Rest";
 
     private const float TAIL_WAG = 0.0f;
     private const float SINGLE_BARK = 0.5f;
@@ -70,6 +71,11 @@ public class DogAnimation : MonoBehaviour
     {
         yield return new WaitForSeconds(barkClip.length);
         animator.SetBool(SBARK, false);
+    }
+
+    public void Rest()
+    {
+        animator.SetBool(REST, true);
     }
 
 }
