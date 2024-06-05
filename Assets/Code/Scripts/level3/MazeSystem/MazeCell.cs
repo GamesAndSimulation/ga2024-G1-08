@@ -357,4 +357,8 @@ public class MazeCell : MonoBehaviour
         }
     }
 
+    public void AddCeiling()
+    {
+        ceiling.SetActive(true);
+    }
 }

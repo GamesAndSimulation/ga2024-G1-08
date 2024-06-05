@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Level3 : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Level3 : MonoBehaviour
 
     public MazeCell pastCell;
     public MazeCell currentCell;
+
+    public MultiMazeGenerator multiMazeGenerator;
 
     public float barkInterval = 5f;
 
@@ -21,6 +24,9 @@ public class Level3 : MonoBehaviour
         pastCell = null;
         currentCell = null;
         dog.GetComponent<DogLevel3>().target = player.transform;
+        multiMazeGenerator.DeleteFirstWall();
+        multiMazeGenerator.DeleteFirstAWall();
+        multiMazeGenerator.AddCeilings();
     }
 
     // Update is called once per frame
@@ -61,6 +67,13 @@ public class Level3 : MonoBehaviour
             yield return new WaitForSeconds(barkInterval);
             dog.GetComponent<DogLevel3>().playSingleBark();
         }
+    }
+
+    public void OnMazeChange(Component sender, object data)
+    {
+        dog.GetComponent<NavMeshAgent>().enabled = false;
+        dog.transform.position = player.transform.position + new Vector3(1,0,1);
+        dog.GetComponent<NavMeshAgent>().enabled = true;
     }
 
 }

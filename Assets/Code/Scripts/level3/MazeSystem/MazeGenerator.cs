@@ -27,6 +27,11 @@ public class MazeGenerator : MonoBehaviour
     private MazeSolver solver;
 
 
+    private void Start()
+    {
+        Debug.Log("surrounders: " + portalBsurrounders.Count);
+    }
+
     public void SetTheme(MazeTheme theme)
     {
         this.theme = theme;
@@ -593,6 +598,43 @@ public class MazeGenerator : MonoBehaviour
             cell.ReActivateCell();
         }
     }
-    
 
+    public void DeleteFirstWall()
+    {
+        MazeCell mazeCell = grid.Get(0, 0);
+        mazeCell.DeactivateWall(Direction.South);
+        mazeCell.DeleteDecor();
+    }
+    
+    public void PathToEnd()
+    {
+        if(solver == null)
+            solver = new MazeSolver();
+
+        List<MazeCell> path = solver.FindPathDFS(grid.Get(0, 0), grid.Get(width - 1, height - 1), grid);
+
+        foreach (MazeCell cell in path)
+        {
+            cell.SetPath();
+        }
+    }
+
+    public void DeleteLastWall()
+    {
+        MazeCell mazeCell = grid.Get(width - 1, height - 1);
+        mazeCell.DeactivateWall(Direction.North);
+        mazeCell.DeleteDecor();    
+    }
+
+    public void AddCeiling()
+    {
+        for(int i = 0; i < height; i++)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                MazeCell cell = grid.Get(j, i);
+                cell.AddCeiling();
+            }
+        }
+    }
 }

@@ -72,6 +72,7 @@ public class MultiMazeGenerator : MonoBehaviour
             else if (i == nMazes-1)
             {
                 portals.Add(mazes[i].GenPortalA(mazes[i-1].portalB));
+                mazes[i].PathToEnd();
             }
 
             else
@@ -181,4 +182,26 @@ public class MultiMazeGenerator : MonoBehaviour
        
     }
 
+    public void DeleteFirstWall()
+    {
+        mazes[0].DeleteFirstWall();
+    }
+
+    public void DeleteFirstAWall()
+    {
+        mazes[1].DeleteFirstWall();
+    }
+
+    public void DeleteLastWall()
+    {
+        mazes[nMazes-1].DeleteLastWall();
+    }
+
+    public void AddCeilings()
+    {
+       foreach(MazeGenerator maze in mazes)
+        {
+           maze.AddCeiling();
+       }
+    }
 }
