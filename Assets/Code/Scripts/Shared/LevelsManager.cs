@@ -29,6 +29,13 @@ public class LevelsManager : MonoBehaviour
     
     }
 
+    public void OnStartLevel2(Component sender, object data) {
+
+        unloadCurrentLevel();
+        transitionToSecondLevel();
+
+    }
+
     public void transitionToFirstLevel() {
 
         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);

@@ -15,7 +15,7 @@ public class InitialMainScript : MonoBehaviour
     public Animator cameraAnimator;
     public Material lampMaterial;
     public Light lampLight;
-    public GameObject particleSystem;
+    public GameObject particleSystemObject;
     public AudioSource lightSwitchAudio;
     public AudioSource music;
     public AudioVolume audioVolume;
@@ -46,7 +46,7 @@ public class InitialMainScript : MonoBehaviour
 
     public void switchLampOff(Component sender, object data)
     {
-        particleSystem.SetActive(false);
+        particleSystemObject.SetActive(false);
         lampSwitchAnimator.SetTrigger("hasBeenClicked");
         StartCoroutine(audioVolume.IncreaseVolume(music, AUDIOINFADETIME));
         ui.StartFadeOut();

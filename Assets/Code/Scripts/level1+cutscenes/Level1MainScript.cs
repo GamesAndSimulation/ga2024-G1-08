@@ -16,7 +16,7 @@ public class Level1MainScript : MonoBehaviour
     public GameObject poop;
     public GameObject UI;
     public GameObject trigger;
-    public GameObject camera;
+    public GameObject cameraObject;
 
     public GameObject cabin;
     public GameObject removableFences;
@@ -115,7 +115,7 @@ public class Level1MainScript : MonoBehaviour
         music.Play();
         shovel.Appear();
         trigger.SetActive(false);
-        camera.SetActive(false);
+        cameraObject.SetActive(false);
         poop.SetActive(true);
         UI.SetActive(true);
         StartCoroutine(WaitForMusic());

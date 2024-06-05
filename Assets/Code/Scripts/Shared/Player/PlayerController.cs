@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeReference] protected GameEvent pauseEvent;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
-    [SerializeReference] protected GameEvent cameraChangedEvent;
     [SerializeReference] protected GameEvent changeToLevelOneEvent;
     [SerializeReference] protected GameEvent changeToLevelTwoEvent;
     [SerializeReference] protected GameEvent changeToLevelThreeEvent;
@@ -58,14 +57,12 @@ public class PlayerController : MonoBehaviour
     protected void Start() {
 
         playerAnnouncedEvent.Raise(this, null);
-        cameraChangedEvent.Raise(this, firstPersonCamera);
 
     }
 
     protected void OnEnable() {
 
         playerAnnouncedEvent.Raise(this, null);
-        cameraChangedEvent.Raise(this, firstPersonCamera);
 
     }
 
