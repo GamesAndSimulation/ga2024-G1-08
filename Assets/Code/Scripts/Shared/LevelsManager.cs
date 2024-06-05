@@ -8,10 +8,7 @@ public class LevelsManager : MonoBehaviour
 
     public static LevelsManager instance { get; private set; }
 
-    [Header("Events")]
-
-    [SerializeField] private GameEvent fodLevelStart;
-
+    [SerializeField] private int StartingLevel = 0;
 
     private void Awake() {
 
@@ -30,81 +27,60 @@ public class LevelsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transitionToInitialScene();
-    }
+        switch (StartingLevel) {
 
-    private int currentLevel = 0;
+            case 1:
+                transitionToLevel1();
+                break;
+            case 2:
+                transitionToLevel2();
+                break;
+            case 3:
+                transitionToLevel3();
+                break;
+            case 4:
+                transitionToBadEndingCutscene();
+                break;
+
+            case 5:
+                transitionToGoodEndingCutscene();
+                break;
+
+            default:
+                transitionToInitialCutscene();
+                break;
+        }
+
+    }
 
     public void transitionToInitialCutscene()
     {
-        transitionToInitialScene();
+        SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Single);
     }
 
 
     public void transitionToLevel1() {
-        transitionToFirstLevel();
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
 
     }
 
     public void transitionToLevel2() {
-         transitionToSecondLevel();
+        SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Single);
     }
 
     public void transitionToLevel3()
     {
-        transitionToThirdLevel();
+        SceneManager.LoadScene("MazeSystemScene", LoadSceneMode.Single);
     }
 
     public void transitionToBadEndingCutscene()
     {
-        transitionToBadEnding();
+        SceneManager.LoadScene("BadEnding", LoadSceneMode.Single);
     }
 
     public void transitionToGoodEndingCutscene()
     {
-        transitionToGoodEnding();
-    }
-
-  
-
-    private void transitionToInitialScene()
-    {
-        SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Single);
-        currentLevel = 0;
-    }
-
-    private void transitionToFirstLevel() {
-
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
-        currentLevel = 1;
-    }
-
-    private void transitionToSecondLevel() {
-
-        SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Single);
-        currentLevel = 2;
-    }
-
-    private void transitionToThirdLevel()
-    {
-
-        SceneManager.LoadScene("MazeSystemScene", LoadSceneMode.Single);
-        currentLevel = 3;
-    }
-
-    private void transitionToBadEnding()
-    {
-
-        SceneManager.LoadScene("BadEnding", LoadSceneMode.Single);
-        currentLevel = 5;
-    }
-
-    private void transitionToGoodEnding()
-    {
-
         SceneManager.LoadScene("GoodEnding", LoadSceneMode.Additive);
-        currentLevel = 6;
     }
-
 
 }
