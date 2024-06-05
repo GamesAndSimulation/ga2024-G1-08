@@ -194,7 +194,7 @@ MonoBehaviour:
   - {fileID: 1305577004302204, guid: 3ce5d05351769ef42901377fbc6bfd54, type: 3}
   - {fileID: 1219609485218594, guid: f86e4cd5574369b4f8d52f553f074223, type: 3}
   - {fileID: 1575860890064231406, guid: 185020f0b3bdbd14191b074cb8ea2fab, type: 3}
-  basePosition: {x: 0, y: 0.52, z: 0}
+  basePosition: {x: 0, y: 0.25, z: 0}
   baseRotation: {x: 0, y: 180, z: 0}
 --- !u!1 &8378463551918938101
 GameObject:
