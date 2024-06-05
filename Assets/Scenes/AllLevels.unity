@@ -195,6 +195,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 715690415168046720, guid: 5f547c14566b10c4e9f5d76fb1ff7bfb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3983155176615631051}
+    - targetCorrespondingSourceObject: {fileID: 715690415168046720, guid: 5f547c14566b10c4e9f5d76fb1ff7bfb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3983155176615631057}
   m_SourcePrefab: {fileID: 100100000, guid: 5f547c14566b10c4e9f5d76fb1ff7bfb, type: 3}
 --- !u!114 &3983155176615631051
 MonoBehaviour:
@@ -212,6 +215,45 @@ MonoBehaviour:
   masterVolume: 0.5
   sfxVolume: 0.5
   musicVolume: 0.5
+--- !u!114 &3983155176615631052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6086605598926279995, guid: 5f547c14566b10c4e9f5d76fb1ff7bfb, type: 3}
+  m_PrefabInstance: {fileID: 3983155176615631049}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181533958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5386c8f57467843bab9b7238e6c740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3983155176615631057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181533958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7dba4cdd5ce61694bb059f4262e192bf, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3983155176615631052}
+        m_TargetAssemblyTypeName: LevelsManager, Assembly-CSharp
+        m_MethodName: OnStartLevel1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

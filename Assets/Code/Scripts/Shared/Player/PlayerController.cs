@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeReference] protected GameEvent pauseEvent;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
     [SerializeReference] protected GameEvent cameraChangedEvent;
+    [SerializeReference] protected GameEvent changeToLevelOneEvent;
+    [SerializeReference] protected GameEvent changeToLevelTwoEvent;
+    [SerializeReference] protected GameEvent changeToLevelThreeEvent;
 
     [Header("Sounds")]
 
@@ -89,6 +92,15 @@ public class PlayerController : MonoBehaviour
 
                 else
                     movementController.isSprinting = false;
+
+                if (Input.GetKey("1"))
+                    changeToLevelOneEvent.Raise(this, null);
+
+                else if (Input.GetKey("2"))
+                    changeToLevelTwoEvent.Raise(this, null);
+
+                else if (Input.GetKey("3"))
+                    changeToLevelThreeEvent.Raise(this, null);
 
                 movementController.horizontalInput = Input.GetAxis("Horizontal");
                 movementController.verticalInput = Input.GetAxis("Vertical");
