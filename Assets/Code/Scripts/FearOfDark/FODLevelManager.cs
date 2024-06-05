@@ -14,13 +14,8 @@ public class FODLevelManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        PlayerWatcherComponent.addSubToPlayerChanged(changePlayer);
-
 
     }
-
-    [SerializeField] private GameObject fodPlayerAndCam;
-    private GameObject player;
 
 
     [SerializeField] private float spawnDogInitialDelay = 10;
@@ -35,29 +30,22 @@ public class FODLevelManager : MonoBehaviour
     [SerializeField] public int scoreToWin = 3;
     public int score;
 
-    [SerializeField] private GameEvent fodLevelWon;
+    [SerializeField] private GameObject player;
 
+    [SerializeField] private AnimationClip turnOffPlayerAnimation;
 
-    public void changePlayer(GameObject newPlayer) {
-
-        Debug.Log("Changed player to " + newPlayer);
-
-        player = newPlayer;
-
-    }
+    [SerializeField] private GameEvent turnOffPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
-        player = PlayerWatcherComponent.getPlayer();
-        
+        spawnDogDelayed(spawnDogInitialDelay);
+
+
     }
 
     public void OnEnable() {
-
-        //Lightmapping.lightingSettings = null;
-        //Lightmapping.Clear();
 
 
     }
@@ -66,21 +54,15 @@ public class FODLevelManager : MonoBehaviour
     void Update()
     {
 
-        if (currentDelayToSpawnDog <= 0 && toSpawnDog)
-            SpawnDog();
+        if (!PausedWatcherComponent.paused) {
 
-        if(toSpawnDog)
-            currentDelayToSpawnDog -= Time.deltaTime;
+            if (currentDelayToSpawnDog <= 0 && toSpawnDog)
+                SpawnDog();
 
-    }
+            if (toSpawnDog)
+                currentDelayToSpawnDog -= Time.deltaTime;
 
-
-    public void OnFODLevelStart(Component sender, object data) {
-
-        fodPlayerAndCam.SetActive(true);
-        spawnDogDelayed(spawnDogInitialDelay);
-
-
+        }
     }
 
     public  void OnFODDogReachedTarget(Component sender, object data) {
@@ -88,10 +70,18 @@ public class FODLevelManager : MonoBehaviour
         score += 1;
 
         if (score >= scoreToWin)
-            fodLevelWon.Raise(this, data);
+            StartCoroutine(winAfterAnimation());
 
         else
             spawnDogDelayed(Random.Range(spawnDogDelayRange[0], spawnDogDelayRange[1]));
+
+    }
+
+    public IEnumerator winAfterAnimation() {
+
+        turnOffPlayer.Raise(this, null);
+        yield return new WaitForSeconds(turnOffPlayerAnimation.length + 0.01f);
+        LevelsManager.instance.transitionToLevel3();
 
     }
 

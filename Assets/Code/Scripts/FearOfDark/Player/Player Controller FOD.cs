@@ -27,6 +27,11 @@ public class PlayerControllerFOD : MonoBehaviour {
     [SerializeField] protected FODPlayerSound heartSoundController = new FODPlayerSound(null, new Vector2(0.85f, 1.5f), new Vector2(0.01f, 0.2f));
     [SerializeField] protected FODPlayerSound breathingSoundController = new FODPlayerSound(null, new Vector2(0.85f, 1.0f), new Vector2(0.05f, 0.25f));
 
+    [Header("Events")]
+    [SerializeField] protected GameEvent turnOffPlayer;
+
+    [SerializeField] protected AnimationClip turnOffPlayerAnimation;
+
     protected void Awake() {
         movementScript = GetComponent<GravityAffectedMovement>();
     }
@@ -70,20 +75,34 @@ public class PlayerControllerFOD : MonoBehaviour {
                 playSteps = false;
                 Invoke(nameof(resetCanPlaySteps), delayToHearSteps);
 
-
             }
 
         }
-
-
-
 
     }
 
     public void damagePlayer(float damage) {
 
-        this.damage = Mathf.Min(1, damage + this.damage); 
+        this.damage = this.damage + damage;
 
+        if (this.damage >= 1) {
+
+            print("player to die");
+            StartCoroutine(loseAfterAnimation());
+
+        }
+
+        this.damage = Mathf.Min(1, this.damage); 
+
+
+
+    }
+
+    public IEnumerator loseAfterAnimation() {
+
+        turnOffPlayer.Raise(this, null);
+        yield return new WaitForSeconds(turnOffPlayerAnimation.length + 0.01f);
+        LevelsManager.instance.transitionToBadEndingCutscene();
 
     }
 
