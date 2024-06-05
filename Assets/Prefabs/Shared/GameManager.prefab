@@ -99,7 +99,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
   m_TargetDisplay: 0
 --- !u!114 &625015374240740906
 MonoBehaviour:
@@ -884,6 +884,7 @@ GameObject:
   - component: {fileID: 4438775848994818581}
   - component: {fileID: 6213953694645343816}
   - component: {fileID: 3206149035172551671}
+  - component: {fileID: 8448790346516689813}
   m_Layer: 0
   m_Name: Replay
   m_TagString: Untagged
@@ -993,8 +994,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6086605598926279995}
-        m_TargetAssemblyTypeName: LevelsManager, Assembly-CSharp
+      - m_Target: {fileID: 8448790346516689813}
+        m_TargetAssemblyTypeName: LevelManagerCaller, Assembly-CSharp
         m_MethodName: transitionToInitialCutscene
         m_Mode: 1
         m_Arguments:
@@ -1017,3 +1018,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8448790346516689813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462842720678880622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e5fbb723e4afb48bad7c4a8cd0a0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
