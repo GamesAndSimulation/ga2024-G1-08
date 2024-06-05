@@ -12,7 +12,6 @@ public class FODEnemyManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        player = PlayerWatcherComponent.getPlayer();
         currentTimeToSpawnBehind = new List<float>();
         currentTimeToSpawnEye = new List<float>();
 
@@ -36,7 +35,7 @@ public class FODEnemyManager : MonoBehaviour
     [SerializeField] private float behindScoreMultiplier;
     private List<float> currentTimeToSpawnBehind;
 
-    private GameObject player;
+    [SerializeField] private GameObject player;
 
     private void Start() {
 
