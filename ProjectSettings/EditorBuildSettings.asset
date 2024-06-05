@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FearOfDarkScene.unity
     guid: 8ba2a2cbbc5fc9a45939ea2198ba0ff2
   - enabled: 1
-    path: Assets/Scenes/Testing/MazeSystem/MazeSystemScene.unity
+    path: Assets/Scenes/level3/MazeSystemScene.unity
     guid: d512cc2da504a7a428d9f9a48f434caa
   m_configObjects: {}
