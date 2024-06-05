@@ -7,11 +7,6 @@ public class DogFinalSequence : MonoBehaviour
 
     public Transform player, finalPosition;
     public Level1DogStateHandler dogStateHandler;
-
-    [SerializeField]
-    private GameEvent dogEnteredCabin;
-
-    private bool isMovingToPlayer;
     private const float WAITTIME_MOVETOPLAYER = 4.0f;
     private const float WAITTIME_MOVETOFINALPOSITION = 3.0f;
     private const float NEWTARGETRADIUS = 2.0f;
