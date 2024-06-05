@@ -9,13 +9,16 @@ public class ShovelScript : MonoBehaviour
     public const string IS_SHOVELING = "isShoveling";
     public const string POOP_LAYER = "Poop";
     public AudioSource audioSource;
-  
+    public GameObject text;
+
+    private bool hasShoveled;
 
     [SerializeField]
     private GameEvent poopShoveled;
     // Start is called before the first frame update
     void Start()
     {
+        hasShoveled = false;
     }
 
     // Update is called once per frame
@@ -47,6 +50,11 @@ public class ShovelScript : MonoBehaviour
             {
                 poopShoveled.Raise(this, objectFound);
                 
+                if(!hasShoveled)
+                {
+                    text.SetActive(false);
+                    hasShoveled = true;
+                }
             }
 
         }
