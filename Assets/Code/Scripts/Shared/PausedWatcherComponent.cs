@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// A singleton other scripts can use to quickly know if the game is paused
+/// </summary>
 public class PausedWatcherComponent : MonoBehaviour {
     public static PausedWatcherComponent instance { get; private set; }
 
