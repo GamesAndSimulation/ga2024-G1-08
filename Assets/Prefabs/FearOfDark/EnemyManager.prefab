@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4704969922630766564}
   - component: {fileID: 6039539908662929431}
+  - component: {fileID: 4061162950323139061}
+  - component: {fileID: 8965724597489336501}
+  - component: {fileID: 2579486139453980189}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -25,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100464554901557497}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,5 +47,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9e64be55ee311449d31f39576effd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behindPrefab: {fileID: 7307888466437481171, guid: 1d2204323836549469d5c066ebf06b37, type: 3}
   eyePrefab: {fileID: 9091275555968331969, guid: 3a388113b29c5ab46b2eb66e9e134828, type: 3}
+  eyeSpawnInitialDelay: 20
+  eyeSpawnDistance: 200
+  eyeHeight: 5
+  eyepawnDelayRange: {x: 20, y: 40}
+  eyeScoreMultiplier: 0
+  behindPrefab: {fileID: 7307888466437481171, guid: 1d2204323836549469d5c066ebf06b37, type: 3}
+  behindSpawnInitialDelay: 10
+  behindSpawnDistanceRange: {x: 10, y: 25}
+  behindSpawnDelayRange: {x: 10, y: 30}
+  behindScoreMultiplier: 0
+--- !u!114 &4061162950323139061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100464554901557497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deed7eadf735a2f4493fc196a59c1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affectedBehaviors:
+  - {fileID: 6039539908662929431}
+--- !u!114 &8965724597489336501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100464554901557497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 0aacdee1e88518f4cb8e59e5d3a53b6f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6039539908662929431}
+        m_TargetAssemblyTypeName: FODEnemyManager, Assembly-CSharp
+        m_MethodName: OnFODDogReachedGoal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2579486139453980189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100464554901557497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4061162950323139061}
+        m_TargetAssemblyTypeName: CommonPausedBehavior, Assembly-CSharp
+        m_MethodName: onPauseEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

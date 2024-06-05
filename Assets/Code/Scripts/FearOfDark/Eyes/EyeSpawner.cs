@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EyeSpawner : MonoBehaviour
 {
-    private IsVisibleChecker isVisibleChecker;
 
     [SerializeField] private int maxEyes = 20;
     public List<GameObject> eyes;
@@ -32,7 +31,6 @@ public class EyeSpawner : MonoBehaviour
     [SerializeField] private float damagePerEye = 0.001f;
 
     private void Awake() {
-        isVisibleChecker = GetComponent<IsVisibleChecker>();
         player = PlayerWatcherComponent.getPlayer();
     }
 
@@ -70,6 +68,7 @@ public class EyeSpawner : MonoBehaviour
         } else {
 
             if (currentDelayToKillThis <= 0) {
+                FODEnemyManager.instance.eyeWasKilled();
                 Destroy(gameObject);
 
             } else
@@ -112,7 +111,7 @@ public class EyeSpawner : MonoBehaviour
 
     private void spawnEye() {
 
-        Vector3 betweenEyeAndPlayer = player.transform.position - transform.position;
+        Vector3 betweenEyeAndPlayer = new Vector3( player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
 
         Vector3 perpendicular = Vector3.Cross(betweenEyeAndPlayer, transform.up).normalized;
 

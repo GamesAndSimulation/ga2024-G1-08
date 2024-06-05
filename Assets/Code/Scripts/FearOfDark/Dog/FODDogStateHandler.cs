@@ -4,8 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 //This class is responsible to handle the dog's state machine
-public class DogStateHandler : MonoBehaviour
-{
+public class FODDogStateHandler : MonoBehaviour {
     [Header("State")]
     public DogState currentState;
 
@@ -20,8 +19,7 @@ public class DogStateHandler : MonoBehaviour
     private DogAnimation animScript;
     private DogSounds soundScript;
 
-    public enum DogState
-    {
+    public enum DogState {
         idle,
         moving
     }
@@ -34,21 +32,17 @@ public class DogStateHandler : MonoBehaviour
 
     }
 
-    void Start()
-    {
+    void Start() {
         currentState = DogState.idle;
         hasReachedTarget = false;
     }
 
-    void Update()
-    {
+    void Update() {
         StateHandler();
     }
 
-    void StateHandler()
-    {
-        switch (currentState)
-        {
+    void StateHandler() {
+        switch (currentState) {
             case DogState.idle:
                 //Do nothing
                 break;
@@ -57,13 +51,9 @@ public class DogStateHandler : MonoBehaviour
 
                 hasReachedTarget = Vector3.Distance(transform.position, target.position) < targetRadius;
 
-                if (hasReachedTarget)
-                {
+                if (hasReachedTarget) {
                     stopMoving();
-                    hasReachedTarget = false;
-                }
-                else
-                {
+                } else {
                     animScript.MovingAnim(moveScript.GetSpeed());
                     moveScript.WalkToTarget(target);
                 }
