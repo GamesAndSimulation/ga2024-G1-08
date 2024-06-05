@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -26,10 +27,15 @@ public class DogLevel3 : MonoBehaviour
     private DogAnimation animScript;
     private DogSounds soundScript;
 
+    public Transform endingTransform;
+    private bool doneOnce = false;
+    public GameObject text;
+
     public enum DogState
     {
         idle,
-        moving
+        moving,
+        end
     }
 
     private void Awake()
@@ -46,7 +52,8 @@ public class DogLevel3 : MonoBehaviour
         currentState = DogState.idle;
         hasReachedTarget = false;
         IsLookingAtTarget = false;
-        defaultLookTargetOffset = new Vector3(0,0.7f,0.7f); //hardcoded offset because i lost my patience
+        defaultLookTargetOffset = new Vector3(0, 0.7f, 0.7f); //hardcoded offset because i lost my patience
+        doneOnce = false;
     }
 
     void Update()
@@ -93,7 +100,10 @@ public class DogLevel3 : MonoBehaviour
                 }
 
                 break;
-            
+
+            case DogState.end:
+                break;
+
         }
 
     }
@@ -160,6 +170,47 @@ public class DogLevel3 : MonoBehaviour
         LookAtTarget();
         currentState = DogState.idle;
         animScript.StartIdle();
+
+    }
+
+    public void DoLastAnim()
+    {
+        target = endingTransform;
+        currentState = DogState.moving;
+        ClearLook();
+        targetRadius = 0.5f;
+        moveScript.navAgent.stoppingDistance = 0f;
+        moveScript.navAgent.angularSpeed = 9999999999999f;
+        moveScript.navAgent.speed = 2f;
+        moveScript.navAgent.acceleration = 3f;
+
+        hasReachedTarget = Vector3.Distance(transform.position, target.position) < targetRadius;
+
+
+        if (hasReachedTarget)
+        {
+            stopMoving();
+            currentState = DogState.end;
+            setTarget(GameObject.Find("Player").transform);
+            LookAtTarget();
+            PlayRestOnce();
+        }
+        else
+        {
+            animScript.MovingAnim(moveScript.GetSpeed());
+            moveScript.WalkToTarget(target);
+        }
+
+    }
+
+    public void PlayRestOnce()
+    {
+        animScript.Rest();
+        if (!doneOnce)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            text.SetActive(true);
+        }
 
     }
 
