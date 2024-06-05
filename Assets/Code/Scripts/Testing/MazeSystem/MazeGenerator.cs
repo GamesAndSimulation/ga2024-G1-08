@@ -544,6 +544,8 @@ public class MazeGenerator : MonoBehaviour
                     break;
                 }
         }
+
+        Debug.Log("Surrounders: " + portalBsurrounders.Count);
     }
 
     public void DeactivatePortalAWalls()
