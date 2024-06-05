@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [Header("Events")]
 
     [SerializeReference] protected GameEvent pauseEvent;
+    [SerializeReference] protected GameEvent toggleFPS;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
 
     [Header("Sounds")]
@@ -135,6 +136,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
             pauseEvent.Raise(this, !paused);
+
+        if (Input.GetKeyDown(KeyCode.I))
+            toggleFPS.Raise(this, "");
 
 
     }

@@ -360,11 +360,8 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 2257132699607991386}
   freeMovingCamera: {fileID: 8773202912926230616}
   pauseEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
+  toggleFPS: {fileID: 11400000, guid: 5d7928241b968554ba29c553cd17b70c, type: 2}
   playerAnnouncedEvent: {fileID: 11400000, guid: 46e5c100cde8c9543a634124ae00fccd, type: 2}
-  cameraChangedEvent: {fileID: 11400000, guid: 7e7b5dd7ef2c6d64b933819c2205bc8b, type: 2}
-  changeToLevelOneEvent: {fileID: 11400000, guid: 7dba4cdd5ce61694bb059f4262e192bf, type: 2}
-  changeToLevelTwoEvent: {fileID: 11400000, guid: 0e0e235c7df0c37498ec7ad0acb33e1a, type: 2}
-  changeToLevelThreeEvent: {fileID: 0}
   placeholderSoundComponent: {fileID: 0}
 --- !u!114 &3506545228691208307
 MonoBehaviour:
