@@ -24,10 +24,13 @@ public class ToggleMenu : MonoBehaviour
         if (menu.activeInHierarchy)
         {
             menu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+
         }
         else
         {
             menu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
