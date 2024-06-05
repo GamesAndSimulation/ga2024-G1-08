@@ -43,6 +43,9 @@ public class MazeCell : MonoBehaviour
     public int nWalls;
     public bool isPath = false;
 
+    public Collider cellChecker;
+    public GameEvent currentCellChanger;
+
     public void SetVisited()
     {
         visited = true;
@@ -345,4 +348,13 @@ public class MazeCell : MonoBehaviour
         return false;
 
     }
+
+    public void OnTriggerEnter(Collider collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            currentCellChanger.Raise(this, "This is a test");
+        }
+    }
+
 }

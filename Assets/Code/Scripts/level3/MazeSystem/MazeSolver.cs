@@ -52,7 +52,6 @@ public class MazeSolver
         int x = (int)Math.Round(cell.transform.localPosition.x) / cell.width;
         int z = (int)Math.Round(cell.transform.localPosition.z) / cell.height;
 
-        // Check for walls between the current cell and its neighbours
         if (x > 0 && !cell.HasWall(Direction.West) && !grid.Get(x - 1, z).dfsVisited)
         {
             neighbours.Add(grid.Get(x - 1, z));

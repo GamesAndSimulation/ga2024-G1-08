@@ -29,6 +29,7 @@ MonoBehaviour:
   - {fileID: 5744538086840704154, guid: c777c1c57ef08e64aa7af397280038bf, type: 3}
   - {fileID: 1006519062080796, guid: 6defb14dc5ddea44591aae3a5f946ed2, type: 3}
   - {fileID: 1486915432716168, guid: 40996329c0265e6419f5b09a6602aa39, type: 3}
+  - {fileID: 5415677696581594830, guid: 901933fe253f713468d5b965640718a3, type: 3}
   wallDecor: []
   enemies: []
   portal: {fileID: 2369018456614855337, guid: f6fbabb6221bc514bb5bb73fb907b511, type: 3}
