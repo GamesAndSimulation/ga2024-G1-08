@@ -36,7 +36,6 @@ public class Level1MainScript : MonoBehaviour
     private const float WAITTIME_STARTMUSIC = 3.0f;
     private const float WAITTIME_STARTAMBIENCE = 2.0f;
 
-
     [SerializeField]
     private GameEvent levelWon;
 
@@ -56,7 +55,7 @@ public class Level1MainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timerStart)
+        if(!PausedWatcherComponent.paused && timerStart)
         {
             int minutes, seconds;
             if (timer <= 0.5)
@@ -126,5 +125,6 @@ public class Level1MainScript : MonoBehaviour
         yield return new WaitForSeconds(WAITTIME_STARTMUSIC);
         timerStart = true;
     }
+
 
 }

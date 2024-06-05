@@ -43,7 +43,7 @@ public class DogSniffingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDogMoving)
+        if (isDogMoving && !PausedWatcherComponent.paused)
         {
             int activeChildren = 0;
             int aux = 0;

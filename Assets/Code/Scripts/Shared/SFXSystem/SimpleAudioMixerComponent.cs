@@ -13,6 +13,9 @@ public class SimpleAudioMixerComponent : MonoBehaviour
         if (instance == null)
             instance = this;
 
+        else
+            Destroy(gameObject);
+
 
         DontDestroyOnLoad(this);
 
