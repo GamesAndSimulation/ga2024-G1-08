@@ -18,11 +18,6 @@ public class Level3 : MonoBehaviour
 
     IEnumerator barkWarning;
 
-    public GameObject lastWall;
-    public Transform safeTp;
-
-    private bool end = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,24 +27,12 @@ public class Level3 : MonoBehaviour
         multiMazeGenerator.DeleteFirstWall();
         multiMazeGenerator.DeleteFirstAWall();
         multiMazeGenerator.AddCeilings();
-        end = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!end)
-        {
-            dog.GetComponent<DogLevel3>().FollowPlayer();
-        }
-        else
-        {
-            dog.GetComponent<DogLevel3>().DoLastAnim();
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("end game!");
-            }
-        }
+        dog.GetComponent<DogLevel3>().FollowPlayer();
     }
 
     public void OnCurrentMazeCellChange(Component sender, object data)
@@ -91,21 +74,6 @@ public class Level3 : MonoBehaviour
         dog.GetComponent<NavMeshAgent>().enabled = false;
         dog.transform.position = player.transform.position + new Vector3(1,0,1);
         dog.GetComponent<NavMeshAgent>().enabled = true;
-    }
-
-    public void OnLastRoom(Component sender, object data)
-    {
-        if(dog.transform.position.z < safeTp.transform.position.z){
-            dog.GetComponent<NavMeshAgent>().enabled = false;
-            dog.transform.position = safeTp.transform.position;
-            dog.GetComponent<NavMeshAgent>().enabled = true;
-        }
-
-        lastWall.SetActive(true);
-        end = true;
-
-
-
     }
 
 }
