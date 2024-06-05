@@ -7,6 +7,9 @@ public class ToggleMenu : MonoBehaviour
 {
 
     public GameObject menu;
+
+    [SerializeField] private GameEvent pauseGameEvent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +28,15 @@ public class ToggleMenu : MonoBehaviour
         {
             menu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
+            pauseGameEvent.Raise(this, false);
+
 
         }
         else
         {
             menu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            pauseGameEvent.Raise(this, true);
         }
     }
 }

@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 110139003447595472}
+  pauseGameEvent: {fileID: 11400000, guid: 5a9ce3cc42d9ff64db6c56e5af4af28b, type: 2}
 --- !u!114 &5270598190652224894
 MonoBehaviour:
   m_ObjectHideFlags: 0
