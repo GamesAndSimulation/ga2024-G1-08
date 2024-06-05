@@ -50,6 +50,11 @@ public class LevelsManager : MonoBehaviour
          transitionToSecondLevel();
     }
 
+    public void transitionToLevel3()
+    {
+        transitionToThirdLevel();
+    }
+
     public void transitionToBadEndingCutscene()
     {
         transitionToBadEnding();
@@ -80,6 +85,13 @@ public class LevelsManager : MonoBehaviour
         currentLevel = 2;
     }
 
+    private void transitionToThirdLevel()
+    {
+
+        SceneManager.LoadScene("MazeSystemScene", LoadSceneMode.Single);
+        currentLevel = 3;
+    }
+
     private void transitionToBadEnding()
     {
 
@@ -92,13 +104,6 @@ public class LevelsManager : MonoBehaviour
 
         SceneManager.LoadScene("GoodEnding", LoadSceneMode.Additive);
         currentLevel = 6;
-    }
-
-
-    public void transitionToFOD() {
-
-        instance.fodLevelStart.Raise(instance, null);
-
     }
 
 

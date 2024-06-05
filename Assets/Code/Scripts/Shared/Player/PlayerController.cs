@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 else if (Input.GetKey("2"))
                     LevelsManager.instance.transitionToLevel2();
                 else if (Input.GetKey("3"))
-                    ;//changeToLevelThreeEvent.Raise(this, null);
+                    LevelsManager.instance.transitionToLevel3();
                 else if (Input.GetKey("5"))
                     LevelsManager.instance.transitionToBadEndingCutscene();
                 else if (Input.GetKey("6"))
