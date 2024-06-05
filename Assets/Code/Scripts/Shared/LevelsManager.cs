@@ -8,7 +8,14 @@ public class LevelsManager : MonoBehaviour
 
     public static LevelsManager instance { get; private set; }
 
-    [SerializeField] private GameEvent fodLevelStart; 
+    [Header("Events")]
+    [SerializeField] private GameEvent firstLevelStart;
+    [SerializeField] private GameEvent firstLevelEnd;
+
+    [SerializeField] private GameEvent fodLevelStart;
+    [SerializeField] private GameEvent fodLevelEnd;
+    
+
 
     private void Awake() {
 
@@ -53,11 +60,10 @@ public class LevelsManager : MonoBehaviour
 
     public void unloadFirstLevel() {
 
-        SceneManager.UnloadSceneAsync("Level1");
     }
     public void unloadFODLevel() {
 
-        SceneManager.UnloadSceneAsync("FearOfDarkScene");
+        
     }
 
 
@@ -66,10 +72,15 @@ public class LevelsManager : MonoBehaviour
         switch(currentLevel) {
 
             case 1:
-                unloadFirstLevel(); break;
+                firstLevelEnd.Raise(this, null);
+                SceneManager.UnloadSceneAsync("Level1");
+
+                break;
 
             case 2:
-                unloadFODLevel(); break;
+                fodLevelEnd.Raise(this, null);
+                SceneManager.UnloadSceneAsync("FearOfDarkScene"); 
+                break;
 
 
         }

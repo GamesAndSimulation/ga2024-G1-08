@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 792711917519833839}
   - component: {fileID: 7491865616504325515}
   - component: {fileID: 8892460707274773313}
-  - component: {fileID: 6086605598926279995}
   - component: {fileID: 3951069361854585789}
-  - component: {fileID: 8251675674604673055}
   - component: {fileID: 1469807198660277406}
+  - component: {fileID: 6086605598926279995}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -92,19 +91,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6086605598926279995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715690415168046720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f5386c8f57467843bab9b7238e6c740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fodLevelStart: {fileID: 11400000, guid: 0e0e235c7df0c37498ec7ad0acb33e1a, type: 2}
 --- !u!114 &3951069361854585789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,34 +107,6 @@ MonoBehaviour:
   masterVolume: 0.5
   sfxVolume: 0.5
   musicVolume: 0.5
---- !u!114 &8251675674604673055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715690415168046720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 7dba4cdd5ce61694bb059f4262e192bf, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6086605598926279995}
-        m_TargetAssemblyTypeName: LevelsManager, Assembly-CSharp
-        m_MethodName: OnStartLevel1
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1469807198660277406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524beaa0842643e498157346ec04a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6086605598926279995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715690415168046720}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5386c8f57467843bab9b7238e6c740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstLevelStart: {fileID: 11400000, guid: 7dba4cdd5ce61694bb059f4262e192bf, type: 2}
+  firstLevelEnd: {fileID: 0}
+  fodLevelStart: {fileID: 11400000, guid: 0e0e235c7df0c37498ec7ad0acb33e1a, type: 2}
+  fodLevelEnd: {fileID: 0}

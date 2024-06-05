@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -36,6 +37,8 @@ public class FODLevelManager : MonoBehaviour
 
     [SerializeField] private GameEvent fodLevelWon;
 
+    [SerializeField] Material skyMaterial;
+
     public void changePlayer(GameObject newPlayer) {
 
         Debug.Log("Changed player to " + newPlayer);
@@ -50,6 +53,15 @@ public class FODLevelManager : MonoBehaviour
         score = 0;
         player = PlayerWatcherComponent.getPlayer();
         
+    }
+
+    public void OnEnable() {
+
+        RenderSettings.skybox = skyMaterial;
+        //Lightmapping.lightingSettings = null;
+        //Lightmapping.Clear();
+
+
     }
 
     // Update is called once per frame

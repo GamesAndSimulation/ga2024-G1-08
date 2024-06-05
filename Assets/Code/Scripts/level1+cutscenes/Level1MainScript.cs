@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,9 @@ public class Level1MainScript : MonoBehaviour
     [SerializeField]
     private GameEvent levelWon;
 
+    [SerializeField] private LightingSettings lightSettings;
+    [SerializeField] private Material skyBoxMaterial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +54,15 @@ public class Level1MainScript : MonoBehaviour
         timer = totalTime * 60;
         timerStart = false;
         timerText.text = totalTime.ToString("00") + ":00";
+    }
+
+    private void OnEnable() {
+
+    }
+
+    private void OnDisable() {
+
+
     }
 
     // Update is called once per frame
