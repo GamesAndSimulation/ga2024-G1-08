@@ -57,7 +57,6 @@ public class LevelsManager : MonoBehaviour
 
     public void transitionToInitialCutscene()
     {
-        Debug.Log("aaaaaaaa");
         SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Single);
     }
 
