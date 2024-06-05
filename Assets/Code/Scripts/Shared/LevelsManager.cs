@@ -8,7 +8,7 @@ public class LevelsManager : MonoBehaviour
 
     public static LevelsManager instance { get; private set; }
 
-    [SerializeField] private int StartingLevel = 0;
+    [SerializeField] private int StartingLevel = -1;
 
     private void Awake() {
 
@@ -29,6 +29,9 @@ public class LevelsManager : MonoBehaviour
     {
         switch (StartingLevel) {
 
+            case 0:
+                transitionToInitialCutscene();
+                break;
             case 1:
                 transitionToLevel1();
                 break;
@@ -47,7 +50,6 @@ public class LevelsManager : MonoBehaviour
                 break;
 
             default:
-                transitionToInitialCutscene();
                 break;
         }
 
