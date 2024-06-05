@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 617577972680310849}
   - component: {fileID: 988192118163927376}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Quit Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 3206149035172551671}
   - component: {fileID: 8448790346516689813}
   m_Layer: 0
-  m_Name: Replay
+  m_Name: Replay Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
