@@ -16,7 +16,6 @@ public class GameEvent : ScriptableObject //to store data shared among objects
         foreach(GameEventListener listener in listeners)
             listener.OnEventRaised(sender, data);
 
-
     }
 
     public void RegisterListener(GameEventListener listener) {
@@ -24,7 +23,6 @@ public class GameEvent : ScriptableObject //to store data shared among objects
         if(!listeners.Contains(listener))
             listeners.Add(listener);
         
-
     }
 
     public void UnregisterListener(GameEventListener listener) {
@@ -33,6 +31,5 @@ public class GameEvent : ScriptableObject //to store data shared among objects
             listeners.Remove(listener);
 
     }
-
 
 }

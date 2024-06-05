@@ -30,6 +30,4 @@ public class DogMovement : MonoBehaviour
         return navAgent.velocity.magnitude;
     }
 
-
-
 }

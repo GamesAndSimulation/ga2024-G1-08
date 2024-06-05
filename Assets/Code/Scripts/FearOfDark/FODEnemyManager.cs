@@ -15,7 +15,6 @@ public class FODEnemyManager : MonoBehaviour
         currentTimeToSpawnBehind = new List<float>();
         currentTimeToSpawnEye = new List<float>();
 
-
     }
 
     [Header("Eye")]
@@ -41,8 +40,6 @@ public class FODEnemyManager : MonoBehaviour
 
         spawnEyeDelayed(eyeSpawnInitialDelay);
         spawnBehindDelayed(behindSpawnInitialDelay);
-
-
 
     }
 
@@ -74,13 +71,11 @@ public class FODEnemyManager : MonoBehaviour
 
         spawnEyeDelayed();
 
-
     }
 
     public void behindWasKilled() {
 
         spawnBehindDelayed();
-
 
     }
 

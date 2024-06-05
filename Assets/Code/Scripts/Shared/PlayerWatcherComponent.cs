@@ -6,7 +6,6 @@ public delegate void PlayerChanged(GameObject newPlayer);
 
 public class PlayerWatcherComponent : MonoBehaviour
 {
-
     public static PlayerWatcherComponent instance { get; private set; }
 
     private void Awake() {
@@ -72,6 +71,5 @@ public class PlayerWatcherComponent : MonoBehaviour
         changePlayer(sender.gameObject);
 
     }
-
 
 }

@@ -98,14 +98,11 @@ public class EyeSpawner : MonoBehaviour
 
         currentDelayToSpawnEye = Mathf.Max(initialDelayToSpawnEye / (1 + delayReductionMultiplier * eyes.Count), minDelayToSpawnEye);
 
-
     }
 
     private void resetDelayToKillThis() {
 
-
         currentDelayToKillThis = delayToKillThis;
-
 
     }
 
@@ -124,8 +121,6 @@ public class EyeSpawner : MonoBehaviour
         newEye.transform.position = this.transform.position + vectorToEye * (distancePerEye * eyes.Count + minimumDistance);
 
         eyes.Add(newEye);
-
-
 
     }
 

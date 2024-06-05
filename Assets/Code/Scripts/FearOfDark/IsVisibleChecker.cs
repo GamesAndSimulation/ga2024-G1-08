@@ -21,6 +21,5 @@ public class IsVisibleChecker : MonoBehaviour
 
         return GeometryUtility.TestPlanesAABB(planes, rendererToCheck.bounds);
 
-
     }
 }

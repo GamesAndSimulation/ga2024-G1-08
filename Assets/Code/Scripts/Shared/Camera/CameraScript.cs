@@ -17,6 +17,5 @@ public abstract class CameraScript : MonoBehaviour
         yRotation += mouseX * sensX * Time.deltaTime;
         xRotation -= mouseY * sensY * Time.deltaTime;
 
-
     }
 }

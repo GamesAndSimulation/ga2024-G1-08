@@ -53,15 +53,6 @@ public class Level1MainScript : MonoBehaviour
         timerText.text = totalTime.ToString("00") + ":00";
     }
 
-    private void OnEnable() {
-
-    }
-
-    private void OnDisable() {
-
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -102,9 +93,7 @@ public class Level1MainScript : MonoBehaviour
            
 
             timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
-
             
-
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 //This class is responsible to handle the dog's state machine
 public class FODDogStateHandler : MonoBehaviour {
+
     [Header("State")]
     public DogState currentState;
 
@@ -13,7 +14,6 @@ public class FODDogStateHandler : MonoBehaviour {
 
     public Transform target;
     public float targetRadius = 0.5f;
-
 
     private DogMovement moveScript;
     private DogAnimation animScript;

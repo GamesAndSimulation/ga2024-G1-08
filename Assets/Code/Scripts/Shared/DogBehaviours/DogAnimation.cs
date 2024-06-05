@@ -26,11 +26,6 @@ public class DogAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void MovingAnim(float velocity)
     {
         animator.SetFloat(VEL, velocity);

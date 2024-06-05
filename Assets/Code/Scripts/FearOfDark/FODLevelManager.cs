@@ -14,7 +14,6 @@ public class FODLevelManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-
     }
 
 
@@ -41,11 +40,6 @@ public class FODLevelManager : MonoBehaviour
     {
         score = 0;
         spawnDogDelayed(spawnDogInitialDelay);
-
-
-    }
-
-    public void OnEnable() {
 
 
     }

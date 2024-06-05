@@ -15,7 +15,6 @@ public class SFXCyclingSoundComponent : SFXSoundComponent
         audioSource.clip = clips[prevClip];
         audioSource.Play();
 
-
     }
 
     // Start is called before the first frame update
@@ -25,6 +24,4 @@ public class SFXCyclingSoundComponent : SFXSoundComponent
         audioSource.clip = clips[0];
 
     }
-
-
 }

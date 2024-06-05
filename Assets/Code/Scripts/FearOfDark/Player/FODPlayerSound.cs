@@ -15,7 +15,6 @@ public class FODPlayerSound
 
     [Space(), SerializeField] public Vector2 volumeInterval;
 
-
     public FODPlayerSound(SFXSoundComponent soundComponent, Vector2 pitchInterval, Vector2 volumeInterval) {
 
         this.soundComponent = soundComponent;
@@ -35,8 +34,6 @@ public class FODPlayerSound
         soundComponent.audioSource.pitch = pitchInterval[0] + (pitchInterval[1] - pitchInterval[0]) * pitchPer;
         soundComponent.audioSource.volume = volumeInterval[0] + (volumeInterval[1] - volumeInterval[0]) * volumePer;
 
-
     }
-
 
 }

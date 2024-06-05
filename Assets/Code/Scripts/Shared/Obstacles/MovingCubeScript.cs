@@ -25,8 +25,6 @@ public class MovingCubeScript : MonoBehaviour
     private int prevPosIndex;
     private bool indexIncreasing;
 
-
-
     // Start is called before the first frame update
     void Start()
     {

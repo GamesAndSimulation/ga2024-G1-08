@@ -39,12 +39,6 @@ public class InitialMainScript : MonoBehaviour
         lampMaterial.SetColor("_EmissionColor", emissionColor);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void switchLampOff(Component sender, object data)
     {
         particleSystemObject.SetActive(false);

@@ -16,12 +16,6 @@ public class DogSounds : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void PlaySingleBark()
     {
         int thisBark = lastBark;

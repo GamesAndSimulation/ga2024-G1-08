@@ -36,8 +36,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeReference] protected SFXSoundComponent placeholderSoundComponent;
 
-    
-
     // Start is called before the first frame update
     protected void Awake()
     {
@@ -49,9 +47,7 @@ public class PlayerController : MonoBehaviour
 
         currentCameraScript = firstPersonCamera.GetComponent<CameraScript>();
 
-
         freeMovingCameraMode = false;
-        
 
     }
 
@@ -74,7 +70,6 @@ public class PlayerController : MonoBehaviour
         handleInput();
         
     }
-
 
     protected void handleInput() {
 
@@ -201,8 +196,6 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = false;
         movementController.enabled = true;
 
-
     }
 
-   
 }

@@ -87,14 +87,12 @@ public class PlayerControllerFOD : MonoBehaviour {
 
         if (this.damage >= 1) {
 
-            print("player to die");
+            print("Player damage over treshold, MARKED FOR DEATH");
             StartCoroutine(loseAfterAnimation());
 
         }
 
         this.damage = Mathf.Min(1, this.damage); 
-
-
 
     }
 
