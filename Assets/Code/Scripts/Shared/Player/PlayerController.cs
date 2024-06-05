@@ -59,6 +59,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    protected void OnEnable() {
+
+        playerAnnouncedEvent.Raise(this, null);
+        cameraChangedEvent.Raise(this, firstPersonCamera);
+
+    }
+
     // Update is called once per frame
     protected void Update()
     {
