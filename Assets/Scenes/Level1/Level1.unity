@@ -8005,7 +8005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &502430800
 Transform:
   m_ObjectHideFlags: 0
@@ -14520,7 +14520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &881974253
 Transform:
   m_ObjectHideFlags: 0
@@ -29973,6 +29973,7 @@ MonoBehaviour:
   removableFences: {fileID: 1020651551}
   shovel: {fileID: 1446787138}
   audioVolume: {fileID: 467607492}
+  fadeCanvas: {fileID: 644277632}
   totalPoops: 1
   totalTime: 0.1
   levelWon: {fileID: 11400000, guid: 0c2fda6a386bf214f8b2a8e8f01b4812, type: 2}
@@ -35295,7 +35296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 791352508865593979, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2798502878394492182, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
       propertyPath: m_Pivot.x
@@ -35682,6 +35683,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1406244648}
     m_Modifications:
+    - target: {fileID: 2833094499479856024, guid: cc9eb59cc9ec53042bb8eb067f4823fd, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5746146218027087772, guid: cc9eb59cc9ec53042bb8eb067f4823fd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5

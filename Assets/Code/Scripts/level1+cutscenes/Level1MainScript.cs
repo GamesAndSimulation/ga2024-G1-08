@@ -24,6 +24,7 @@ public class Level1MainScript : MonoBehaviour
 
     public ShovelScript shovel;
     public AudioVolume audioVolume;
+    public FadeCanvas fadeCanvas;
 
     public int totalPoops = 10;
     public float totalTime = 3.0f;
@@ -33,9 +34,9 @@ public class Level1MainScript : MonoBehaviour
     private bool timerStart;
     private float timer;
 
-    private const string GAMEOVER = "BadEnding";
     private const float WAITTIME_STARTMUSIC = 3.0f;
     private const float WAITTIME_STARTAMBIENCE = 2.0f;
+    private const float WAITTIME_ENDSCENE = 4.0f;
 
     [SerializeField]
     private GameEvent levelWon;
@@ -74,8 +75,18 @@ public class Level1MainScript : MonoBehaviour
 
                 timerStart = false;
 
-                if (score < totalPoops)
-                    LevelsManager.instance.transitionToBadEndingCutscene(); //loses
+                levelWon.Raise(this, "");
+                StartCoroutine(audioVolume.IncreaseVolume(ambience, WAITTIME_STARTAMBIENCE));
+                StartCoroutine(audioVolume.ReduceVolume(music, WAITTIME_STARTAMBIENCE));
+                shovel.Disappear();
+                poop.SetActive(false);
+                UI.SetActive(false);
+
+                if (score < totalPoops)//loses 
+                {
+                    Debug.Log("aaaa");
+                    StartCoroutine(HandleLoss());
+                }
                 else //wins
                 {
                     HandleWinning();
@@ -98,19 +109,13 @@ public class Level1MainScript : MonoBehaviour
     }
 
     public void HandleWinning() {
-        levelWon.Raise(this, "");
-        StartCoroutine(audioVolume.IncreaseVolume(ambience, WAITTIME_STARTAMBIENCE));
-        StartCoroutine(audioVolume.ReduceVolume(music, WAITTIME_STARTAMBIENCE));
-        shovel.Disappear();
-        poop.SetActive(false);
-        UI.SetActive(false);
+        
         cabin.SetActive(true);
         removableFences.SetActive(false);
     }
 
     public void OnPoopShovelled(Component sender, object data)
     {
-        Debug.Log("bbbbb");
         GameObject poop = (GameObject)data;
         poopSfx.Play();
         poop.SetActive(false);
@@ -127,14 +132,13 @@ public class Level1MainScript : MonoBehaviour
         cameraObject.SetActive(false);
         poop.SetActive(true);
         UI.SetActive(true);
-        StartCoroutine(WaitForMusic());
-    }
-
-    IEnumerator WaitForMusic()
-    {
-        yield return new WaitForSeconds(WAITTIME_STARTMUSIC);
         timerStart = true;
     }
 
-
+    IEnumerator HandleLoss()
+    {
+        fadeCanvas.StartFadeIn();
+        yield return new WaitForSeconds(WAITTIME_ENDSCENE);
+        LevelsManager.instance.transitionToBadEndingCutscene();
+    }
 }
