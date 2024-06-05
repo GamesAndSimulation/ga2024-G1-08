@@ -29,11 +29,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeReference] protected GameEvent pauseEvent;
     [SerializeReference] protected GameEvent toggleFPS;
+    [SerializeReference] protected GameEvent escMenu;
     [SerializeReference] protected GameEvent playerAnnouncedEvent;
 
     [Header("Sounds")]
 
     [SerializeReference] protected SFXSoundComponent placeholderSoundComponent;
+
+    
 
     // Start is called before the first frame update
     protected void Awake()
@@ -140,7 +143,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
             toggleFPS.Raise(this, "");
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+            escMenu.Raise(this, "");
     }
 
     protected void switchToFreeMovingCamera() {
@@ -200,4 +204,5 @@ public class PlayerController : MonoBehaviour
 
     }
 
+   
 }
