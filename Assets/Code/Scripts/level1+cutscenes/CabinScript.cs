@@ -10,20 +10,9 @@ public class CabinScript : MonoBehaviour
     public string PLAYERTAG = "Player";
 
 
-    public Light lightInScene;
-    public Light newLight;
+    public Light lightInScene; //the light that is illuminating the whole scene
+    public Light newLight; //a new light to use when all becomes dark
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public void OnPlayerEnteredCabin(Component sender, object data) {
 
