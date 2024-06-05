@@ -34,7 +34,7 @@ public class FODLevelManager : MonoBehaviour
 
     [SerializeField] private AnimationClip turnOffPlayerAnimation;
 
-
+    [SerializeField] private GameEvent turnOffPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +79,7 @@ public class FODLevelManager : MonoBehaviour
 
     public IEnumerator winAfterAnimation() {
 
+        turnOffPlayer.Raise(this, null);
         yield return new WaitForSeconds(turnOffPlayerAnimation.length + 0.01f);
         LevelsManager.instance.transitionToLevel3();
 

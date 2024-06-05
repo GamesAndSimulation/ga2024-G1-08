@@ -83,18 +83,24 @@ public class PlayerControllerFOD : MonoBehaviour {
 
     public void damagePlayer(float damage) {
 
-        this.damage = Mathf.Min(1, damage + this.damage); 
+        this.damage = this.damage + damage;
 
-        if(damage >= 1) {
+        if (this.damage >= 1) {
 
+            print("player to die");
             StartCoroutine(loseAfterAnimation());
 
         }
+
+        this.damage = Mathf.Min(1, this.damage); 
+
+
 
     }
 
     public IEnumerator loseAfterAnimation() {
 
+        turnOffPlayer.Raise(this, null);
         yield return new WaitForSeconds(turnOffPlayerAnimation.length + 0.01f);
         LevelsManager.instance.transitionToBadEndingCutscene();
 
