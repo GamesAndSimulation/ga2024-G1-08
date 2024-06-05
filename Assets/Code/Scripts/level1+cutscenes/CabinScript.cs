@@ -12,7 +12,6 @@ public class CabinScript : MonoBehaviour
 
     public Light lightInScene;
     public Light newLight;
-    public Material newSkyBoxMaterial;
 
 
     // Start is called before the first frame update
@@ -33,11 +32,11 @@ public class CabinScript : MonoBehaviour
             darkRoom.SetActive(true);
             triggerPoint.SetActive(false);
             wallsClosing.Play();
-            RenderSettings.skybox = newSkyBoxMaterial;
             lightInScene.enabled = false;
             newLight.enabled = true;
             RenderSettings.ambientIntensity = 0;
             RenderSettings.reflectionIntensity = 0;
         }
     }
+
 }

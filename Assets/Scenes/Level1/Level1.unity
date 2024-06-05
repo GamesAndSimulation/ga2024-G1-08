@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b0dbba0ca884a4aae5dd09ed309e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8e1fa086809da9b44b20c229169af365, type: 2}
+  gameEvent: {fileID: 11400000, guid: bd468a5dd281a8d419f75e175ae04dfc, type: 2}
 --- !u!1 &43919419
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 43919424}
   - component: {fileID: 43919423}
   - component: {fileID: 43919426}
+  - component: {fileID: 43919427}
   m_Layer: 0
   m_Name: Event System
   m_TagString: Untagged
@@ -955,6 +956,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CabinScript, Assembly-CSharp
         m_MethodName: OnPlayerEnteredCabin
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &43919427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43919419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: bd468a5dd281a8d419f75e175ae04dfc, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1874827882}
+        m_TargetAssemblyTypeName: Level1MainScript, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8043,8 +8072,7 @@ MonoBehaviour:
   wallsClosing: {fileID: 1419203923}
   PLAYERTAG: Player
   lightInScene: {fileID: 861217348}
-  newLight: {fileID: 0}
-  newSkyBoxMaterial: {fileID: 0}
+  newLight: {fileID: 1369301704}
 --- !u!1001 &502773330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35298,6 +35326,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2351439716641111043, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2798502878394492182, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -35425,6 +35457,10 @@ PrefabInstance:
     - target: {fileID: 6248252890392967569, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248252890392967569, guid: c594a02a7f1aab44ea8d5780a3d88a25, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35683,10 +35719,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1406244648}
     m_Modifications:
-    - target: {fileID: 2833094499479856024, guid: cc9eb59cc9ec53042bb8eb067f4823fd, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5746146218027087772, guid: cc9eb59cc9ec53042bb8eb067f4823fd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5

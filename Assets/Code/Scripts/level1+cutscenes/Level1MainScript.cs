@@ -141,4 +141,10 @@ public class Level1MainScript : MonoBehaviour
         yield return new WaitForSeconds(WAITTIME_ENDSCENE);
         LevelsManager.instance.transitionToBadEndingCutscene();
     }
+
+    public void ChangeScene()
+    {
+        fadeCanvas.QuickFadeIn();
+        LevelsManager.instance.transitionToLevel2();
+    }
 }
