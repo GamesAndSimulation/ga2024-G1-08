@@ -1,0 +1,33 @@
+{
+  "Textures": {
+    "lambert1_albedo": "/Game/Models/VendingMachine/lambert1_albedo.lambert1_albedo",
+    "lambert1_AO": "/Game/Models/VendingMachine/lambert1_AO.lambert1_AO",
+    "lambert1_emissive": "/Game/Models/VendingMachine/lambert1_emissive.lambert1_emissive",
+    "lambert1_metallic": "/Game/Models/VendingMachine/lambert1_metallic.lambert1_metallic",
+    "lambert1_normal": "/Game/Models/VendingMachine/lambert1_normal.lambert1_normal",
+    "lambert1_opacity": "/Game/Models/VendingMachine/lambert1_opacity.lambert1_opacity",
+    "lambert1_roughness": "/Game/Models/VendingMachine/lambert1_roughness.lambert1_roughness",
+    "PM_Diffuse": "/Game/Models/VendingMachine/lambert1_albedo.lambert1_albedo",
+    "PM_Emissive": "/Game/Models/VendingMachine/lambert1_emissive.lambert1_emissive",
+    "PM_Normals": "/Game/Models/VendingMachine/lambert1_normal.lambert1_normal"
+  },
+  "Parameters": {
+    "BlendMode": 0,
+    "ShadingModel": 0,
+    "Colors": {},
+    "Scalars": {},
+    "Switches": {},
+    "Properties": {
+      "bUsedWithStaticLighting": true,
+      "bUsedWithNanite": true,
+      "bCanMaskedBeAssumedOpaque": true,
+      "StateId": "365D6553-4AB1C8BF-43423F84-DBF4E3E4"
+    },
+    "HasTopDiffuse": false,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}
