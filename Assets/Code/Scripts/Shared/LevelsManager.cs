@@ -12,9 +12,6 @@ public class LevelsManager : MonoBehaviour
 
     [SerializeField] private GameEvent fodLevelStart;
 
-    private bool canTransitionScene = true;
-    
-
 
     private void Awake() {
 
@@ -40,103 +37,54 @@ public class LevelsManager : MonoBehaviour
 
     public void transitionToInitialCutscene()
     {
-
-        if (canTransitionScene)
-        {
-            canTransitionScene = false;
-            unloadCurrentLevel();
-            transitionToInitialScene();
-
-        }
+        transitionToInitialScene();
     }
 
 
     public void transitionToLevel1() {
-
-        if (canTransitionScene) {
-            canTransitionScene = false;
-            unloadCurrentLevel();
-            transitionToFirstLevel();
-        }
+        transitionToFirstLevel();
 
     }
 
     public void transitionToLevel2() {
-
-        if (canTransitionScene) {
-            canTransitionScene = false;
-            unloadCurrentLevel();
-            transitionToSecondLevel();
-        
-        }
-
+         transitionToSecondLevel();
     }
 
     public void transitionToBadEndingCutscene()
     {
-
-        if (canTransitionScene)
-        {
-            canTransitionScene = false;
-            unloadCurrentLevel();
-            transitionToBadEnding();
-
-        }
+        transitionToBadEnding();
     }
 
     public void transitionToGoodEndingCutscene()
     {
-
-        if (canTransitionScene)
-        {
-            canTransitionScene = false;
-            unloadCurrentLevel();
-            transitionToGoodEnding();
-
-        }
-
+        transitionToGoodEnding();
     }
 
-    private IEnumerator setActiveScene(string sceneName) {
-
-        yield return null; // Wait one frame for the scene to load
-
-        Scene newScene = SceneManager.GetSceneByName(sceneName);
-
-        if (newScene.isLoaded) {
-            // Set active scene to apply its lighting settings
-            SceneManager.SetActiveScene(newScene);
-            canTransitionScene = true;
-        }
-    }
+  
 
     private void transitionToInitialScene()
     {
-        SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Single);
         currentLevel = 0;
-        StartCoroutine(setActiveScene("InitialCutscene"));
     }
 
     private void transitionToFirstLevel() {
 
-        SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
         currentLevel = 1;
-        StartCoroutine(setActiveScene("Level1"));
     }
 
     private void transitionToSecondLevel() {
 
-        SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("FearOfDarkScene", LoadSceneMode.Single);
         currentLevel = 2;
-        StartCoroutine(setActiveScene("FearOfDarkScene"));
     }
 
     private void transitionToBadEnding()
     {
 
-        SceneManager.LoadScene("BadEnding", LoadSceneMode.Additive);
+        SceneManager.LoadScene("BadEnding", LoadSceneMode.Single);
         currentLevel = 5;
-        StartCoroutine(setActiveScene("BadEnding"));
     }
 
     private void transitionToGoodEnding()
@@ -144,34 +92,6 @@ public class LevelsManager : MonoBehaviour
 
         SceneManager.LoadScene("GoodEnding", LoadSceneMode.Additive);
         currentLevel = 6;
-        StartCoroutine(setActiveScene("GoodEnding"));
-    }
-
-
-
-    public void unloadCurrentLevel() {
-
-        switch(currentLevel) {
-            case 0:
-                SceneManager.UnloadScene("InitialCutscene");
-                break;
-            case 1:
-                SceneManager.UnloadScene("Level1");
-
-                break;
-
-            case 2:
-                SceneManager.UnloadScene("FearOfDarkScene"); 
-                break;
-            case 5:
-                SceneManager.UnloadScene("BadEnding");
-                break;
-            case 6:
-                SceneManager.UnloadScene("GoodEnding");
-                break;
-
-        }
-
     }
 
 
