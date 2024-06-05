@@ -60,7 +60,8 @@ public class FinalCutscenesMainScript : MonoBehaviour
        
 
         yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
-        SceneManager.LoadScene(INITIAL_SCENE);
+
+        LevelsManager.instance.transitionToInitialCutscene();
 
     }
 }

@@ -79,7 +79,7 @@ public class Level1MainScript : MonoBehaviour
                 timerStart = false;
 
                 if (score < totalPoops)
-                    SceneManager.LoadScene(GAMEOVER); //loses
+                    LevelsManager.instance.transitionToBadEndingCutscene(); //loses
                 else //wins
                 {
                     HandleWinning();

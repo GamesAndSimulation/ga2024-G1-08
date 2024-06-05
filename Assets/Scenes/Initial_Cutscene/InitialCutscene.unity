@@ -5907,7 +5907,7 @@ MonoBehaviour:
   cameraAnimator: {fileID: 192634579}
   lampMaterial: {fileID: 2100000, guid: 726dfc65340b62e4f8b5aae8e1684d0b, type: 2}
   lampLight: {fileID: 904760843}
-  particleSystem: {fileID: 621935145}
+  particleSystemObject: {fileID: 621935145}
   lightSwitchAudio: {fileID: 1390447709}
   music: {fileID: 1854945392}
   audioVolume: {fileID: 1005897049}

@@ -87,14 +87,18 @@ public class PlayerController : MonoBehaviour
                 else
                     movementController.isSprinting = false;
 
-                if (Input.GetKey("1"))
+                if (Input.GetKey("0"))
+                    LevelsManager.instance.transitionToInitialCutscene();
+                else if (Input.GetKey("1"))
                     LevelsManager.instance.transitionToLevel1();
-
                 else if (Input.GetKey("2"))
                     LevelsManager.instance.transitionToLevel2();
-
                 else if (Input.GetKey("3"))
                     ;//changeToLevelThreeEvent.Raise(this, null);
+                else if (Input.GetKey("5"))
+                    LevelsManager.instance.transitionToBadEndingCutscene();
+                else if (Input.GetKey("6"))
+                    LevelsManager.instance.transitionToGoodEndingCutscene();
 
                 movementController.horizontalInput = Input.GetAxis("Horizontal");
                 movementController.verticalInput = Input.GetAxis("Vertical");

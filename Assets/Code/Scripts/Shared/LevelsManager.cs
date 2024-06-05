@@ -29,7 +29,27 @@ public class LevelsManager : MonoBehaviour
 
     }
 
-    private int currentLevel = 1;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        transitionToInitialScene();
+    }
+
+    private int currentLevel = 0;
+
+    public void transitionToInitialCutscene()
+    {
+
+        if (canTransitionScene)
+        {
+            canTransitionScene = false;
+            unloadCurrentLevel();
+            transitionToInitialScene();
+
+        }
+    }
+
 
     public void transitionToLevel1() {
 
@@ -39,7 +59,6 @@ public class LevelsManager : MonoBehaviour
             transitionToFirstLevel();
         }
 
-    
     }
 
     public void transitionToLevel2() {
@@ -49,6 +68,31 @@ public class LevelsManager : MonoBehaviour
             unloadCurrentLevel();
             transitionToSecondLevel();
         
+        }
+
+    }
+
+    public void transitionToBadEndingCutscene()
+    {
+
+        if (canTransitionScene)
+        {
+            canTransitionScene = false;
+            unloadCurrentLevel();
+            transitionToBadEnding();
+
+        }
+    }
+
+    public void transitionToGoodEndingCutscene()
+    {
+
+        if (canTransitionScene)
+        {
+            canTransitionScene = false;
+            unloadCurrentLevel();
+            transitionToGoodEnding();
+
         }
 
     }
@@ -66,6 +110,13 @@ public class LevelsManager : MonoBehaviour
         }
     }
 
+    private void transitionToInitialScene()
+    {
+        SceneManager.LoadScene("InitialCutscene", LoadSceneMode.Additive);
+        currentLevel = 0;
+        StartCoroutine(setActiveScene("InitialCutscene"));
+    }
+
     private void transitionToFirstLevel() {
 
         SceneManager.LoadScene("Level1", LoadSceneMode.Additive);
@@ -80,19 +131,30 @@ public class LevelsManager : MonoBehaviour
         StartCoroutine(setActiveScene("FearOfDarkScene"));
     }
 
-    public void unloadFirstLevel() {
+    private void transitionToBadEnding()
+    {
 
+        SceneManager.LoadScene("BadEnding", LoadSceneMode.Additive);
+        currentLevel = 5;
+        StartCoroutine(setActiveScene("BadEnding"));
     }
-    public void unloadFODLevel() {
 
-        
+    private void transitionToGoodEnding()
+    {
+
+        SceneManager.LoadScene("GoodEnding", LoadSceneMode.Additive);
+        currentLevel = 6;
+        StartCoroutine(setActiveScene("GoodEnding"));
     }
+
 
 
     public void unloadCurrentLevel() {
 
         switch(currentLevel) {
-
+            case 0:
+                SceneManager.UnloadScene("InitialCutscene");
+                break;
             case 1:
                 SceneManager.UnloadScene("Level1");
 
@@ -101,7 +163,12 @@ public class LevelsManager : MonoBehaviour
             case 2:
                 SceneManager.UnloadScene("FearOfDarkScene"); 
                 break;
-
+            case 5:
+                SceneManager.UnloadScene("BadEnding");
+                break;
+            case 6:
+                SceneManager.UnloadScene("GoodEnding");
+                break;
 
         }
 
@@ -114,13 +181,5 @@ public class LevelsManager : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        transitionToFirstLevel();
-
-
-    }
 
 }

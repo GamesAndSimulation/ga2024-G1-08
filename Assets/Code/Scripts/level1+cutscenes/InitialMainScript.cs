@@ -90,7 +90,7 @@ public class InitialMainScript : MonoBehaviour
         fadeCanvas.QuickFadeIn();
 
         yield return new WaitForSeconds(WAITTIME_SWITCHSCENES);
-        SceneManager.LoadScene(LEVEL1);
+        LevelsManager.instance.transitionToLevel1();
 
     }
 
