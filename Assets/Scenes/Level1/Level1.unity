@@ -30143,7 +30143,7 @@ MonoBehaviour:
   audioVolume: {fileID: 467607492}
   fadeCanvas: {fileID: 644277632}
   totalPoops: 10
-  totalTime: 3.5
+  totalTime: 2
   levelWon: {fileID: 11400000, guid: 0c2fda6a386bf214f8b2a8e8f01b4812, type: 2}
 --- !u!114 &1874827884
 MonoBehaviour:
@@ -36356,7 +36356,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1433723500758136851, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
       insertIndex: -1
       addedObject: {fileID: 693768317}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5090524238680763156, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
 --- !u!1001 &8687542214654722588
 PrefabInstance:
