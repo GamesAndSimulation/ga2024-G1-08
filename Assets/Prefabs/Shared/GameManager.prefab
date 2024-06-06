@@ -151,7 +151,6 @@ GameObject:
   m_Component:
   - component: {fileID: 784241625595840159}
   - component: {fileID: 792711917519833839}
-  - component: {fileID: 8892460707274773313}
   - component: {fileID: 3951069361854585789}
   - component: {fileID: 1469807198660277406}
   - component: {fileID: 6086605598926279995}
@@ -198,34 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAudioSource: {fileID: 6987918937151747955, guid: 568e7341c8a901641a8883d912314ece, type: 3}
---- !u!114 &8892460707274773313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715690415168046720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 46e5c100cde8c9543a634124ae00fccd, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerWatcherComponent, Assembly-CSharp
-        m_MethodName: OnPlayerChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &3951069361854585789
 MonoBehaviour:
   m_ObjectHideFlags: 0
