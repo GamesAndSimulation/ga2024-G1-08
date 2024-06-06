@@ -7538,10 +7538,22 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1271887837}
+    - target: {fileID: 5515418732366993248, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
+      propertyPath: m_margin.z
+      value: 18.459066
+      objectReference: {fileID: 0}
     - target: {fileID: 6140441588524421140, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1140862522}
+    - target: {fileID: 7271983009327266607, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271983009327266607, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7677936199989941653, guid: e892ee2b2bb44f0468a2caa391b01301, type: 3}
       propertyPath: m_Name
       value: Room
