@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 784241625595840159}
   - component: {fileID: 792711917519833839}
   - component: {fileID: 3951069361854585789}
+  - component: {fileID: 1469807198660277406}
   - component: {fileID: 6086605598926279995}
   - component: {fileID: 6869664834252414889}
   - component: {fileID: 1145497810081824974}
@@ -212,6 +213,18 @@ MonoBehaviour:
   masterVolume: 0.5
   sfxVolume: 0.5
   musicVolume: 0.5
+--- !u!114 &1469807198660277406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715690415168046720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524beaa0842643e498157346ec04a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6086605598926279995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +375,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1469807198660277406}
         m_TargetAssemblyTypeName: PausedWatcherComponent, Assembly-CSharp
         m_MethodName: OnGamePaused
         m_Mode: 0
