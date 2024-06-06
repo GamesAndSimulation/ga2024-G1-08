@@ -106,6 +106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dog Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 940840098558941336, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
+      propertyPath: affectedBehaviors.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 971843528976407487, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -194,6 +198,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 447965393837277445, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1749101633289731471}
+    - targetCorrespondingSourceObject: {fileID: 447965393837277445, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8911569284841713106}
     - targetCorrespondingSourceObject: {fileID: 2468680346679317116, guid: ec30378fc6c6b334098e8853e86b2b39, type: 3}
       insertIndex: -1
       addedObject: {fileID: 25880819011013015}
@@ -253,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bb6ce83267f144e987d76f84cf3b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navAgent: {fileID: 0}
   speed: 1
 --- !u!114 &1749101633289731471
 MonoBehaviour:
@@ -270,3 +278,31 @@ MonoBehaviour:
   hasReachedTarget: 0
   target: {fileID: 0}
   targetRadius: 0.5
+--- !u!114 &8911569284841713106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756578476232088373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfacf957ee54b2d469e205fd363a93f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8a1d37a5214022749a9277315f4109cb, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 918572604237722927}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
