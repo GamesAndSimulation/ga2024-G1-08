@@ -184,6 +184,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
       propertyPath: turnOffPlayer
       value: 
       objectReference: {fileID: 11400000, guid: 8a1d37a5214022749a9277315f4109cb, type: 2}
@@ -196,8 +200,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
+      propertyPath: heartSoundController.volumeInterval.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
+      propertyPath: breathingSoundController.pitchInterval.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
       propertyPath: breathingSoundController.volumeInterval.x
-      value: 0.01
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997896214999940068, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
+      propertyPath: breathingSoundController.volumeInterval.y
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8441236061914278625, guid: f632c70f0c3fb8047b63769d934e146e, type: 3}
       propertyPath: m_Name
@@ -1196,6 +1212,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1291064578}
+    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
+      propertyPath: eyeSpawnInitialDelay
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
+      propertyPath: behindSpawnInitialDelay
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6039539908662929431, guid: 3bc8257beede46543a43e8f2465fbee2, type: 3}
       propertyPath: behindSpawnDistanceRange.x
       value: 40
