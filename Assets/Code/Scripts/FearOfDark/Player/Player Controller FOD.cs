@@ -57,7 +57,7 @@ public class PlayerControllerFOD : MonoBehaviour {
     protected void Update() {
 
         heartSoundController.updateSound(damage, damage);
-        heartSoundController.updateSound(damage, damage);
+        breathingSoundController.updateSound(damage, damage);
 
         damage = Mathf.Max(damage - damageRegen * Time.deltaTime, 0);
 
